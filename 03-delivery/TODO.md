@@ -36,6 +36,10 @@
 - [x] Outbox table and dispatcher (SKIP LOCKED, five attempts, dead letters), inbox and job lease tables, 2026-09-07
 - [x] Ticket core (P1.5.1 to P1.5.6, P2.10.1 on the wall clock): tickets, SLA clocks with pause evidence, transitions with the close discipline, comments and work notes as separate tables, links, watchers, notifications with collapse keys, usage events and `POST /v1/telemetry`; 216 integration tests, 2026-09-07 (backend ticket core commit)
 - [x] Frontend admin screens (P1.4.3, P1.4.4): accounts, settings, access, users, roles, groups, config viewer; 76 tests, 2026-09-07 (frontend `d2cee58`)
+- [x] Frontend ticket screens (P1.5.5, P2.12.4 basics): Queue with system views and chips, New ticket, Ticket record with transitions and close discipline, My work, Dispatch, notifications bell; 99 tests, 2026-09-07 (frontend `d10b275`)
+- [x] Portal API (P2.16 cut): `/v1/portal` me, submit, own requests, public timeline, comment, cancel and confirm closure; portal database role read-only, writes on the app role bound to one account, 2026-09-07 (backend `0986696`)
+- [x] SLA breach sweeper and at-risk job with database leases (P2.10.2); saved views and the condition grammar (P2.11.1), 2026-09-07 (backend `0986696`)
+- [x] Time entries, adjustments, buckets, contract periods, billing period locks, contract position (P2.12.2, P2.12.3, P2.13.1 cut, P2.13.2); 288 integration tests, 2026-09-07
 - [ ] Attachments: presigned POST, scan-state gating, quarantine
 - [ ] Email plumbing: inbound alias to S3 to SQS to worker, outbound SES with threading headers and per-account branding
 - [ ] Axel adapter skeleton: session exchange, SSE relay, per-account switch, audit; harness changes 1, 5, 6 requested from the Axel owners
