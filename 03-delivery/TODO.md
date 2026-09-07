@@ -72,7 +72,7 @@
 - [ ] ServiceNow one-way ingest for one instance against the stand-in, then Brookfield sandbox
 - [x] Axel assistive: categorise, prioritise, duplicates, summarise, similar solutions, HITL, thresholds, feedback (backend `c1f1264`; web pending the panel agent), 2026-09-07
 - [ ] Migration rehearsal import
-- [ ] Tests: state machine and SLA suites at 100 percent branch coverage, e2e golden paths, ZAP baseline
+- [~] Tests: state machine and SLA suites at 100 percent branch coverage done 2026-09-07 (domain 92 percent branch overall, 115 unit tests); e2e golden paths (Playwright against the seed) and the ZAP baseline wait for the deployed hosts
 
 ## 3. Operational replacement (`feature/ops-*`, Phase 3)
 
