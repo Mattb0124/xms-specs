@@ -42,8 +42,9 @@
 - [x] Time entries, adjustments, buckets, contract periods, billing period locks, contract position (P2.12.2, P2.12.3, P2.13.1 cut, P2.13.2); 288 integration tests, 2026-09-07
 - [x] Knowledge base (P2.14.1 to P2.14.4): articles with frozen versions, visibility sets, GLOBAL generalization with the identifier checklist, retrieval v1, Solutions rail, resolution record, portal knowledge search and client notes; 370 integration tests, 2026-09-07
 - [x] Frontend portal screens (P2.16.3): own chrome, search-first home, requests, new request, request detail with the public thread, accessibility checks; 112 tests, 2026-09-07 (frontend `08315de`)
-- [ ] Attachments: presigned POST, scan-state gating, quarantine
-- [ ] Email plumbing: inbound alias to S3 to SQS to worker, outbound SES with threading headers and per-account branding
+- [x] Attachments: presigned upload with size range and type condition (S3) or the signed local store (dev), MIME allowlist, scan gating with EICAR quarantine, portal public-only reads, 2026-09-07
+- [x] Email: aliases, inbound pipeline (alias to account first, inbox dedupe, loop guard, thread matching, stripping, quarantine), outbound with typed templates, threading headers, plus-address replies, suppression and the SES event webhook; SES receipt rule to SQS pending the AWS environment, 2026-09-07
+- [x] Frontend knowledge and time screens (P2.15.1, P2.15.2, P2.12.x): Solutions list and record, rail, Resolution and Time tabs, contract card, My timesheet; 135 tests, 2026-09-07 (frontend `9f28485`)
 - [ ] Axel adapter skeleton: session exchange, SSE relay, per-account switch, audit; harness changes 1, 5, 6 requested from the Axel owners
 - [ ] Observability: pino, OpenTelemetry through ADOT, readiness endpoints, alarms
 - [ ] Tests: isolation suite, auth rejection suite, outbox idempotency, email threading corpus
