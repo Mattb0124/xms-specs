@@ -30,10 +30,12 @@
 - [x] API guard producing one `Principal` (Clerk JWT with authorizedParties and the agents audience, harness session token, API client, development token refused in production); global permission guard with realm separation; global `ValidationPipe`; route and permission snapshot (`backend/test/golden/routes.json`) and boot-time check; auth rejection suite, 2026-09-07 (backend `2088691`)
 - [x] Data layer: SQL-first runner, `op`/`acct`/`sys`/`rpt` schemas, `sys.apply_account_isolation`, RLS session binding only in `withSession`, generated isolation suite (both roles, cross-account read/update/delete/insert) green in Testcontainers, 2026-09-07 (backend `0b64b37`)
 - [x] Audit events append-only with trigger and the deferred audit guard on protected tables; `op.audit_events`; AuditService with diff, 2026-09-07
-- [~] Security events written by the guard, bootstrap and every admin change (XA-01 done); usage events, telemetry ingestion and the event archive pending (XA-02, XA-04); the frontend telemetry client exists (`frontend/lib/telemetry`)
+- [~] Security events written by the guard, bootstrap and every admin change (XA-01 done); usage events and telemetry ingestion done (XA-02); the event archive with digests pending (XA-04)
 - [x] Admin: accounts with settings and status transitions, users with invite and the last-administrator rule, roles, reconciled grants and groups, configuration defaults seeded from JSON with versions and activation, `/v1/admin/me`, `POST /v1/bootstrap`; 82 integration tests, 2026-09-07 (backend `c0354fb`)
 - [x] Frontend shell and house components (P1.4.1, P1.4.2): 32 components, finder bar, sidebar failing closed, palette, route registry, RTK plumbing, dev sign-in, telemetry client; 66 tests, 2026-09-07 (frontend `3c75b05`, `fbf630e`)
-- [ ] Outbox table and dispatcher
+- [x] Outbox table and dispatcher (SKIP LOCKED, five attempts, dead letters), inbox and job lease tables, 2026-09-07
+- [x] Ticket core (P1.5.1 to P1.5.6, P2.10.1 on the wall clock): tickets, SLA clocks with pause evidence, transitions with the close discipline, comments and work notes as separate tables, links, watchers, notifications with collapse keys, usage events and `POST /v1/telemetry`; 216 integration tests, 2026-09-07 (backend ticket core commit)
+- [x] Frontend admin screens (P1.4.3, P1.4.4): accounts, settings, access, users, roles, groups, config viewer; 76 tests, 2026-09-07 (frontend `d2cee58`)
 - [ ] Attachments: presigned POST, scan-state gating, quarantine
 - [ ] Email plumbing: inbound alias to S3 to SQS to worker, outbound SES with threading headers and per-account branding
 - [ ] Axel adapter skeleton: session exchange, SSE relay, per-account switch, audit; harness changes 1, 5, 6 requested from the Axel owners
