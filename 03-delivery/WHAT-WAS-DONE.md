@@ -11,7 +11,7 @@
 
 The pilot-grade core of XMS exists as two deployables plus a web app, built security-first against the architecture and module specifications: forced row-level security per account, a permission-declared route table, append-only audit with tamper evidence, a transactional outbox, and every business rule in one TypeScript codebase shared by the API and the worker. The build followed the thirty-day plan day by day; the items below are what shipped, with the cuts and deviations stated where they were made.
 
-Counts on 2026-09-07: backend 110 unit, 559 integration and 45 end-to-end tests; frontend 169 tests; 155 routes in the golden snapshot; migrations 0001 to 0011.
+Counts on 2026-09-07: backend 122 unit, 636 integration and 45 end-to-end tests; frontend 169 tests; 173 routes in the golden snapshot; migrations 0001 to 0012.
 
 ## 2. Built
 
@@ -30,6 +30,7 @@ Counts on 2026-09-07: backend 110 unit, 559 integration and 45 end-to-end tests;
 | Attachments and email | Object store (S3 presigned POST or a signed local store), MIME allowlist, scan gating with quarantine, aliases, inbound pipeline (dedupe, loop guard, thread matching, stripping, quarantine decisions), outbound with typed templates and threading headers, suppression, SES event webhook | `src/modules/attachments`, `src/modules/email`, `src/domain/email` |
 | Reporting | Measures, operations and account dashboards with view as client, security and usage tiles, Excel and CSV exports with formula neutralisation, audit search with keyset paging, WSR pack on demand, nightly snapshots | `src/modules/reporting`, `src/domain/reporting` |
 | Axel adapter | Per-account AI switch with DPA and residency gates and the disable cascade, redaction before egress, single-shot classify, prioritise, duplicate, summarise and draft reply with thresholds and withheld rows, interactive SSE relay with cancel and thread index, decisions applied through the ticket service with AI-actor audit, proposals route, worker intake and expiry, accuracy with the threshold what-if, operator defaults and kill switch, harness contract test | `src/modules/ai`, `src/domain/ai`, `src/contracts/ai.ts` |
+| Connectors | The connector framework (ADR-06) with the ServiceNow ingest: instances with a secret reference, versioned field and state maps validated against the dictionary, samples and the state machines before activation, ingest-only mode, the watermark poller behind an inbox keyed on (instance, sys_id, sys_updated_on), apply through the ticket service as a sync principal with origin `sync:<instance>`, per-field conflict policy, state map with accepted and reachable targets, journal comments once, dead letters with replay and discard, kill switch, health with automatic trip, the ticket sync card, and an in-process ServiceNow stand-in (`pnpm standin`) | `src/modules/connectors`, `src/domain/sync`, `src/tools/servicenow-stand-in.ts`, migration 0012 |
 | Seed | `pnpm seed:dev`: roles, defaults, administrators, a six-person team across three groups, the Axel service user, two accounts with contrasting calendars and contract models, portal users, articles, tickets across every state with comments, notes, time and backdated clocks | `src/tools/seed.ts` |
 | Frontend | Next.js 16 app with token-only styling, RTK Query slice per module, route registry, dev-token sign-in; screens for the queue and ticket record, admin, portal, knowledge, time, attachments, email, dashboards, audit search, security and usage, report packs; the AI slice and SSE hook | `frontend/` |
 
@@ -39,7 +40,7 @@ Counts on 2026-09-07: backend 110 unit, 559 integration and 45 end-to-end tests;
 - Infrastructure, CI/CD, the pilot account and Clerk provisioning: deferred by the product owner.
 - Parquet export and Athena over the event archive, OpenTelemetry through ADOT, alarms: wait for the AWS environment.
 - Embeddings and the duplicate v2, WSR narrative, time assistant, burn anomaly: Phase 3 with the harness changes.
-- ServiceNow ingest, capacity, portal SSO: later phases per the plan.
+- ServiceNow bidirectional mode, webhooks and attachment sync (Phase 3); capacity and portal SSO: later phases per the plan.
 
 ## 4. Deviations from the specification
 
