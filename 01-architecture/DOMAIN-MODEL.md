@@ -18,7 +18,7 @@ Everything in the product belongs to exactly one of two halves:
 | **Account-scoped** | One client account | Tickets, comments, work notes, attachments, contracts, time entries, solution articles visible to that account, portal users, calendars, AI suggestions, sync links | Every row carries `account_id`; the database enforces row-level security on every such table; a session sees one account (portal) or the set of accounts the internal user is granted (operator) |
 | **Operator-scoped** | The Hackett Group | Internal users, roles, assignment groups, roster, skills, PTO, allocation, global configuration defaults, connector registry, report templates | No `account_id`; visible to internal users by role; never exposed to portal users |
 
-The rule that makes the knowledge base the heart of the product: **solution articles are account-scoped by visibility, not by origin.** An article written while resolving a Brookfield ticket starts visible to Brookfield only; when it is generalised (client identifiers removed, marked global) it becomes visible to every account. Both states live in the same table with a visibility set, so retrieval always runs one query per account context.
+The rule that makes the knowledge base the heart of the product: **solution articles are account-scoped by visibility, not by origin.** An article written while resolving a Brookfield ticket starts visible to Brookfield only; when it is generalized (client identifiers removed, marked global) it becomes visible to every account. Both states live in the same table with a visibility set, so retrieval always runs one query per account context.
 
 ## 2. Bounded contexts
 

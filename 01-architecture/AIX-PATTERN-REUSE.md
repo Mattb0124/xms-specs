@@ -23,7 +23,7 @@ The assessment's rule is "no AIX code copied, same technology family, familiar p
 | S3 client `requestChecksumCalculation: 'WHEN_REQUIRED'` (presigned PUT 400 BadDigest bug) and account as first key segment | `app-api/src/files/services/file-storage.service.ts`, `src/services/blob/s3.service.ts` | Attachment storage |
 | Attachment size cap and MIME allowlist at registration | studio `app/modules/xms_ticketing/service.py` (`MAX_ATTACHMENT_BYTES`, `ALLOWED_ATTACHMENT_TYPES`) | Same, plus presigned POST |
 | SLA breach sweeper: idempotent latch shared with the mutation path, append-only event, `FOR UPDATE SKIP LOCKED`, batch cap, multi-instance safe | studio `app/modules/xms_ticketing/sweeper.py` and `service.py` `_latch` | Worker sweeper |
-| SLA pause and resume math, latch-before-pause ordering, response-met on first public reply | studio `xms_ticketing/service.py`, POC audit "built better than spec" | `backend/src/domain` SLA engine, generalised to business calendars |
+| SLA pause and resume math, latch-before-pause ordering, response-met on first public reply | studio `xms_ticketing/service.py`, POC audit "built better than spec" | `backend/src/domain` SLA engine, generalized to business calendars |
 | Server-derived priority from impact and urgency; resolution codes; close discipline | studio migration 091 and 092; `web-ui/components/aix-v3/xms/vocab.ts` `derivePriority`, `RESOLUTION_CODES` | Priority matrix with per-account override; resolution record |
 | Postgres row claiming for schedulers instead of in-memory state | studio `app/modules/agent_harness/scheduler/routine_engine.py` | Report schedules, sweeper, retention |
 | Golden route-table snapshot test | studio `tests/golden/route_table.json` | API route and permission snapshot |

@@ -130,10 +130,10 @@ Each screen: purpose, who uses it, layout, what it must do, states, Axel touchpo
 
 ### 3.7 Solutions (knowledge base list and record)
 
-- **Purpose.** Author, review, generalise and find documented solutions.
+- **Purpose.** Author, review, generalize and find documented solutions.
 - **Who.** Everyone can search; authors and publishers per permission.
 - **List layout.** Same list grammar as Queue: key (KB000123), title, account visibility (Global or account chips), status (Draft, In review, Published, Retired), CI, used-by count, last verified, feedback score. Views: Mine, In review, Published for account X, Stale (not verified in 6 months).
-- **Record layout.** Article editor with the fixed structure as sections (Problem, Environment and CI, Symptoms, Steps, Verification, Rollback, Self-service eligibility, Effort) and a rail: origin ticket, tickets resolved by this article (with the version used), visibility editor, versions, feedback, "Generalise" action. The identifier checklist runs before publish or generalise and shows findings inline (account names, contact names, hostnames, emails).
+- **Record layout.** Article editor with the fixed structure as sections (Problem, Environment and CI, Symptoms, Steps, Verification, Rollback, Self-service eligibility, Effort) and a rail: origin ticket, tickets resolved by this article (with the version used), visibility editor, versions, feedback, "Generalize" action. The identifier checklist runs before publish or generalize and shows findings inline (account names, contact names, hostnames, emails).
 - **Must do.** Create from a resolved ticket with the ticket's resolution notes pre-filled (Axel draft, AI-07 and ADR-05); publish creates an immutable version; retire keeps links; portal preview shows exactly what a client would see.
 - **Review queue.** A list of articles In review with approve, request changes and a diff against the previous version.
 - **Configuration items.** Per account list and record (type, name, attributes, owner contact, linked tickets and articles).
@@ -246,7 +246,7 @@ flowchart LR
     H -- yes --> I["Pause with reason\nmeters freeze"] --> G
     H -- no --> J["Resolve: code, notes,\nsolution link or new article"]
     J --> K["Closure email + CSAT"]
-    J --> L["Article draft (3.7)\nreview, publish, generalise"]
+    J --> L["Article draft (3.7)\nreview, publish, generalize"]
     L --> M["Portal search shows it (4.2)"]
 ```
 

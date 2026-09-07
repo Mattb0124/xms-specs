@@ -26,14 +26,14 @@ The product thesis ([Product Vision §2](../../00-overview/PRODUCT-VISION.md)) i
 - **XMS proof of concept (web-ui `components/aix-v3/xms/`):** `vocab.ts` defines `RESOLUTION_CODES` (Solution provided, Workaround provided, Known error, Configuration change, User education, No fault found, Duplicate, Cancelled by client) and `XMS_CATEGORIES`; `TicketDrawer.tsx` has a Resolution Information tab with code and notes. Resolution is free text. There is no article, no link, no search.
 - **Studio `xms_ticketing` module (branch `feature/xms-ticketing`):** migration 092 added `resolution_code`, `resolution_notes`, `resolved_by` and the close discipline in `service.py` (a ticket cannot resolve without a code). No knowledge tables, no agent tools. Ported per ADR-07, not reused.
 - **AIX harness knowledge stack:** the studio has a document vectorizer, a tenant corpus (`document_chunks`, `tenant_documents`, Titan embeddings at 1024 dimensions) and the `search_documents` and `search_tenant_corpus` tools. It stores documents, not solutions, in the harness's own database. ADR-04 rejects moving XMS ticket knowledge there; XMS keeps the corpus and serves it to Axel through the XMS MCP server.
-- **Not built anywhere:** solution articles, versions, per-account visibility, generalisation workflow, ticket-to-article links, configuration items, ticket templates, deflection, effectiveness metrics, self-service runbooks.
+- **Not built anywhere:** solution articles, versions, per-account visibility, generalization workflow, ticket-to-article links, configuration items, ticket templates, deflection, effectiveness metrics, self-service runbooks.
 
 ## 3. Goals
 
 1. **Every resolution is a solution record.** A resolved ticket points at the article version that fixed it, or created the candidate that became one; the knowledge base grows as a by-product of closing tickets.
 2. **Solutions find the consultant.** The ticket record shows similar resolved tickets and matching articles as soon as the ticket is categorised, without a search, when the account allows AI.
 3. **Clients solve what they can themselves.** The portal shows matching solutions before a request is submitted, and the product measures how often that avoids a ticket.
-4. **Knowledge is safe to share.** An article is visible only to the accounts it was written for until a curator generalises it; visibility is enforced by the same database policy as every other account row.
+4. **Knowledge is safe to share.** An article is visible only to the accounts it was written for until a curator generalizes it; visibility is enforced by the same database policy as every other account row.
 5. **Knowledge is trustworthy.** Articles have owners, review, versions, feedback and retirement; a ticket always links to the exact version that was used.
 6. **The environment is known.** Configuration items per account give tickets, articles and reports a shared vocabulary for "which system".
 7. **Recurring requests get cheaper.** Ticket templates pre-fill recurring requests, and, later, allowlisted runbooks can resolve simple requests with no human touch for accounts that opt in.
@@ -45,7 +45,7 @@ The product thesis ([Product Vision §2](../../00-overview/PRODUCT-VISION.md)) i
 - **Public or anonymous knowledge.** Every reader is an authenticated portal or internal user. There is no public help centre.
 - **Automatic publishing.** Axel drafts; a person with `kb:publish` publishes. No article reaches a client without a human decision (AI-08).
 - **Autonomous resolution in Phases 1 to 3.** Allowlisted auto-resolution (AI-17) is Nice to Have, Phase 4, per-account opt-in, after measured accuracy of the human-in-the-loop version.
-- **Cross-account learning by default.** An article written for one account is never shown to another until generalised and published as global. There is no "similar tickets across all clients" view for portal users; internal users see cross-account similar tickets only for accounts they hold grants on.
+- **Cross-account learning by default.** An article written for one account is never shown to another until generalized and published as global. There is no "similar tickets across all clients" view for portal users; internal users see cross-account similar tickets only for accounts they hold grants on.
 - **Article translation.** Single language in the target solution.
 
 ## 5. User-facing behavior
@@ -97,13 +97,13 @@ Editing a Published article creates a new Draft version; the published version s
 | In review to Published | Curator (`kb:publish`), not the author | Sets last verified date; assigns the version number |
 | Published to Draft (new version) | Author or curator | Creates a draft version; published version stays live |
 | Published to Retired | Curator | Requires a reason; retired articles disappear from retrieval and the portal but remain linked from tickets with a "Retired" badge |
-| Account set to Global | Curator | Runs the generalisation checklist (5.6) |
+| Account set to Global | Curator | Runs the generalization checklist (5.6) |
 
-Curators see a **Knowledge queue**: drafts awaiting review, articles not verified in 12 months, articles with two or more "Out of date" votes, and articles used by three or more tickets in the last quarter that are still account-only (generalisation candidates).
+Curators see a **Knowledge queue**: drafts awaiting review, articles not verified in 12 months, articles with two or more "Out of date" votes, and articles used by three or more tickets in the last quarter that are still account-only (generalization candidates).
 
-### 5.6 Visibility and generalisation
+### 5.6 Visibility and generalization
 
-An article starts visible to the account whose ticket created it. Making it Global requires the curator to complete the checklist: no client name, no hostnames, no user names, no attachment references, no contract terms in any section; environment described generically ("OneStream 8.x with Cube Views" not "Brookfield PROD"). When the account allows AI, Axel proposes a generalised rewrite and lists the identifiers it removed; the curator accepts or edits. The account-specific version is not deleted: the global article is a new article that records "Generalised from KB000123" and the original stays visible to its account with a pointer to the global one.
+An article starts visible to the account whose ticket created it. Making it Global requires the curator to complete the checklist: no client name, no hostnames, no user names, no attachment references, no contract terms in any section; environment described generically ("OneStream 8.x with Cube Views" not "Brookfield PROD"). When the account allows AI, Axel proposes a generalized rewrite and lists the identifiers it removed; the curator accepts or edits. The account-specific version is not deleted: the global article is a new article that records "Generalized from KB000123" and the original stays visible to its account with a pointer to the global one.
 
 Adding a second account to an account set (without going global) is allowed for articles about a shared platform version; the checklist still runs.
 
@@ -132,8 +132,8 @@ For accounts that opt in per request type, a runbook article marked Auto-resolva
 ## 6. Rollout
 
 1. **Phase 2 (Focused pilot), with Ticket Management:** article entity with versions, status, visibility (account set and global), the resolution record and close discipline, article list and record screens, keyword retrieval on the Solutions rail and in the portal search, feedback, configuration items (minimal: type, name, links), curation queue basics. Requires the ticket transition endpoint and the portal route group.
-2. **Phase 2, with Axel AI Functionality:** AI-drafted article candidates, generalisation proposals, embedding-based similar tickets and article ranking when the account AI switch is on (AI-07). Requires the Axel adapter and the XMS MCP server.
-3. **Phase 3 (Operational replacement):** deflection measurement, effectiveness dashboard and report pack section, stale-article and generalisation-candidate queues, templates for internal users, migration of ServiceNow knowledge articles where they exist (Data Migration).
+2. **Phase 2, with Axel AI Functionality:** AI-drafted article candidates, generalization proposals, embedding-based similar tickets and article ranking when the account AI switch is on (AI-07). Requires the Axel adapter and the XMS MCP server.
+3. **Phase 3 (Operational replacement):** deflection measurement, effectiveness dashboard and report pack section, stale-article and generalization-candidate queues, templates for internal users, migration of ServiceNow knowledge articles where they exist (Data Migration).
 4. **Phase 4 (Later releases):** ticket templates in the portal (TM-17), full configuration item attributes and per-item history (TM-19), allowlisted auto-resolution runbooks (AI-17), effort estimation from article effort bands (AI-15).
 
 ## 7. Success criteria
@@ -150,7 +150,7 @@ For accounts that opt in per request type, a runbook article marked Auto-resolva
 ## 8. Open questions
 
 - **Should work notes be draftable into articles automatically?** Default assumption: only work notes the author marks "include in solution" feed the candidate; everything else stays internal.
-- **Who may generalise?** Default assumption: any curator (`kb:publish`), with the checklist as the control; no separate role.
+- **Who may generalize?** Default assumption: any curator (`kb:publish`), with the checklist as the control; no separate role.
 - **Do configuration items sync from ServiceNow's CMDB for Brookfield?** Default assumption: not in Phases 1 to 3; Brookfield CI names are imported once during migration as plain items.
 - **Client-authored articles?** Default assumption: no; portal users give feedback and request articles through a ticket, they do not author.
 - **Retention of retired articles?** Default assumption: retained for the life of the account; retired articles linked from tickets are never purged.

@@ -75,7 +75,7 @@ Exit of week 1: an administrator signs in on `xms.dev`, creates the pilot accoun
 | 6 | P1.5.1 ticket tables, P1.5.2 ticket service (state machines, priority, transitions, comments, work notes) | P2.12.2 time entries and activity taxonomy (append-only, adjustments) | P1.6.1 attachments (presigned POST, scan state, quarantine consumer) | P1.5.6 usage events, telemetry endpoint and client; P1.7.1 Axel adapter (session exchange, SSE relay) |
 | 7 | P1.5.5 Queue (system views), New ticket form, Ticket record (properties, conversation, activity) | P2.12.3 mandatory time before resolution; P2.13.1 contracts (cut: one period, no rollover or overage rules, no rate cards) | P1.6.3 inbound email (alias, thread matching, append or create, quarantine) | P1.7.2 AI switch enforcement and suggestion tables; P1.7.3 `xms_mcp` read tools |
 | 8 | P2.10.1 SLA engine on the 24x7 calendar (clocks, pauses, latches, response met) | P2.13.2 contract position endpoint; P2.13.3 contract screens (cut: no burn chart) | P1.6.4 outbound email (templates, threading, branding, bounce handling) | P1.7.4 Axel panel and `xms-desk-assistant` (fallback in §6 if the harness change slipped) |
-| 9 | P2.10.3 SLA badge, meters, pause and resume UI; P2.10.2 sweeper (with C) | P2.14.1 knowledge tables and `article_visible()`; P2.14.2 article lifecycle (cut: generalise deferred) | P1.6.2 attachments UI, P1.6.5 quarantine screen, raw email view | P1.7.5 alarms and runbooks v0; P1.7.6 archive and digests (cut: digest job only, Athena deferred) |
+| 9 | P2.10.3 SLA badge, meters, pause and resume UI; P2.10.2 sweeper (with C) | P2.14.1 knowledge tables and `article_visible()`; P2.14.2 article lifecycle (cut: generalize deferred) | P1.6.2 attachments UI, P1.6.5 quarantine screen, raw email view | P1.7.5 alarms and runbooks v0; P1.7.6 archive and digests (cut: digest job only, Athena deferred) |
 | 10 | P2.11.2 links (cut: parent, child, related, duplicate; no groups) | P2.14.3 close discipline; P2.14.4 retrieval v1 (full-text plus trigram) | P2.11.3 bulk actions (cut: assign and tag only) | Demo day; **circuit breaker 2 review** |
 
 Exit of week 2: an email to the pilot alias becomes a ticket with running SLA clocks; a consultant replies (threaded email out), logs time, resolves with a solution link; the Axel panel answers about the queue; suggestions are switched off per account and it shows.
@@ -107,7 +107,7 @@ Exit of week 3: the invited pilot user submits from the portal after a search, s
 | Item | Day-30 version | Restored in |
 |---|---|---|
 | P2.13.1 contracts | One active period per contract, consumed minutes, hours remaining; models stored but rollover, overage and rate cards not applied | Month 2 |
-| P2.14.2 articles | Draft, publish, retire, visibility set; no generalise, no identifier checklist, no CI screens | Month 2 |
+| P2.14.2 articles | Draft, publish, retire, visibility set; no generalize, no identifier checklist, no CI screens | Month 2 |
 | P2.11.2 links | Parent, child, related, duplicate; no ticket groups or change windows | Month 2 |
 | P2.11.3 bulk | Assign and tag only | Month 2 |
 | P2.18.1 email hardening | Stripping and out-of-office suppression; loop score written, alias auto-disable manual | Month 2 (auto-disable) |

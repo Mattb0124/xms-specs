@@ -15,7 +15,7 @@
 |---|---|---|
 | Account isolation mechanics | [Data Model §3](../../01-architecture/DATA-MODEL.md): RLS forced, `xms.account_ids` / `xms.account_id` session variables, `acct.article_visible()` security-definer function | Every knowledge table is `acct.*`; article visibility extends the standard policy, never bypasses it |
 | Ticket transition endpoint | [Ticket Management Technical Spec §3](../ticket-management/TECHNICAL-SPEC.md): `POST /v1/tickets/{id}/transitions` runs in one transaction | The close-discipline check (solution link or candidate) is a transition rule contributed by this module |
-| Axel adapter faces | [AI Integration §3](../../01-architecture/AI-INTEGRATION.md): single-shot `/axel/suggest`, batch worker queue `axel.batch`, per-account switch pre-flight | Article drafting, generalisation proposals and embedding generation all pass through it |
+| Axel adapter faces | [AI Integration §3](../../01-architecture/AI-INTEGRATION.md): single-shot `/axel/suggest`, batch worker queue `axel.batch`, per-account switch pre-flight | Article drafting, generalization proposals and embedding generation all pass through it |
 | XMS MCP tools | [AI Integration §4](../../01-architecture/AI-INTEGRATION.md): `search_solutions`, `get_article`, `find_similar_tickets`, `create_article_draft` | This module implements the API endpoints those tools call |
 | Embedding model | Studio `app/modules/ai_core/embedding_service.py`, Titan `amazon.titan-embed-text-v2:0`, 1024 dimensions (verified 2026-09-04) | XMS uses the same model and dimension so a future move to the harness embeddings endpoint changes nothing in the table |
 | Studio retrieval tools as shape reference | Studio `app/modules/tenant_vectorstore/agent/tools.py` (`search_tenant_corpus` reads tenant from a contextvar; prose result strings) (verified 2026-09-04) | The MCP tools return prose and never accept an account id from the model |
@@ -39,7 +39,7 @@ All tables are `acct.*`, carry `account_id uuid not null references op.accounts(
 | `display_key` | text unique | `KB` + 6 digits from sequence `acct.article_key_seq` |
 | `kind` | text | CHECK in (`solution`, `workaround`, `known_error`, `procedure`, `reference`) |
 | `status` | text | CHECK in (`draft`, `in_review`, `published`, `retired`) |
-| `is_global` | boolean | True only after generalisation; `account_id` then points at the operator's `global` account row |
+| `is_global` | boolean | True only after generalization; `account_id` then points at the operator's `global` account row |
 | `title` | text | |
 | `categories` | text[] | From the ticket category vocabulary |
 | `self_service` | text | CHECK in (`none`, `follow`, `request`, `auto`) |
@@ -50,7 +50,7 @@ All tables are `acct.*`, carry `account_id uuid not null references op.accounts(
 | `last_verified_at` | timestamptz null | Set at publish; curator can re-verify |
 | `retired_at`, `retired_reason` | timestamptz null, text null | |
 | `source_ticket_id` | uuid null | FK `acct.tickets.id` ON DELETE SET NULL |
-| `generalised_from_id` | uuid null | FK self; set on the global copy |
+| `generalized_from_id` | uuid null | FK self; set on the global copy |
 | `search_vector` | tsvector generated | From title, categories and the published version's problem statement and symptoms (maintained by the publish transaction) |
 
 ### 2.2 `acct.article_versions` (append-only content)
@@ -211,7 +211,7 @@ The `xms.account_ids` array for portal principals is the single bound account (t
 
 - **Global articles** are owned by a reserved operator account row (`op.accounts` with key `GLOBAL`, status `system`) that every internal principal is implicitly granted. The portal role never binds that account; portal reads reach global articles only through `is_global` inside `article_visible()`.
 - **Publish** in one transaction: set `published_at` on the draft version, set `published_version_id`, `status = published`, `last_verified_at`, refresh `search_vector`, insert the audit event, write an outbox row `article.published` (embedding regeneration, notifications, snapshot counters).
-- **Generalise**: creates a new article under `GLOBAL` with `generalised_from_id`, copies the draft text (or the Axel-proposed rewrite), runs the identifier checklist (`backend/src/domain/knowledge/generalisation-check.ts`: account name, contact names, hostnames from the account's configuration items, email addresses, attachment references); the check must return zero findings before publish is allowed.
+- **Generalize**: creates a new article under `GLOBAL` with `generalized_from_id`, copies the draft text (or the Axel-proposed rewrite), runs the identifier checklist (`backend/src/domain/knowledge/generalization-check.ts`: account name, contact names, hostnames from the account's configuration items, email addresses, attachment references); the check must return zero findings before publish is allowed.
 - **Close discipline** is a transition rule registered by this module with the ticket state machine: on entering `resolved`, if the resolution code is not in the no-solution set, require at least one `acct.ticket_solutions` row for the ticket with outcome `resolved_by`, `partially_resolved_by` or `created_from`. The rule is evaluated inside the transition transaction.
 - **Retrieval** (`backend/src/domain/knowledge/retrieval.ts`): full-text query on `search_vector` and trigram on `display_key` always; when the account AI switch is on and an embedding exists for the query (generated on demand through the adapter), a cosine query on `acct.embeddings` is unioned and the two lists are fused with reciprocal rank fusion; results are filtered by RLS, so the service never adds a visibility clause of its own.
 
@@ -221,7 +221,7 @@ The `xms.account_ids` array for portal principals is the single bound account (t
 |---|---|---|
 | Ticket service (Ticket Management) | Transition to `resolved` | Consults the close-discipline rule; on `created_from`, calls `ArticleService.createCandidate(ticketId)` |
 | `ArticleService.createCandidate` | From the resolution panel | Draft article and version 1 from ticket fields and work notes flagged `include_in_solution`; if AI is on, requests `propose_article_draft` through `/axel/suggest` and stores the suggestion id on the version |
-| `ArticleService.publish`, `retire`, `generalise` | Curator actions | Version freeze, outbox events, audit |
+| `ArticleService.publish`, `retire`, `generalize` | Curator actions | Version freeze, outbox events, audit |
 | Worker `knowledge.embed` handler | Outbox `article.published`, `ticket.resolved` (with a summary), nightly reconcile | Embeds article versions and ticket summaries through the Axel adapter batch face (or the Bedrock Titan exception in ADR-04) when the account AI switch is on; deletes embeddings when an account switches AI off |
 | Worker `knowledge.metrics` handler | Nightly | Writes coverage, reuse, deflection, feedback and staleness measures into `rpt.daily_snapshots` |
 | Portal request flow | Pre-submit search | `acct.article_feedback` rows with context `portal_search` and a `portal_deflection_sessions` row (owned by Client Portal) recording shown and opened articles |
@@ -241,7 +241,7 @@ All routes are versioned under `/v1`; internal routes accept `internal`, `api_cl
 | POST | `/v1/articles/{id}/submit` | `kb:author` | Draft to In review |
 | POST | `/v1/articles/{id}/publish` | `kb:publish` | Publish current draft; reviewer must differ from author |
 | POST | `/v1/articles/{id}/retire` | `kb:publish` | Retire with reason |
-| POST | `/v1/articles/{id}/generalise` | `kb:publish` | Create the global copy; returns checklist findings when blocked |
+| POST | `/v1/articles/{id}/generalize` | `kb:publish` | Create the global copy; returns checklist findings when blocked |
 | PUT | `/v1/articles/{id}/visibility` | `kb:publish` | Replace the account set |
 | POST | `/v1/articles/{id}/feedback` | `kb:read` | Feedback row |
 | GET | `/v1/tickets/{id}/solutions` | `tickets:view` | The Solutions rail: matching articles plus similar tickets |
@@ -290,10 +290,10 @@ A deflection is counted only for a portal session that opened an article and did
 
 | Order | Branch | Scope | Depends on |
 |---|---|---|---|
-| 1 | `feature/knowledge-base-core` | `backend/src/db` migrations for 2.1 to 2.7 with policies; `backend/src/domain` close-discipline rule and generalisation check; API routes (internal); worker metrics handler | Ticket Management core (`acct.tickets`, transitions) |
+| 1 | `feature/knowledge-base-core` | `backend/src/db` migrations for 2.1 to 2.7 with policies; `backend/src/domain` close-discipline rule and generalization check; API routes (internal); worker metrics handler | Ticket Management core (`acct.tickets`, transitions) |
 | 2 | `feature/knowledge-base-web` | Article screens, Solutions rail (keyword), resolution panel picker, curator queue, configuration items | 1 |
 | 3 | `feature/knowledge-base-portal` | Portal search-first and Knowledge page, deflection sessions | Client Portal route group |
-| 4 | `feature/knowledge-base-ai` | `acct.embeddings`, worker embed handler, hybrid retrieval, Axel draft and generalisation proposals, MCP tool endpoints | Axel adapter, XMS MCP server |
+| 4 | `feature/knowledge-base-ai` | `acct.embeddings`, worker embed handler, hybrid retrieval, Axel draft and generalization proposals, MCP tool endpoints | Axel adapter, XMS MCP server |
 | 5 | `feature/knowledge-base-templates` (Phase 4) | Templates in portal, full configuration item attributes | 2, 3 |
 | 6 | `feature/knowledge-base-runbooks` (Phase 4) | Auto-resolution runbooks, opt-ins, dry-run, audit as AI | Connector framework for executable steps |
 
@@ -301,13 +301,13 @@ Deploy order inside each: db migration, worker, api, web.
 
 ## 8. Testing & verification
 
-- **Domain (Jest, `backend/src/domain`):** close-discipline rule for each resolution code; generalisation check finds account name, hostnames, emails and attachment references and passes clean text; reciprocal rank fusion ordering; deflection classification of sessions.
+- **Domain (Jest, `backend/src/domain`):** close-discipline rule for each resolution code; generalization check finds account name, hostnames, emails and attachment references and passes clean text; reciprocal rank fusion ordering; deflection classification of sessions.
 - **Data layer (Testcontainers):** `article_visible()` truth table (own, shared, global, none) for operator and portal roles; portal cannot read drafts, retired articles or internal columns; published versions reject update and delete; embeddings insert fails when the account AI switch is off; the isolation suite covers all eight tables.
-- **HTTP:** every route rejects anonymous and garbage tokens; portal token on `/v1/articles` gets 403; publish by the author gets 409; generalise with findings returns 422 with the findings list; `Idempotency-Key` replay returns the stored response.
+- **HTTP:** every route rejects anonymous and garbage tokens; portal token on `/v1/articles` gets 403; publish by the author gets 409; generalize with findings returns 422 with the findings list; `Idempotency-Key` replay returns the stored response.
 - **Worker:** embed handler skips unchanged `content_hash`; purge on switch-off deletes only that account's rows; metrics handler produces the expected counts from constructed tickets and feedback.
 - **Axel adapter contract:** recorded fixture for `propose_article_draft`; a withheld result leaves the candidate empty but still creates the draft.
 - **Web (Vitest):** Solutions rail renders the keyword-only note when AI is off; resolution panel blocks the Resolve button until a link or candidate exists.
-- **E2E (Playwright):** resolve a ticket by creating a candidate, publish it as a curator, see it in the portal for that account and not for the other seed account, generalise it and see it in both.
+- **E2E (Playwright):** resolve a ticket by creating a candidate, publish it as a curator, see it in the portal for that account and not for the other seed account, generalize it and see it in both.
 
 ## 9. Risks / notes
 
