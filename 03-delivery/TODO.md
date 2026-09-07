@@ -80,7 +80,7 @@
 
 - [ ] Security-approved isolation in production; dedicated tier if ruled
 - [ ] Portal SSO per account with fallback
-- [~] Calendars and time zones driving SLA (P3.26.1 core): business calendar engine, holiday library, calendar documents with the account default and preview, SLA clocks bound to the calendar they started on, 2026-09-07 (backend); after-hours flags on time entries and the calendar editor screen remain
+- [~] Calendars and time zones driving SLA (P3.26.1 core): business calendar engine, holiday library, calendar documents with the account default and preview, SLA clocks bound to the calendar they started on, at-risk judged on working minutes, 2026-09-07 (backend); after-hours flags on time entries remain; the calendar editor screen is with the roster screens agent
 - [ ] Rate cards, forecast, thresholds, adjustments, billing periods and export, finance connector, renewal alerts
 - [ ] Capacity: calculation, allocation grid, planned vs actual, overallocation, skills matrix
 - [ ] Brookfield bidirectional sync with maps, loop prevention, conflict policy, comments and attachments, health and DLQ
