@@ -11,7 +11,7 @@
 
 The pilot-grade core of XMS exists as two deployables plus a web app, built security-first against the architecture and module specifications: forced row-level security per account, a permission-declared route table, append-only audit with tamper evidence, a transactional outbox, and every business rule in one TypeScript codebase shared by the API and the worker. The build followed the thirty-day plan day by day; the items below are what shipped, with the cuts and deviations stated where they were made.
 
-Counts on 2026-09-07: backend 115 unit, 559 integration and 45 end-to-end tests; frontend 169 tests; 155 routes in the golden snapshot; migrations 0001 to 0011.
+Counts on 2026-09-07: backend 110 unit, 559 integration and 45 end-to-end tests; frontend 169 tests; 155 routes in the golden snapshot; migrations 0001 to 0011.
 
 ## 2. Built
 
@@ -55,7 +55,11 @@ Counts on 2026-09-07: backend 115 unit, 559 integration and 45 end-to-end tests;
 | Known audit exception: image-size (via pptxgenjs) has no patched release for the ICNS, JXL and HEIF parsers | XMS feeds it only the bundled template images; re-check on every pptxgenjs release | `backend/package.json` audit script |
 | Loop-guard auto-disable of an alias deferred | Manual disable through the alias route is enough for the pilot | `src/modules/email/email.service.ts` |
 
-## 5. How to verify
+## 5. Local run-through (2026-09-07)
+
+The built API was run against the compose database outside the test harness: `pnpm db:migrate` applied the eleven migrations, `SEED_TICKETS=15 pnpm seed:dev` produced 30 tickets, 6 articles and 14 users in 4.5 seconds, and the API answered `/healthz`, `/readyz` (database ok, S3 and SQS skipped), `/v1/admin/me`, `/v1/tickets`, `/v1/dashboards/operations`, `/v1/admin/integrity/status`, `/v1/axel/suggest` (withheld, switch off for that account), `/v1/portal/me` with a portal token, refused a portal token on an internal route with 403, and accepted a CSP report with 204. The run found and fixed five packaging gaps (backend `fix(platform)` commit).
+
+## 6. How to verify
 
 ```
 cd backend && pnpm install && pnpm db:up && pnpm db:migrate && pnpm seed:dev && pnpm test:all
