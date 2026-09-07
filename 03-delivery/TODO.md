@@ -47,7 +47,11 @@
 - [x] Frontend knowledge and time screens (P2.15.1, P2.15.2, P2.12.x): Solutions list and record, rail, Resolution and Time tabs, contract card, My timesheet; 135 tests, 2026-09-07 (frontend `9f28485`)
 - [x] Frontend attachments, email panel, quarantine and alias screens (P1.6.2, P1.6.5); 150 tests, 2026-09-07 (frontend `9414f9c`)
 - [x] Reporting (P2.19.1, P2.19.3, P2.19.4, P2.11.4, P2.11.5, P2.20.1 cut): measures, operations and account dashboards with view as client, portal dashboard, Excel and CSV exports, audit search over the unified events view, security and usage tiles, WSR on demand, nightly snapshots; 482 integration tests, 2026-09-07
-- [ ] Axel adapter skeleton: session exchange, SSE relay, per-account switch, audit; harness changes 1, 5, 6 requested from the Axel owners
+- [x] Frontend dashboards, audit search, security and usage dashboards, exports, report packs, portal dashboard strip (P2.19.3, P2.11.4, P2.11.5, P2.19.4, P2.20.2 cut); 169 tests, 2026-09-07 (frontend `768b612`)
+- [x] Axel adapter (P1.7.1 to P1.7.4, P2.17.1 to P2.17.3 cut): account AI switch with DPA and residency gates and the disable cascade, session tokens minted with the shared harness secret (the Clerk exchange cannot cross two Clerk applications; deviation in `session-token.service.ts`), SSE relay with cancel and thread index, redaction before egress, single-shot classify, prioritise, duplicate (trigram candidates until the embeddings endpoint), summarise and draft reply, thresholds and withheld rows, decisions applied through the ticket service with AI-actor audit, proposals route for the MCP `propose_*` tools, worker intake and expiry, accuracy with the what-if, operator defaults and kill switch, harness contract test; 551 integration tests, 2026-09-07 (backend `c1f1264`)
+- [~] Frontend Axel panel, suggestion cards, AI settings, accuracy and defaults screens: agent running 2026-09-07
+- [~] `xms_mcp` module in `aix-mcp` with `current_bearer` in `mcp_common`: agent running 2026-09-07 (branch `feature/xms-mcp`)
+- [ ] Harness changes 1, 5, 6 requested from the Axel owners (inline XMS agents, MCP server registration with `useCallerToken`, session token acceptance for the XMS tenant)
 - [ ] Observability: pino, OpenTelemetry through ADOT, readiness endpoints, alarms
 - [ ] Tests: isolation suite, auth rejection suite, outbox idempotency, email threading corpus
 
@@ -62,7 +66,7 @@
 - [ ] Reporting: internal and client dashboards, exports, basic WSR pack
 - [ ] Audit search, Security dashboard and Usage dashboard under Admin (XA-03)
 - [ ] ServiceNow one-way ingest for one instance against the stand-in, then Brookfield sandbox
-- [ ] Axel assistive: categorise, prioritise, duplicates, summarise, similar solutions, HITL, thresholds, feedback
+- [x] Axel assistive: categorise, prioritise, duplicates, summarise, similar solutions, HITL, thresholds, feedback (backend `c1f1264`; web pending the panel agent), 2026-09-07
 - [ ] Migration rehearsal import
 - [ ] Tests: state machine and SLA suites at 100 percent branch coverage, e2e golden paths, ZAP baseline
 
@@ -93,6 +97,7 @@
 - Isolation ruling (Juan / Security, 2026-09-18): shared tables with forced RLS plus dedicated tier by default.
 - Pilot subset and workbook reconciliation (Sofi / DMS, 2026-09-18): Appendix C and this register's phase column by default.
 - Brookfield facts (Vini, 2026-09-25): ingest-only first, Table API with OAuth client credentials by default.
-- Harness changes and guarantees (Axel owners, 2026-10-15): items 1, 5, 6 in Phase 1; 2 to 4 by Phase 3.
+- Harness changes and guarantees (Axel owners, 2026-10-15): items 1, 5, 6 in Phase 1; 2 to 4 by Phase 3. Built against XT_AXEL_API.md with a fake harness and a contract test; the live smoke waits on the XMS agents and the shared session secret.
+- Worker batch identity: intake calls the harness as a synthetic `axel-service` principal (single-shot facts travel in the message, so no MCP tool call needs it); a real service user with account grants is needed before any tool-using batch face (P1.8.3 seed).
 - AV product and environments (Infrastructure, 2026-09-25): GuardDuty by default.
 - Clerk licensing and SAML topology (Brayan, 2026-10-02): works within plan by default; XMS-owned realm as fallback.
