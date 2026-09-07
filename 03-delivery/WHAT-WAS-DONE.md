@@ -11,7 +11,7 @@
 
 The pilot-grade core of XMS exists as two deployables plus a web app, built security-first against the architecture and module specifications: forced row-level security per account, a permission-declared route table, append-only audit with tamper evidence, a transactional outbox, and every business rule in one TypeScript codebase shared by the API and the worker. The build followed the thirty-day plan day by day; the items below are what shipped, with the cuts and deviations stated where they were made.
 
-Counts on 2026-09-07: backend 132 unit, 650 integration and 45 end-to-end tests; frontend 242 tests; 193 routes in the golden snapshot; migrations 0001 to 0014.
+Counts on 2026-09-07: backend 135 unit, 693 integration and 45 end-to-end tests; frontend 335 tests; 208 routes in the golden snapshot; migrations 0001 to 0014.
 
 ## 2. Built
 
@@ -35,7 +35,8 @@ Counts on 2026-09-07: backend 132 unit, 650 integration and 45 end-to-end tests;
 | Migration | The rehearsal loop: import batches with a source range and the instance's active map versions, extraction through the connector client into raw rows in the object store and identity records with a source hash, mapping, loading through the ticket service in import mode (no clocks, outbox or notifications; source dates and journal authors; historical states placed without the close discipline; one `imported` audit event per row), reconciliation per state and per object with explanations and a four-eyes sign-off | `src/modules/migration`, migration 0014 |
 | Roster | People with working calendars, a skills catalog with per-person levels, certifications, import from the sign-in directory; `capacity:view` to read, `admin:users` to create and edit, `capacity:manage` for calendar, skills and certifications; no rate column until the finance grants | `src/modules/roster`, migration 0013 |
 | Seed | `pnpm seed:dev`: roles, defaults, administrators, a six-person team across three groups, the Axel service user, two accounts with contrasting calendars and contract models, portal users, articles, tickets across every state with comments, notes, time and backdated clocks | `src/tools/seed.ts` |
-| Frontend | Next.js 16 app with token-only styling, RTK Query slice per module, route registry, dev-token sign-in; screens for the queue and ticket record, admin, portal, knowledge, time, attachments, email, dashboards, audit search, security and usage, report packs, connectors (health overview, instance record with map editors, runs, dead letters, ticket Sync card); the AI slice and SSE hook | `frontend/` |
+| Frontend | Next.js 16 app with token-only styling, RTK Query slice per module, route registry, dev-token sign-in; screens for the queue and ticket record, admin, portal, knowledge, time (My timesheet over the week endpoint, Time today card), attachments, email, dashboards, audit search, security and usage, report packs, connectors (health overview, instance record with map editors, runs, dead letters, ticket Sync card), roster (people list with URL filters, person record with calendar, skills and certifications, import, role and zone in the assignee picker), calendars (account Calendars tab, editor with hours grid and preview, holiday libraries); the AI slice and SSE hook | `frontend/` |
+| Account configuration overrides | An account overrides a catalog (SLA policy, state machine, priority matrix and the rest) without touching the operator default: describe, set and remove routes behind `admin:config`, validated like a default, versioned with the previous override retired, audited on the account with a security event, resolved by the ticket service for that account only | `src/modules/admin/config`, routes `/v1/accounts/{id}/config/{kind}` |
 
 ## 3. Cut or held
 
@@ -58,6 +59,8 @@ Counts on 2026-09-07: backend 132 unit, 650 integration and 45 end-to-end tests;
 | Rate limits are per process and the CSP report endpoint is public | The WAF carries the global limits; a browser report carries no token | `src/common/rate-limit`, `src/modules/security/csp.module.ts` |
 | Known audit exception: image-size (via pptxgenjs) has no patched release for the ICNS, JXL and HEIF parsers | XMS feeds it only the bundled template images; re-check on every pptxgenjs release | `backend/package.json` audit script |
 | Loop-guard auto-disable of an alias deferred | Manual disable through the alias route is enough for the pilot | `src/modules/email/email.service.ts` |
+| `PUT /roster/people/{id}/calendar` needs `capacity:manage` only, where the Capacity technical specification allowed `admin:users` as well | The route table declares one permission per route; an administrator without `capacity:manage` creates the person and the dispatcher sets the calendar | `src/modules/roster/roster.module.ts` |
+| The account configuration editor screen is not built | The routes exist and are covered; the screen follows the migration console | `frontend/` |
 
 ## 5. Local run-through (2026-09-07)
 

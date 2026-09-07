@@ -32,6 +32,7 @@
 - [x] Audit events append-only with trigger and the deferred audit guard on protected tables; `op.audit_events`; AuditService with diff, 2026-09-07
 - [~] Security events written by the guard, bootstrap and every admin change (XA-01 done); usage events and telemetry ingestion done (XA-02); the event archive with digests pending (XA-04)
 - [x] Admin: accounts with settings and status transitions, users with invite and the last-administrator rule, roles, reconciled grants and groups, configuration defaults seeded from JSON with versions and activation, `/v1/admin/me`, `POST /v1/bootstrap`; 82 integration tests, 2026-09-07 (backend `c0354fb`)
+- [x] Account configuration overrides (P2.9.2 backend): `/v1/accounts/{id}/config/{kind}` describe, `PUT .../override`, `DELETE .../override` behind `admin:config`; validated like a default, audited on the account, the ticket service resolves the override for that account only; 5 scenarios green 2026-09-07 (backend `ac12ca6`); the account configuration editor screen is not built
 - [x] Frontend shell and house components (P1.4.1, P1.4.2): 32 components, finder bar, sidebar failing closed, palette, route registry, RTK plumbing, dev sign-in, telemetry client; 66 tests, 2026-09-07 (frontend `3c75b05`, `fbf630e`)
 - [x] Outbox table and dispatcher (SKIP LOCKED, five attempts, dead letters), inbox and job lease tables, 2026-09-07
 - [x] Ticket core (P1.5.1 to P1.5.6, P2.10.1 on the wall clock): tickets, SLA clocks with pause evidence, transitions with the close discipline, comments and work notes as separate tables, links, watchers, notifications with collapse keys, usage events and `POST /v1/telemetry`; 216 integration tests, 2026-09-07 (backend ticket core commit)
@@ -64,8 +65,8 @@
 
 - [ ] Ticket core: five types, configurable state machines, priority matrix, SLA engine on calendars with pause reasons and sweeper, links, comments and work notes, search and saved views
 - [ ] Time and contracts: entries, mandatory time before resolution, activity taxonomy, billable classes, contract models, burn-down, per-ticket breakdown
-- [x] Unlogged time and my week (P2.18.3 backend): `/v1/timesheets/me` and `/v1/timesheets/me/unlogged` from the person calendar and holidays with the eight-hour default, 2026-09-07; the week grid and the Time today card follow with the roster screens agent
-- [x] Roster (P2.12.1 cut, CAP-01): people, working calendars, skills catalog and levels, certifications, import from the sign-in directory, `capacity:view`; no rates, PTO or allocations yet; 8 scenarios green 2026-09-07 (backend); roster screens next with the connector screens
+- [x] Unlogged time and my week (P2.18.3 backend): `/v1/timesheets/me` and `/v1/timesheets/me/unlogged` from the person calendar and holidays with the eight-hour default, 2026-09-07 (backend); My timesheet rewritten over `/v1/timesheets/me` with the Time today card on My work, `/time` gated on `time:log`, 2026-09-07 (frontend `96e9014`); the response now carries the calendar block behind the expectation (backend `cc6e489`)
+- [x] Roster (P2.12.1 cut, CAP-01): people, working calendars, skills catalog and levels, certifications, import from the sign-in directory, `capacity:view`; no rates, PTO or allocations yet; 8 scenarios green 2026-09-07 (backend); `/roster` list with URL filters and `/roster/{id}` with Details, Calendar, Skills and Certifications tabs, import button, assignee picker shows role and zone under `capacity:view`, 2026-09-07 (frontend `1093bee` to `b54bc3b`, suite 250 to 335); numeric fields now numbers on the wire (backend `cc6e489`)
 - [ ] Knowledge base: articles, versions, visibility, resolution record, similar solutions rail, portal search-first
 - [ ] Portal (controlled access): forms, threads, attachments, consumption toggle
 - [ ] Email intake: thread matching, reply-to-update, extraction, stripping, loop protection, quarantine
@@ -80,7 +81,7 @@
 
 - [ ] Security-approved isolation in production; dedicated tier if ruled
 - [ ] Portal SSO per account with fallback
-- [~] Calendars and time zones driving SLA (P3.26.1 core): business calendar engine, holiday library, calendar documents with the account default and preview, SLA clocks bound to the calendar they started on, at-risk judged on working minutes, 2026-09-07 (backend); after-hours flags on time entries remain; the calendar editor screen is with the roster screens agent
+- [~] Calendars and time zones driving SLA (P3.26.1 core): business calendar engine, holiday library, calendar documents with the account default and preview, SLA clocks bound to the calendar they started on, at-risk judged on working minutes, 2026-09-07 (backend); after-hours flags on time entries remain; Calendars tab on the account record, calendar editor with the hours grid and preview panel, holiday libraries screen, 2026-09-07 (frontend `9318fe2`, `568fba0`); a repeated date in a posted library is now refused (backend `cc6e489`)
 - [ ] Rate cards, forecast, thresholds, adjustments, billing periods and export, finance connector, renewal alerts
 - [ ] Capacity: calculation, allocation grid, planned vs actual, overallocation, skills matrix
 - [ ] Brookfield bidirectional sync with maps, loop prevention, conflict policy, comments and attachments, health and DLQ
