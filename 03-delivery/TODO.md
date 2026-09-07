@@ -64,6 +64,7 @@
 
 - [ ] Ticket core: five types, configurable state machines, priority matrix, SLA engine on calendars with pause reasons and sweeper, links, comments and work notes, search and saved views
 - [ ] Time and contracts: entries, mandatory time before resolution, activity taxonomy, billable classes, contract models, burn-down, per-ticket breakdown
+- [x] Unlogged time and my week (P2.18.3 backend): `/v1/timesheets/me` and `/v1/timesheets/me/unlogged` from the person calendar and holidays with the eight-hour default, 2026-09-07; the week grid and the Time today card follow with the roster screens agent
 - [x] Roster (P2.12.1 cut, CAP-01): people, working calendars, skills catalog and levels, certifications, import from the sign-in directory, `capacity:view`; no rates, PTO or allocations yet; 8 scenarios green 2026-09-07 (backend); roster screens next with the connector screens
 - [ ] Knowledge base: articles, versions, visibility, resolution record, similar solutions rail, portal search-first
 - [ ] Portal (controlled access): forms, threads, attachments, consumption toggle
