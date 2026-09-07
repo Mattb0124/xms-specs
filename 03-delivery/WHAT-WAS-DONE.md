@@ -11,7 +11,7 @@
 
 The pilot-grade core of XMS exists as two deployables plus a web app, built security-first against the architecture and module specifications: forced row-level security per account, a permission-declared route table, append-only audit with tamper evidence, a transactional outbox, and every business rule in one TypeScript codebase shared by the API and the worker. The build followed the thirty-day plan day by day; the items below are what shipped, with the cuts and deviations stated where they were made.
 
-Counts on 2026-09-07: backend 98 unit, 559 integration and 38 end-to-end tests; frontend 169 tests; 154 routes in the golden snapshot; migrations 0001 to 0011.
+Counts on 2026-09-07: backend 115 unit, 559 integration and 45 end-to-end tests; frontend 169 tests; 155 routes in the golden snapshot; migrations 0001 to 0011.
 
 ## 2. Built
 
@@ -51,6 +51,8 @@ Counts on 2026-09-07: backend 98 unit, 559 integration and 38 end-to-end tests; 
 | Harness session tokens minted locally with the shared secret | The Clerk exchange cannot cross two Clerk applications (ADR-03) | `src/modules/ai/session-token.service.ts` |
 | Trigram duplicate candidates | No harness embeddings endpoint yet | `src/modules/ai/ai.repository.ts` |
 | Synthetic `axel-service` worker principal | Single-shot intake carries the facts in the message; a real service user exists from the seed for tool-using batch work later | `src/modules/ai/suggestion.service.ts` |
+| Rate limits are per process and the CSP report endpoint is public | The WAF carries the global limits; a browser report carries no token | `src/common/rate-limit`, `src/modules/security/csp.module.ts` |
+| Known audit exception: image-size (via pptxgenjs) has no patched release for the ICNS, JXL and HEIF parsers | XMS feeds it only the bundled template images; re-check on every pptxgenjs release | `backend/package.json` audit script |
 | Loop-guard auto-disable of an alias deferred | Manual disable through the alias route is enough for the pilot | `src/modules/email/email.service.ts` |
 
 ## 5. How to verify
