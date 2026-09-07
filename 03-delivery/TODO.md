@@ -64,7 +64,7 @@
 
 - [ ] Ticket core: five types, configurable state machines, priority matrix, SLA engine on calendars with pause reasons and sweeper, links, comments and work notes, search and saved views
 - [ ] Time and contracts: entries, mandatory time before resolution, activity taxonomy, billable classes, contract models, burn-down, per-ticket breakdown
-- [ ] Roster
+- [x] Roster (P2.12.1 cut, CAP-01): people, working calendars, skills catalog and levels, certifications, import from the sign-in directory, `capacity:view`; no rates, PTO or allocations yet; 8 scenarios green 2026-09-07 (backend); roster screens next with the connector screens
 - [ ] Knowledge base: articles, versions, visibility, resolution record, similar solutions rail, portal search-first
 - [ ] Portal (controlled access): forms, threads, attachments, consumption toggle
 - [ ] Email intake: thread matching, reply-to-update, extraction, stripping, loop protection, quarantine
