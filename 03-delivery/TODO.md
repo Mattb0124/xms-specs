@@ -45,6 +45,8 @@
 - [x] Attachments: presigned upload with size range and type condition (S3) or the signed local store (dev), MIME allowlist, scan gating with EICAR quarantine, portal public-only reads, 2026-09-07
 - [x] Email: aliases, inbound pipeline (alias to account first, inbox dedupe, loop guard, thread matching, stripping, quarantine), outbound with typed templates, threading headers, plus-address replies, suppression and the SES event webhook; SES receipt rule to SQS pending the AWS environment, 2026-09-07
 - [x] Frontend knowledge and time screens (P2.15.1, P2.15.2, P2.12.x): Solutions list and record, rail, Resolution and Time tabs, contract card, My timesheet; 135 tests, 2026-09-07 (frontend `9f28485`)
+- [x] Frontend attachments, email panel, quarantine and alias screens (P1.6.2, P1.6.5); 150 tests, 2026-09-07 (frontend `9414f9c`)
+- [x] Reporting (P2.19.1, P2.19.3, P2.19.4, P2.11.4, P2.11.5, P2.20.1 cut): measures, operations and account dashboards with view as client, portal dashboard, Excel and CSV exports, audit search over the unified events view, security and usage tiles, WSR on demand, nightly snapshots; 482 integration tests, 2026-09-07
 - [ ] Axel adapter skeleton: session exchange, SSE relay, per-account switch, audit; harness changes 1, 5, 6 requested from the Axel owners
 - [ ] Observability: pino, OpenTelemetry through ADOT, readiness endpoints, alarms
 - [ ] Tests: isolation suite, auth rejection suite, outbox idempotency, email threading corpus
