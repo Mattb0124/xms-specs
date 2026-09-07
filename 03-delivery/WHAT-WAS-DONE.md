@@ -62,6 +62,8 @@ The built API was run against the compose database outside the test harness: `pn
 
 The compiled worker booted against the same database (`/readyz` ok), dispatched the seed's outbox rows with no dead letters, and ran the AI intake for the account with the switch on: 45 withheld suggestions (`unavailable` without a harness, `no_content` where no duplicate candidate existed), the expected outcome for an environment without Axel. The frontend dev server answered `/`, `/portal`, `/tickets` and `/dev/sign-in` with 200. The five Playwright golden paths then ran against that stack with a desk token and a portal token (`E2E_API_TOKEN`, `E2E_PORTAL_TOKEN`): shell and scope, state ramp, portal search-first home, security headers, and the ticket path (create with the priority preview, public reply with the first response, work note, transition to In progress, the Mine view).
 
+The connector was run the same way: `pnpm standin` on port 3005 with one seeded case, `SEED_SERVICENOW_URL=http://127.0.0.1:3005 pnpm seed:dev` created the Brookfield instance with validated and active field and state maps in ingest-only mode, and the compiled worker polled the stand-in, advanced the watermark and applied the case as a sync ticket with its journal comment (one poll run and one inbound run, both success).
+
 ## 6. How to verify
 
 ```
