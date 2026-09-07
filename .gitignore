@@ -1,0 +1,14 @@
+# The two applications are separate repositories cloned into this folder
+# (github.com/Mattb0124/xms-frontend, github.com/Mattb0124/xms-backend).
+/frontend/
+/backend/
+/infra/node_modules/
+
+# tooling
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+!.env.example

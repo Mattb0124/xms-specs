@@ -1,0 +1,116 @@
+id,category,requirement,description,priority,module,phase
+TM-01,Ticket Management,Multi-tenant data isolation,"Hard isolation per client at the data layer, not row-level filtering.",Must Have,accounts-and-administration,1 Foundations
+TM-02,Ticket Management,Ticket types with distinct workflows,"Incident, Service Request, Change, Problem, Project Task. Each with its own workflow and billing treatment.",Must Have,ticket-management,2 Focused pilot
+TM-03,Ticket Management,Configurable state machine,States and transitions aligned to the existing DMS ticket lifecycle procedure. Configurable per ticket type.,Must Have,ticket-management,2 Focused pilot
+TM-04,Ticket Management,Priority / impact matrix,"Standard impact x urgency matrix producing priority, with per-client override capability.",Must Have,ticket-management,2 Focused pilot
+TM-05,Ticket Management,SLA engine,"Response and resolution targets per ticket type, priority and client contract.",Must Have,ticket-management,2 Focused pilot
+TM-06,Ticket Management,Per-client business calendars and timezones,"Required for UK, Brazil, Australia, Canada and US coverage. SLA clocks must respect local working hours and holidays.",Must Have,accounts-and-administration,3 Operational replacement
+TM-07,Ticket Management,SLA clock pause with reason logging,Pause on 'Awaiting Client' / 'Awaiting Third Party'. Pause reason and duration stored - this is the evidence used in hour-justification discussions.,Must Have,ticket-management,2 Focused pilot
+TM-08,Ticket Management,Assignment groups,"Groups mapped to CSM, OneStream Technical and Infrastructure teams. Support for group-level and individual assignment.",Must Have,accounts-and-administration,1 Foundations
+TM-09,Ticket Management,Parent / child and related ticket linking,"Link types: parent-child, related, duplicate, blocks/blocked-by.",Must Have,ticket-management,2 Focused pilot
+TM-10,Ticket Management,Grouping under project or change window,Ability to group a ticket tree under a project or scheduled window (e.g. one tree per Azure Files cutover weekend).,Must Have,ticket-management,3 Operational replacement
+TM-11,Ticket Management,Ability to flag out-of-scope / over-budget work,Configurable flag with client-side visibility. Ticket blocked from progressing until approved.,Must Have,ticket-management,3 Operational replacement
+TM-12,Ticket Management,Immutable audit trail,"Every field change recorded with user, timestamp, old value, new value. Non-editable, non-deletable.",Must Have,ticket-management,1 Foundations
+TM-13,Ticket Management,Public comments vs internal work notes,Two distinct objects. Internal notes must never be exposed through the portal or ServiceNow public sync.,Must Have,ticket-management,2 Focused pilot
+TM-14,Ticket Management,Attachments with virus scanning,"Size limits, allowed file types, AV scan on upload, quarantine on detection.",Must Have,ticket-management,1 Foundations
+TM-15,Ticket Management,Full-text search and saved filters,"Search across ticket fields, comments and attachments metadata. User-defined saved views.",Must Have,ticket-management,2 Focused pilot
+TB-01,Time Tracking & Budget,Time entry at ticket level,"Fields: duration, date performed, activity type, billable flag, description. Multiple entries per ticket per user.",Must Have,time-and-budget,2 Focused pilot
+TB-02,Time Tracking & Budget,Mandatory time entry before resolution,A ticket cannot move to Resolved/Closed with zero logged time unless an exemption reason is selected.,Must Have,time-and-budget,2 Focused pilot
+TB-03,Time Tracking & Budget,Activity type taxonomy,"Analysis, Development, Testing, Client Communication, Documentation, Meeting. This is what makes 'where did the hours go' answerable.",Must Have,time-and-budget,2 Focused pilot
+TB-04,Time Tracking & Budget,Billable classification,"Billable / Non-billable / Internal / Pre-sales, set per time entry with a default per activity type.",Must Have,time-and-budget,2 Focused pilot
+TB-05,Time Tracking & Budget,"Rate cards by client, contract and role",Effective-dated versions so historical entries retain the rate in force at the time performed.,Must Have,time-and-budget,3 Operational replacement
+TB-06,Time Tracking & Budget,Contract object with multiple commercial models,"Retainer hours, prepaid blocks, T&M, fixed fee. Includes rollover rules and overage rules.",Must Have,time-and-budget,2 Focused pilot
+TB-07,Time Tracking & Budget,Budget burn-down per client per period,"Consumed vs contracted hours and value, by period, with drill-through to source entries.",Must Have,time-and-budget,2 Focused pilot
+TB-08,Time Tracking & Budget,Forecast to period end,Projected consumption at period end based on current run rate.,Must Have,time-and-budget,3 Operational replacement
+TB-09,Time Tracking & Budget,Threshold alerts,Configurable percentage thresholds (e.g. 50/75/90/100%) alerting internal owner and optionally the client contact.,Must Have,time-and-budget,3 Operational replacement
+TB-10,Time Tracking & Budget,Per-ticket hours breakdown,"Hours by person, role, date and activity type for any single ticket. Exportable to Excel/CSV.",Must Have,time-and-budget,2 Focused pilot
+TB-11,Time Tracking & Budget,Adjustment and write-off workflow,Original entry preserved; adjustment recorded as a separate linked record.,Must Have,time-and-budget,3 Operational replacement
+TB-12,Time Tracking & Budget,Non-ticket time capture,"Per-client buckets for governance, QBR prep, account management and escalation handling. Without this, utilisation reads artificially low and budget burn reads artificially favourable.",Must Have,time-and-budget,4 Later releases
+TB-13,Time Tracking & Budget,After-hours and weekend flagging,"Automatic flagging based on the client business calendar, with premium rate or comp-time handling. Needed across the cutover weekend programme.",Must Have,time-and-budget,3 Operational replacement
+TB-14,Time Tracking & Budget,Billing export,"Export in the format THG finance consumes, with a locked/approved period concept so exported data cannot be silently altered.",Must Have,time-and-budget,3 Operational replacement
+CAP-01,Team Allocation & Capacity,Resource roster,"Role, FTE %, cost rate, bill rate, skills, certifications, timezone and working calendar per person.",Must Have,capacity-and-allocation,2 Focused pilot
+CAP-02,Team Allocation & Capacity,PTO and holiday calendar,"Per-country holiday calendars and individual PTO, feeding the capacity calculation.",Must Have,capacity-and-allocation,4 Later releases
+CAP-03,Team Allocation & Capacity,Available capacity calculation,Contracted hours minus PTO minus holidays minus a configurable admin overhead factor.,Must Have,capacity-and-allocation,3 Operational replacement
+CAP-04,Team Allocation & Capacity,Planned allocation per person per client per period,"Forward-looking allocation grid, editable by team lead.",Must Have,capacity-and-allocation,3 Operational replacement
+CAP-05,Team Allocation & Capacity,Planned vs actual variance reporting,Planned allocation compared against logged time. This is the report that actually changes behaviour.,Must Have,capacity-and-allocation,3 Operational replacement
+CAP-06,Team Allocation & Capacity,Overallocation detection,Warning raised at assignment time when a person exceeds available capacity in a period.,Must Have,capacity-and-allocation,3 Operational replacement
+CAP-07,Team Allocation & Capacity,Skills matrix with single-point-of-failure flagging,Identify where only one person can service a given client or technology.,Must Have,capacity-and-allocation,3 Operational replacement
+CAP-08,Team Allocation & Capacity,Forward demand from pipeline,"Pipeline and project demand included in capacity view, not only current ticket load.",Must Have,capacity-and-allocation,4 Later releases
+CP-01,Client Portal,SSO via SAML / OIDC,"Authenticate against the client IdP, with local account fallback for clients without federation.",Must Have,client-portal,3 Operational replacement
+CP-02,Client Portal,Strict data scoping,"A client user sees only their own organisation's tickets and data. Enforced server-side, verified by automated test.",Must Have,client-portal,1 Foundations
+CP-03,Client Portal,Ticket submission with dynamic forms,Form fields vary by request type; required fields enforced at submission.,Must Have,client-portal,2 Focused pilot
+CP-04,Client Portal,Ticket status tracking and comment threads,"Client can view status, add comments and see public updates only.",Must Have,client-portal,2 Focused pilot
+CP-05,Client Portal,Attachment upload from portal,Same AV scanning and size limits as internal upload.,Must Have,client-portal,2 Focused pilot
+CP-06,Client Portal,Budget / consumption visibility toggle,Per-client switch controlling whether consumption data is exposed in the portal.,Must Have,client-portal,2 Focused pilot
+CP-07,Client Portal,CSAT survey on ticket close and every quarter end,"Triggered on closure, plus a periodic relationship survey. Results feed reporting.",Must Have,client-portal,3 Operational replacement
+CP-08,Client Portal,Knowledge base with per-client article visibility,Articles scoped to global or specific clients.,Must Have,knowledge-base,2 Focused pilot
+EM-01,Email Intake,Dedicated inbound address,With alias support so existing client-facing addresses can be retained.,Must Have,email-intake,1 Foundations
+EM-02,Email Intake,Thread matching on message headers,Match on Message-ID / References / In-Reply-To.,Must Have,email-intake,2 Focused pilot
+EM-03,Email Intake,Reply-to-update on existing tickets,A reply to a ticket notification appends a comment rather than creating a duplicate.,Must Have,email-intake,2 Focused pilot
+EM-04,Email Intake,Attachment and inline image extraction,Attachments stored on the ticket; inline images preserved in the comment body.,Must Have,email-intake,2 Focused pilot
+EM-05,Email Intake,Signature and quoted-reply stripping,"Strip signatures, disclaimers and quoted history so comments stay readable.",Must Have,email-intake,2 Focused pilot
+EM-06,Email Intake,Loop protection and auto-responder suppression,Detect and suppress mail loops and out-of-office auto-replies. A loop with a client mail system is a severity-1 event.,Must Have,email-intake,2 Focused pilot
+EM-07,Email Intake,Unknown-sender quarantine queue,Unrecognised senders go to a review queue rather than auto-creating tickets.,Must Have,email-intake,2 Focused pilot
+EM-08,Email Intake,Outbound email threading and branding,Outbound notifications correctly threaded and branded per client.,Must Have,email-intake,1 Foundations
+DR-01,Dashboard & Reporting,Near-real-time dashboard refresh,Defined refresh interval / push updates. Role-scoped and client-scoped.,Must Have,dashboard-and-reporting,2 Focused pilot
+DR-02,Dashboard & Reporting,Internal operational view,"Backlog by age, SLA attainment and at-risk, MTTR by type, reopen rate, volume trend, team utilisation, portfolio budget burn.",Must Have,dashboard-and-reporting,2 Focused pilot
+DR-03,Dashboard & Reporting,Client-facing view,"Their tickets, their SLA performance, their consumption, their CSAT. Nothing else.",Must Have,dashboard-and-reporting,2 Focused pilot
+DR-04,Dashboard & Reporting,Auto-generated weekly report pack (PPTX / PDF),Generated from live data on a schedule. Highest-ROI item in the build - it replaces the manual WSR cycle. We would present on a call from a dashboard that can be exported and sent via email for client review,Must Have,dashboard-and-reporting,2 Focused pilot
+DR-05,Dashboard & Reporting,Scheduled email delivery of report packs,Per-client schedule and distribution list.,Must Have,dashboard-and-reporting,3 Operational replacement
+DR-06,Dashboard & Reporting,Export to Excel / CSV on all views,Raw data export for ad-hoc analysis and finance reconciliation.,Must Have,dashboard-and-reporting,2 Focused pilot
+DR-07,Dashboard & Reporting,Historical trend retention,Point-in-time snapshots so trends survive record edits and reclassification.,Must Have,dashboard-and-reporting,3 Operational replacement
+SN-01,ServiceNow Integration,Bidirectional sync with configurable field mapping,"Per-client-instance mapping configuration, maintainable without a code change.",Must Have,servicenow-integration,3 Operational replacement
+SN-02,ServiceNow Integration,State machine translation,Translate between the internal state model and each client's. They will not match out of the box.,Must Have,servicenow-integration,3 Operational replacement
+SN-03,ServiceNow Integration,Loop prevention,Correlation IDs and update watermarking to prevent infinite update ping-pong.,Must Have,servicenow-integration,3 Operational replacement
+SN-04,ServiceNow Integration,Conflict resolution policy,Defined system of record per field. Last-write-wins is not acceptable as a blanket rule.,Must Have,servicenow-integration,3 Operational replacement
+SN-05,ServiceNow Integration,Comment and work note sync,Respecting the public vs internal distinction in both directions.,Must Have,servicenow-integration,3 Operational replacement
+SN-06,ServiceNow Integration,Attachment sync,Two-way attachment transfer with size limit handling.,Must Have,servicenow-integration,3 Operational replacement
+SN-07,ServiceNow Integration,Sync health monitoring and dead-letter queue,"Failed messages retained, alerting on failure, manual replay capability.",Must Have,servicenow-integration,3 Operational replacement
+SN-08,ServiceNow Integration,Multiple concurrent client instances,"Different schemas, different auth, different versions - running simultaneously.",Must Have,servicenow-integration,3 Operational replacement
+SN-09,ServiceNow Integration,One-way ingest mode,Read-only ingest as a lower-risk starting configuration and as a fallback if write-back is suspended.,Must Have,servicenow-integration,2 Focused pilot
+AI-01,AI Functionality,Auto-categorisation and priority suggestion,"Category, priority, account and CI tagging suggested on intake, human-confirmed.",Must Have,ai-functionality,2 Focused pilot
+AI-02,AI Functionality,Duplicate detection with merge suggestion,Flag likely duplicates at creation and propose a merge.,Must Have,ai-functionality,2 Focused pilot
+AI-03,AI Functionality,Long-thread summarisation,"Summarise ticket history for handover, shift change and escalation briefing.",Must Have,ai-functionality,2 Focused pilot
+AI-04,AI Functionality,Draft response generation,Generate a suggested reply; a human always reviews and sends.,Must Have,ai-functionality,3 Operational replacement
+AI-05,AI Functionality,Weekly report narrative generation,Convert dashboard figures into the written talk track for the WSR.,Must Have,ai-functionality,3 Operational replacement
+AI-06,AI Functionality,Time entry assistance,Normalise work descriptions and prompt on unlogged time (e.g. 'you have 6 unlogged hours on Tuesday').,Must Have,ai-functionality,3 Operational replacement
+AI-07,AI Functionality,Similar-ticket retrieval and KB suggestion,Surface comparable resolved tickets and relevant knowledge articles to the assignee.,Must Have,knowledge-base,2 Focused pilot
+AI-08,AI Functionality,Human-in-the-loop by default,No AI action takes effect without human confirmation unless explicitly opted in per client.,Must Have,ai-functionality,2 Focused pilot
+AI-09,AI Functionality,Confidence thresholds with human fallback,"Below threshold, the suggestion is withheld and the item routes to a human.",Must Have,ai-functionality,2 Focused pilot
+AI-10,AI Functionality,AI actions logged and attributable,"Every AI suggestion and action recorded in the audit trail, distinguishable from human actions.",Must Have,ai-functionality,1 Foundations
+AI-11,AI Functionality,Per-client AI disable switch,Some clients will contractually prohibit AI processing of their data. Must be enforceable at the data layer.,Must Have,ai-functionality,1 Foundations
+AI-12,AI Functionality,No training on client data; DPA and residency compliance,Contractual and technical guarantee before any client data reaches a model provider.,Must Have,ai-functionality,1 Foundations
+AI-13,AI Functionality,Feedback capture on AI suggestions,Accept/reject captured to measure accuracy and drive tuning.,Must Have,ai-functionality,2 Focused pilot
+DM-01,Data Migration,Historical import from ServiceNow CSM,"Open and closed tickets, comments, attachments and time entries. Without history the baseline is lost.",Must Have,data-migration,2 Focused pilot
+DM-02,Data Migration,Contract and budget history import,"Existing contracts, consumed hours and current balances, reconciled to finance records.",Must Have,data-migration,3 Operational replacement
+DM-03,Data Migration,Reconciliation report post-migration,"Record counts and hour totals reconciled source vs target, signed off before cutover.",Must Have,data-migration,3 Operational replacement
+DM-04,Data Migration,Parallel run period,Both systems operating concurrently for an agreed period before decommissioning the old one.,Must Have,data-migration,3 Operational replacement
+INT-01,Integrations,Identity provider integration (internal),Internal users authenticate via the THG IdP.,Must Have,accounts-and-administration,1 Foundations
+INT-02,Integrations,Finance / billing system export interface,Structured interface to the billing system rather than manual file handling.,Must Have,time-and-budget,3 Operational replacement
+AI-14,AI Functionality,Budget burn anomaly detection,Flag accounts tracking materially above or below expected run rate.,Must Have,ai-functionality,3 Operational replacement
+INT-03,Integrations,Renewal and contract expiry alerting,"Alerts ahead of contract end dates, surfaced to the account owner.",Must Have,time-and-budget,3 Operational replacement
+TM-16,Ticket Management,Bulk actions,"Bulk reassign, bulk state change, bulk tag - with audit entries per affected record.",Nice to Have,ticket-management,4 Later releases
+TM-17,Ticket Management,Ticket templates,Pre-filled templates for recurring request types to reduce intake time.,Nice to Have,knowledge-base,4 Later releases
+TM-18,Ticket Management,Change calendar with conflict detection,Visual change calendar with freeze windows and overlap warnings across clients.,Nice to Have,ticket-management,4 Later releases
+TM-19,Ticket Management,CMDB / lightweight asset register,"Per-client configuration item register, linkable to tickets.",Nice to Have,knowledge-base,4 Later releases
+TB-15,Time Tracking & Budget,Multi-currency support,Rate cards and reporting in local currency with FX conversion for consolidated views.,Nice to Have,time-and-budget,4 Later releases
+TB-16,Time Tracking & Budget,Profitability view per account,"Revenue vs delivery cost using cost rates, at account and engagement level.",Nice to Have,time-and-budget,4 Later releases
+CAP-09,Team Allocation & Capacity,On-call / shift rota,"Rota management with coverage gap detection, linked to after-hours flagging.",Nice to Have,capacity-and-allocation,4 Later releases
+CAP-10,Team Allocation & Capacity,Scenario planning,Model the capacity impact of a prospective win before it is booked.,Nice to Have,capacity-and-allocation,4 Later releases
+EM-09,Email Intake,Priority detection from email content,"Suggest priority based on message content, subject to human confirmation.",Nice to Have,ai-functionality,4 Later releases
+DR-08,Dashboard & Reporting,Automated QBR deck generation,"Quarterly pack assembled from the period's data, following the standard QBR structure.",Nice to Have,dashboard-and-reporting,4 Later releases
+DR-09,Dashboard & Reporting,Customer health score,"Composite of CSAT, SLA attainment, budget position and engagement signals.",Nice to Have,dashboard-and-reporting,4 Later releases
+DR-10,Dashboard & Reporting,Custom report builder,Self-service report definition for power users without developer involvement.,Nice to Have,dashboard-and-reporting,4 Later releases
+AI-15,AI Functionality,Escalation risk and sentiment detection,"Early warning on threads trending negative, before a formal escalation occurs.",Nice to Have,ai-functionality,4 Later releases
+AI-16,AI Functionality,Effort estimation from historical similar work,Suggested effort range on new tickets based on comparable closed work.,Nice to Have,ai-functionality,4 Later releases
+AI-17,AI Functionality,Allocation suggestions,"Recommend assignee based on skills, current capacity and account familiarity.",Nice to Have,ai-functionality,4 Later releases
+AI-18,AI Functionality,Auto-resolution of allowlisted request types,"Fully automated handling of simple, explicitly allowlisted requests. Requires strong guardrails and per-client opt-in.",Nice to Have,knowledge-base,4 Later releases
+AI-19,AI Functionality,Agentic triage and routing without human review,Autonomous triage. Only after measured accuracy on the human-in-the-loop version.,Nice to Have,ai-functionality,4 Later releases
+AI-20,AI Functionality,Natural language query over reporting data,Ask questions of the dataset in plain language and get a chart or table back.,Nice to Have,ai-functionality,4 Later releases
+INT-04,Integrations,Slack / Teams integration,"Ticket notifications, create-from-message, and time logging via command.",Nice to Have,integrations,4 Later releases
+INT-05,Integrations,Calendar integration,Push change windows and scheduled work to Outlook calendars.,Nice to Have,integrations,4 Later releases
+XA-01,XMS additions,Security audit log,"Every authentication, authorisation, administration, data-movement, abuse and AI decision is recorded as an append-only security event with actor, principal kind, request and trace ids; searchable and exportable.",Must Have,audit-and-analytics,1 Foundations
+XA-02,XMS additions,User analytics,"Screen views, named actions, searches, Axel decisions and API requests are captured as usage events (no ticket, email or article content), per role and per account, with portal capture governed by an account setting.",Must Have,audit-and-analytics,1 Foundations
+XA-03,XMS additions,Audit and usage reporting,"Admin screens for audit search over all three streams, a security dashboard and a usage dashboard (active users, feature adoption, core-loop funnel, knowledge gaps, Axel acceptance, portal deflection), with exports and an analyst SQL surface.",Must Have,audit-and-analytics,2 Focused pilot
+XA-04,XMS additions,Security assurance and audit readiness,"Every change passes the security definition of done (isolation, visibility, realm, evidence, egress) with the required tests and a completed checklist; controls are mapped to ISO 27001, SOC 2 and OWASP ASVS with evidence produced automatically; monthly access reviews, quarterly runbook rehearsals, annual penetration test.",Must Have,audit-and-analytics,1 Foundations
+XA-05,XMS additions,Tamper evidence and retention,"Append-only event tables, nightly Parquet archive to an Object Lock bucket, chained daily digests with weekly verification, retention per stream and per account DPA, pseudonymisation for erasure requests.",Must Have,audit-and-analytics,3 Operational replacement
