@@ -49,11 +49,14 @@
 - [x] Reporting (P2.19.1, P2.19.3, P2.19.4, P2.11.4, P2.11.5, P2.20.1 cut): measures, operations and account dashboards with view as client, portal dashboard, Excel and CSV exports, audit search over the unified events view, security and usage tiles, WSR on demand, nightly snapshots; 482 integration tests, 2026-09-07
 - [x] Frontend dashboards, audit search, security and usage dashboards, exports, report packs, portal dashboard strip (P2.19.3, P2.11.4, P2.11.5, P2.19.4, P2.20.2 cut); 169 tests, 2026-09-07 (frontend `768b612`)
 - [x] Axel adapter (P1.7.1 to P1.7.4, P2.17.1 to P2.17.3 cut): account AI switch with DPA and residency gates and the disable cascade, session tokens minted with the shared harness secret (the Clerk exchange cannot cross two Clerk applications; deviation in `session-token.service.ts`), SSE relay with cancel and thread index, redaction before egress, single-shot classify, prioritise, duplicate (trigram candidates until the embeddings endpoint), summarise and draft reply, thresholds and withheld rows, decisions applied through the ticket service with AI-actor audit, proposals route for the MCP `propose_*` tools, worker intake and expiry, accuracy with the what-if, operator defaults and kill switch, harness contract test; 551 integration tests, 2026-09-07 (backend `c1f1264`)
-- [~] Frontend Axel panel, suggestion cards, AI settings, accuracy and defaults screens: agent running 2026-09-07
-- [~] `xms_mcp` module in `aix-mcp` with `current_bearer` in `mcp_common`: agent running 2026-09-07 (branch `feature/xms-mcp`)
+- [ ] Frontend Axel panel, suggestion cards, AI settings, accuracy and defaults screens: HELD 2026-09-07 (user: foundation first); the AI slice, SSE parser and `useAxelTurn` hook are on frontend main (`bd80d4f`), the panel draft is uncommitted in the working tree
+- [ ] `xms_mcp` module in `aix-mcp`: HELD 2026-09-07 (user: not needed yet); draft stashed on `feature/xms-mcp` in aix-mcp (`git stash list`)
+- [x] Tamper evidence (P1.7.6 cut): chained daily digests per stream with the digest file in the object store, `integrity.digest.written`, verification with `integrity.digest.mismatch`, nightly and weekly jobs, admin status, list and verify routes; Parquet export and Athena wait for AWS, 2026-09-07 (backend `4901317`)
+- [x] Seed and demo data (P1.8.3): team across three groups, service user, two accounts with contrasting calendars and contract models, portal users, articles, tickets across every state with comments, notes, time and backdated clocks, AI switch on Brookfield; idempotent and under the time budget in the test, 2026-09-07 (backend `4901317`)
+- [x] Structured logging (P1.7.5 application side): pino JSON logger behind Nest, access line with request id and principal, redaction by path, 2026-09-07
 - [ ] Harness changes 1, 5, 6 requested from the Axel owners (inline XMS agents, MCP server registration with `useCallerToken`, session token acceptance for the XMS tenant)
-- [ ] Observability: pino, OpenTelemetry through ADOT, readiness endpoints, alarms
-- [ ] Tests: isolation suite, auth rejection suite, outbox idempotency, email threading corpus
+- [~] Observability: pino done; readiness endpoints done; OpenTelemetry through ADOT and alarms wait for the AWS environment (P1.7.5 infra side)
+- [x] Tests: isolation suite (generated over every account-scoped table), auth rejection suite, outbox idempotency and dead letters, email threading corpus, harness contract, 2026-09-07
 
 ## 2. Focused pilot (`feature/pilot-*`, Phase 2)
 
