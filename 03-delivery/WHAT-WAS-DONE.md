@@ -59,6 +59,8 @@ Counts on 2026-09-07: backend 110 unit, 559 integration and 45 end-to-end tests;
 
 The built API was run against the compose database outside the test harness: `pnpm db:migrate` applied the eleven migrations, `SEED_TICKETS=15 pnpm seed:dev` produced 30 tickets, 6 articles and 14 users in 4.5 seconds, and the API answered `/healthz`, `/readyz` (database ok, S3 and SQS skipped), `/v1/admin/me`, `/v1/tickets`, `/v1/dashboards/operations`, `/v1/admin/integrity/status`, `/v1/axel/suggest` (withheld, switch off for that account), `/v1/portal/me` with a portal token, refused a portal token on an internal route with 403, and accepted a CSP report with 204. The run found and fixed five packaging gaps (backend `fix(platform)` commit).
 
+The compiled worker booted against the same database (`/readyz` ok), dispatched the seed's outbox rows with no dead letters, and ran the AI intake for the account with the switch on: 45 withheld suggestions (`unavailable` without a harness, `no_content` where no duplicate candidate existed), the expected outcome for an environment without Axel. The frontend dev server answered `/`, `/portal`, `/tickets` and `/dev/sign-in` with 200.
+
 ## 6. How to verify
 
 ```
