@@ -70,7 +70,7 @@
 - [ ] Email intake: thread matching, reply-to-update, extraction, stripping, loop protection, quarantine
 - [ ] Reporting: internal and client dashboards, exports, basic WSR pack
 - [ ] Audit search, Security dashboard and Usage dashboard under Admin (XA-03)
-- [~] ServiceNow one-way ingest (P2.21.2, P2.21.3 cut): connector framework, instance onboarding, versioned maps with validation and activation, ingest-only mode, watermark poll, inbox apply with conflict policy, state map and journal comments, dead letters with replay and discard, kill switch, health with automatic trip, ticket sync card, in-process stand-in; 14 scenarios green 2026-09-07 (backend). Connector screens (P2.21.4) next; the Brookfield sandbox waits on the client facts (2026-09-25)
+- [~] ServiceNow one-way ingest (P2.21.2, P2.21.3 cut): connector framework, instance onboarding, versioned maps with validation and activation, ingest-only mode, watermark poll, inbox apply with conflict policy, state map and journal comments, dead letters with replay and discard, kill switch, health with automatic trip, ticket sync card, in-process stand-in; 14 scenarios green 2026-09-07 (backend). Connector screens (P2.21.4) done 2026-09-07 (frontend `addd5a4`: health overview, add flow, instance record with settings, field and state map editors with validation, runs, dead letters, ticket Sync card; 242 tests); the Brookfield sandbox waits on the client facts (2026-09-25)
 - [x] Axel assistive: categorise, prioritise, duplicates, summarise, similar solutions, HITL, thresholds, feedback (backend `c1f1264`; web pending the panel agent), 2026-09-07
 - [ ] Migration rehearsal import
 - [~] Tests: state machine and SLA suites at 100 percent branch coverage done 2026-09-07 (domain 92 percent branch overall, 115 unit tests); Playwright golden paths green against the local stack with the seed (desk shell, portal home, security headers, ticket create, reply, work note, transition) 2026-09-07 (frontend e2e); the ZAP baseline waits for the deployed hosts
@@ -79,7 +79,7 @@
 
 - [ ] Security-approved isolation in production; dedicated tier if ruled
 - [ ] Portal SSO per account with fallback
-- [ ] Calendars and time zones driving SLA and after-hours flags
+- [~] Calendars and time zones driving SLA (P3.26.1 core): business calendar engine, holiday library, calendar documents with the account default and preview, SLA clocks bound to the calendar they started on, 2026-09-07 (backend); after-hours flags on time entries and the calendar editor screen remain
 - [ ] Rate cards, forecast, thresholds, adjustments, billing periods and export, finance connector, renewal alerts
 - [ ] Capacity: calculation, allocation grid, planned vs actual, overallocation, skills matrix
 - [ ] Brookfield bidirectional sync with maps, loop prevention, conflict policy, comments and attachments, health and DLQ
