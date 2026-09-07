@@ -27,13 +27,15 @@
 - [ ] Terraform: VPC use, ECS services, ECR repos, RDS PostgreSQL 16 with pgvector, S3 with GuardDuty Malware Protection, SQS queues and DLQs, SES identities and receipt rules, Secrets Manager, ALB and WAF, CloudWatch alarms
 - [ ] Azure DevOps pipeline with the gate stage (lint, `tsc --noEmit`, unit, integration, isolation suite) before build; dev and production branch stages
 - [ ] Dedicated XMS Clerk application: internal organisation with the THG IdP enterprise connection; `agents` JWT template; licensing and per-organisation SAML spike (Brayan)
-- [ ] API guard producing one `Principal` (Clerk JWT, harness session token, API client); global permission guard; global `ValidationPipe`; route and permission snapshot test
-- [ ] Data layer: RLS session binding, `op`/`acct`/`sys`/`rpt` schemas, migrations with policies, generated isolation suite green
-- [ ] Audit events append-only with trigger; outbox table and dispatcher
-- [ ] Security events, usage events, telemetry ingestion and the frontend telemetry client; event archive with digests (Audit Log and User Analytics, XA-01, XA-02, XA-04)
+- [x] API guard producing one `Principal` (Clerk JWT with authorizedParties and the agents audience, harness session token, API client, development token refused in production); global permission guard with realm separation; global `ValidationPipe`; route and permission snapshot (`backend/test/golden/routes.json`) and boot-time check; auth rejection suite, 2026-09-07 (backend `2088691`)
+- [x] Data layer: SQL-first runner, `op`/`acct`/`sys`/`rpt` schemas, `sys.apply_account_isolation`, RLS session binding only in `withSession`, generated isolation suite (both roles, cross-account read/update/delete/insert) green in Testcontainers, 2026-09-07 (backend `0b64b37`)
+- [x] Audit events append-only with trigger and the deferred audit guard on protected tables; `op.audit_events`; AuditService with diff, 2026-09-07
+- [~] Security events written by the guard, bootstrap and every admin change (XA-01 done); usage events, telemetry ingestion and the event archive pending (XA-02, XA-04); the frontend telemetry client exists (`frontend/lib/telemetry`)
+- [x] Admin: accounts with settings and status transitions, users with invite and the last-administrator rule, roles, reconciled grants and groups, configuration defaults seeded from JSON with versions and activation, `/v1/admin/me`, `POST /v1/bootstrap`; 82 integration tests, 2026-09-07 (backend `c0354fb`)
+- [x] Frontend shell and house components (P1.4.1, P1.4.2): 32 components, finder bar, sidebar failing closed, palette, route registry, RTK plumbing, dev sign-in, telemetry client; 66 tests, 2026-09-07 (frontend `3c75b05`, `fbf630e`)
+- [ ] Outbox table and dispatcher
 - [ ] Attachments: presigned POST, scan-state gating, quarantine
 - [ ] Email plumbing: inbound alias to S3 to SQS to worker, outbound SES with threading headers and per-account branding
-- [ ] Assignment groups and account grants admin; first-admin bootstrap command
 - [ ] Axel adapter skeleton: session exchange, SSE relay, per-account switch, audit; harness changes 1, 5, 6 requested from the Axel owners
 - [ ] Observability: pino, OpenTelemetry through ADOT, readiness endpoints, alarms
 - [ ] Tests: isolation suite, auth rejection suite, outbox idempotency, email threading corpus
