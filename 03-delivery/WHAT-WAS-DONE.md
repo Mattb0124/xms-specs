@@ -52,6 +52,7 @@ Counts on 2026-09-08, after the PDF rendition and review-before-send work on rep
 | Analytics surfaces, web | The outbound depth on connector health, the operator stream in the audit search, the Security dashboard tiles and panels for the new figures with permission-gated links, and the per-account strip on the Usage dashboard (frontend `5c6c35d` to `e050172`, suite 1276 to 1296). |
 | Review before send, web | The report run review screen at `/reports/runs/{id}` with approve and cancel, the PDF rendition link, the review pill on run history, the review-required switch on the schedule form, and the reviewer notification opening the screen (frontend `80538c5` to `4450a87`, suite 1296 to 1325). |
 | Web halves of the late backend landings | The Flagged out of scope Queue view and chip, the survey link page on the describe route, the Portfolio-wide audit filter, precise links behind paused integrations and dead letters, and the editable narrative with regenerate on the review screen (frontend `d506609` to `fd8f7e6`, suite 1325 to 1345). |
+| Saved views and the analytics remainder, web | The server's saved views in the Queue's view list with save, rename, delete and apply-to-URL, saved queries on the audit search, the integrity panel on the Security screen, and the funnel and adoption tiles on Usage (frontend `ba6b516` to `b8713af`, suite 1345 to 1401). |
 
 ## 3. Cut or held
 
