@@ -51,6 +51,7 @@ Counts on 2026-09-08, after the PDF rendition and review-before-send work on rep
 | Surveys, scope and contacts, web | The quarterly survey by kind on the portal list, the answer form and the token page, the quarterly block on the account Satisfaction tab, the Scope card on the ticket record with flag, withdraw, approve with an allowance and decline under their own permissions, the Contacts tab with flags on the admin account record, and the Waiting on me rail following the API's addresses (frontend `9f959bd` to `c35d007`, suite 1210 to 1276). |
 | Analytics surfaces, web | The outbound depth on connector health, the operator stream in the audit search, the Security dashboard tiles and panels for the new figures with permission-gated links, and the per-account strip on the Usage dashboard (frontend `5c6c35d` to `e050172`, suite 1276 to 1296). |
 | Review before send, web | The report run review screen at `/reports/runs/{id}` with approve and cancel, the PDF rendition link, the review pill on run history, the review-required switch on the schedule form, and the reviewer notification opening the screen (frontend `80538c5` to `4450a87`, suite 1296 to 1325). |
+| Web halves of the late backend landings | The Flagged out of scope Queue view and chip, the survey link page on the describe route, the Portfolio-wide audit filter, precise links behind paused integrations and dead letters, and the editable narrative with regenerate on the review screen (frontend `d506609` to `fd8f7e6`, suite 1325 to 1345). |
 
 ## 3. Cut or held
 
