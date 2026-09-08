@@ -1,0 +1,156 @@
+/* ============================================================
+   AIXelerator Design System — colors_and_type.css
+   The Hackett Group AIX
+   ============================================================ */
+
+/* Fonts: Inter for UI/body + IBM Plex Serif for display moments
+   + IBM Plex Mono for code/tabular. Loaded from Google Fonts.
+   NOTE: The source brand did not ship font files — these are
+   sensible, Hackett-adjacent substitutions. Flag to user. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ---------- Typography tokens ---------- */
+  --aix-t1: #0F1623;  /* primary ink */
+  --aix-t2: #3D4A5C;  /* secondary */
+  --aix-t3: #7B8CA0;  /* tertiary / captions */
+
+  /* ---------- Neutral surfaces ---------- */
+  --aix-bg: #F5F7FF;        /* page background — cool off-white */
+  --aix-surface: #FAFBFF;   /* card surface */
+  --aix-white: #FFFFFF;
+  --aix-border: #E4E8F5;    /* hairline borders */
+
+  /* ---------- Brand Blue ---------- */
+  --aix-blue: #3B82F6;
+  --aix-blue-dark: #2563EB;
+  --aix-blue-light: #DBEAFE;
+  --aix-blue-tint: #EDF1FF;
+
+  /* ---------- Semantic ---------- */
+  --aix-green: #047857;
+  --aix-green-light: #D1FAE5;
+  --aix-amber: #D97706;
+  --aix-amber-light: #FEF0DC;
+  --aix-amber-surface: #FFFBF5;
+  --aix-red: #DC2626;
+  --aix-red-light: #FEE2E2;
+  --aix-violet: #7C3AED;
+  --aix-violet-light: #EDE9FE;
+
+  /* ---------- Shadows ---------- */
+  --aix-shadow-sm: 0 1px 3px rgba(37,99,235,.08), 0 0 0 1px rgba(37,99,235,.04);
+  --aix-shadow-md: 0 1px 3px rgba(37,99,235,.08), 0 4px 16px rgba(37,99,235,.06), 0 0 0 1px rgba(37,99,235,.04);
+  --aix-shadow-lg: 0 2px 6px rgba(37,99,235,.08), 0 8px 24px rgba(37,99,235,.08), 0 0 0 1px rgba(37,99,235,.04);
+
+  /* ---------- Radii ---------- */
+  --aix-r-xs: 4px;
+  --aix-r-sm: 6px;
+  --aix-r-md: 10px;
+  --aix-r-lg: 14px;
+  --aix-r-xl: 20px;
+  --aix-r-pill: 999px;
+
+  /* ---------- Spacing (4px baseline) ---------- */
+  --aix-s-1: 4px;
+  --aix-s-2: 8px;
+  --aix-s-3: 12px;
+  --aix-s-4: 16px;
+  --aix-s-5: 20px;
+  --aix-s-6: 24px;
+  --aix-s-8: 32px;
+  --aix-s-10: 40px;
+  --aix-s-12: 48px;
+  --aix-s-16: 64px;
+
+  /* ---------- Type families ---------- */
+  --aix-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --aix-font-serif: 'IBM Plex Serif', 'Charter', Georgia, serif;
+  --aix-font-mono: 'IBM Plex Mono', 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+
+  /* ---------- Semantic type roles ---------- */
+  /* Display: serif, large, moderate letter spacing */
+  --aix-display-family: var(--aix-font-serif);
+  --aix-display-weight: 500;
+  --aix-display-size: 56px;
+  --aix-display-lh: 1.08;
+  --aix-display-tracking: -0.02em;
+
+  --aix-h1-family: var(--aix-font-sans);
+  --aix-h1-weight: 700;
+  --aix-h1-size: 36px;
+  --aix-h1-lh: 1.15;
+  --aix-h1-tracking: -0.02em;
+
+  --aix-h2-family: var(--aix-font-sans);
+  --aix-h2-weight: 700;
+  --aix-h2-size: 24px;
+  --aix-h2-lh: 1.25;
+  --aix-h2-tracking: -0.01em;
+
+  --aix-h3-family: var(--aix-font-sans);
+  --aix-h3-weight: 600;
+  --aix-h3-size: 18px;
+  --aix-h3-lh: 1.35;
+  --aix-h3-tracking: -0.005em;
+
+  --aix-body-family: var(--aix-font-sans);
+  --aix-body-weight: 400;
+  --aix-body-size: 15px;
+  --aix-body-lh: 1.55;
+
+  --aix-small-size: 13px;
+  --aix-small-lh: 1.45;
+
+  --aix-micro-size: 11px;
+  --aix-micro-lh: 1.35;
+  --aix-micro-tracking: 0.06em;
+
+  --aix-code-family: var(--aix-font-mono);
+  --aix-code-size: 13px;
+}
+
+/* ---------- Opinionated element defaults ---------- */
+.aix-reset { margin: 0; padding: 0; box-sizing: border-box; }
+
+.aix-display {
+  font-family: var(--aix-display-family);
+  font-weight: var(--aix-display-weight);
+  font-size: var(--aix-display-size);
+  line-height: var(--aix-display-lh);
+  letter-spacing: var(--aix-display-tracking);
+  color: var(--aix-t1);
+}
+.aix-h1 {
+  font-family: var(--aix-h1-family); font-weight: var(--aix-h1-weight);
+  font-size: var(--aix-h1-size); line-height: var(--aix-h1-lh);
+  letter-spacing: var(--aix-h1-tracking); color: var(--aix-t1);
+}
+.aix-h2 {
+  font-family: var(--aix-h2-family); font-weight: var(--aix-h2-weight);
+  font-size: var(--aix-h2-size); line-height: var(--aix-h2-lh);
+  letter-spacing: var(--aix-h2-tracking); color: var(--aix-t1);
+}
+.aix-h3 {
+  font-family: var(--aix-h3-family); font-weight: var(--aix-h3-weight);
+  font-size: var(--aix-h3-size); line-height: var(--aix-h3-lh);
+  letter-spacing: var(--aix-h3-tracking); color: var(--aix-t1);
+}
+.aix-body {
+  font-family: var(--aix-body-family); font-weight: 400;
+  font-size: var(--aix-body-size); line-height: var(--aix-body-lh);
+  color: var(--aix-t2);
+}
+.aix-small {
+  font-family: var(--aix-body-family); font-size: var(--aix-small-size);
+  line-height: var(--aix-small-lh); color: var(--aix-t2);
+}
+.aix-micro {
+  font-family: var(--aix-body-family); font-size: var(--aix-micro-size);
+  line-height: var(--aix-micro-lh); letter-spacing: var(--aix-micro-tracking);
+  text-transform: uppercase; font-weight: 600; color: var(--aix-t3);
+}
+.aix-mono {
+  font-family: var(--aix-code-family); font-size: var(--aix-code-size);
+  color: var(--aix-t1);
+}

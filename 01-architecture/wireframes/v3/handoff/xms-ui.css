@@ -1,0 +1,407 @@
+/* ============================================================
+   XMS UI — v3
+   Companion stylesheet for "XMS v3 (standalone).html".
+   Layer on top of aix-tokens.css (the Hackett AIX design system).
+
+   The mock is authored with inline styles so it can stream.
+   THIS FILE IS THE SOURCE OF TRUTH FOR THE BUILD — every literal
+   in the mock maps to a variable or class here. If a value in the
+   HTML disagrees with this file, this file wins.
+   ============================================================ */
+
+@import url("aix-tokens.css");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+/* ------------------------------------------------------------
+   1 · XMS-SPECIFIC TOKENS
+   AIX tokens cover brand, type and shadow. XMS adds the desk
+   chrome (navy bar, grey tool strip) and the semantic ramps for
+   ticket state, ticket type and account identity.
+   ------------------------------------------------------------ */
+:root {
+  /* -- Application chrome ------------------------------------ */
+  --xms-bar:            #10193A;  /* global navy bar */
+  --xms-bar-hover:      #1D2A55;
+  --xms-bar-ink:        #DCE3F5;  /* inactive nav label */
+  --xms-bar-ink-strong: #FFFFFF;
+  --xms-bar-muted:      #8FA3D9;  /* meta text on navy */
+  --xms-bar-edge:       #35406B;  /* borders on navy */
+  --xms-bar-pill:       #1A2450;  /* instance pill fill */
+
+  --xms-toolstrip:      #E7E9ED;  /* grey tool strip under the bar */
+  --xms-toolstrip-edge: #CFD5DF;
+
+  /* -- Neutral surfaces (override AIX's cool bg; XMS is neutral) */
+  --xms-canvas:         #F4F5F7;  /* work area behind cards */
+  --xms-card:           #FFFFFF;
+  --xms-card-alt:       #FAFAFB;  /* card sub-headers, footers */
+  --xms-sidebar:        #FFFFFF;
+
+  /* -- Lines ------------------------------------------------- */
+  --xms-line:           #E4E8F5;  /* card edge, section rule */
+  --xms-line-strong:    #D5DBE5;  /* table header underline */
+  --xms-line-row:       #EEF1F6;  /* row divider — the ONLY row separation */
+  --xms-line-input:     #C9D2E6;  /* input + control edge */
+  --xms-line-control:   #C3CAD6;  /* control edge on the grey strip */
+
+  /* -- Ink --------------------------------------------------- */
+  --xms-ink:            #0F1623;  /* headings, primary cell text */
+  --xms-ink-body:       #3D4A5C;  /* body, secondary cells */
+  --xms-ink-meta:       #5A6784;  /* labels, counts */
+  --xms-ink-mute:       #7B8CA0;  /* placeholders, timestamps */
+  --xms-ink-faint:      #9AA3B2;  /* disabled, decorative chevrons */
+
+  /* -- Interactive (blue is ONLY ever interactive) ------------ */
+  --xms-link:           #2563EB;
+  --xms-link-strong:    #1D4ED8;
+  --xms-link-wash:      #EDF1FF;  /* active nav row fill */
+  --xms-link-edge:      #C7D6F7;
+
+  /* -- Electric blue: the finder dropdown --------------------- */
+  --xms-drop-fill:      rgba(23, 45, 102, .88);
+  --xms-drop-edge:      rgba(96, 165, 250, .42);
+  --xms-drop-header:    rgba(59, 130, 246, .24);
+  --xms-drop-header-ed: rgba(96, 165, 250, .34);
+  --xms-drop-hover:     rgba(255, 255, 255, .16);
+  --xms-drop-divider:   rgba(255, 255, 255, .18);
+  --xms-drop-scrim:     rgba(16, 25, 58, .34);
+  --xms-drop-shadow:    0 18px 44px rgba(16, 25, 58, .26), 0 0 0 1px rgba(59, 130, 246, .10);
+
+  /* -- Selection ---------------------------------------------- */
+  --xms-select-fill:    #EFF4FF;
+  --xms-select-edge:    #CBDCFA;
+  --xms-select-ink:     #1D4ED8;
+  --xms-select-meta:    #3763B6;
+
+  /* -- Radii (sharper than stock AIX: this UI is dense) -------- */
+  --xms-r-chip:  999px;
+  --xms-r-ctl:   4px;   /* buttons, inputs, chips, menu items */
+  --xms-r-card:  6px;   /* cards, panels, tables */
+
+  /* -- Density ------------------------------------------------ */
+  --xms-bar-h:       56px;
+  --xms-strip-h:     52px;
+  --xms-sidebar-w:   238px;
+  --xms-rail-w:      262px;  /* ticket properties + context rails */
+  --xms-drawer-w:    340px;  /* Axel */
+  --xms-content-max: 1200px;
+  --xms-ctl-h:       32px;   /* control height on the grey strip */
+  --xms-ctl-h-lg:    38px;   /* control height in card toolbars */
+  --xms-row-y:       13px;   /* table cell vertical padding */
+  --xms-row-x:       14px;
+  --xms-gutter:      20px;
+}
+
+/* ------------------------------------------------------------
+   2 · SEMANTIC RAMPS
+   Five colour jobs, five ramps. Nothing decorative.
+   ------------------------------------------------------------ */
+
+/* 2a · TICKET STATE — every state is visually distinct.
+   Read as: ink / fill / edge. Always a pill. */
+:root {
+  --st-new-fg:      #334155;  --st-new-bg:      #F1F5F9;  --st-new-br:      #D7DEE8;
+  --st-prog-fg:     #1D4ED8;  --st-prog-bg:     #EFF4FF;  --st-prog-br:     #CBDCFA;
+  --st-client-fg:   #9A5B06;  --st-client-bg:   #FEF6E7;  --st-client-br:   #F4DDB4;
+  --st-approval-fg: #0E7490;  --st-approval-bg: #ECFAFE;  --st-approval-br: #BFE6F0;
+  --st-resolved-fg: #0F7A50;  --st-resolved-bg: #EDFAF3;  --st-resolved-br: #BEE6D3;
+  --st-closed-fg:   #64748B;  --st-closed-bg:   #FFFFFF;  --st-closed-br:   #DDE2EA;
+}
+
+/* 2b · TICKET TYPE — a 3px bar, never a filled pill.
+   Lets you read the composition of a queue at a glance. */
+:root {
+  --ty-incident: #DC2626;
+  --ty-request:  #0E7490;
+  --ty-change:   #7A5AF8;
+  --ty-problem:  #B45309;
+}
+
+/* 2c · ACCOUNT IDENTITY — a 7px square swatch beside the name.
+   Assign at onboarding; must be stable for the life of the account. */
+:root {
+  --ac-1: #2563EB;  /* Brookfield UK    */
+  --ac-2: #0E7490;  /* Northwind Group  */
+  --ac-3: #B45309;  /* Kestrel Retail   */
+  --ac-4: #0F7A50;  /* Aldergate Energy */
+  --ac-5: #7A5AF8;  /* Marlowe Health   */
+  --ac-6: #BE185D;  /* Pinehurst Foods  */
+}
+
+/* 2d · PRIORITY — only P1 earns red. */
+:root {
+  --pri-high-fg: #B42318;  --pri-high-bg: #FEF3F2;  --pri-high-br: #F5C9C4;
+  --pri-mid-fg:  #334155;  --pri-mid-bg:  #F1F3F6;  --pri-mid-br:  #DDE2EA;
+  --pri-low-fg:  #64748B;  --pri-low-bg:  #F7F8FA;  --pri-low-br:  #E4E8F5;
+}
+
+/* 2e · SLA — genuine traffic light, and the only place red means "now".
+   breach = latched red · warn = blue (at risk) · ok = grey · paused = grey + pause glyph */
+:root {
+  --sla-breach-fg: #B42318;  --sla-breach-bg: #FEF3F2;  --sla-breach-br: #F5C9C4;
+  --sla-warn-fg:   #1D4ED8;  --sla-warn-bg:   #EFF4FF;  --sla-warn-br:   #D8E3FA;
+  --sla-ok-fg:     #475569;  --sla-ok-bg:     #F7F8FA;  --sla-ok-br:     #E4E8F5;
+  --sla-paused-fg: #64748B;  --sla-paused-bg: #F7F8FA;  --sla-paused-br: #E4E8F5;
+}
+
+/* 2f · AI ORIGIN — inherited from AIX and LOAD-BEARING.
+   var(--aix-violet) marks generated content only: Axel drawer, summaries,
+   suggestion chips, draft replies. Never use it for status, and never use
+   another colour for AI. In the current desk build the Axel surfaces run
+   on greys by request; when AI content appears alongside human content
+   in the same list, restore the violet. */
+
+/* ------------------------------------------------------------
+   3 · TYPOGRAPHY
+   Inter for everything except identifiers and clocks.
+   IBM Plex Mono for: ticket keys, SLA clocks, hours, counts,
+   checksums, timestamps — anything that must align in a column.
+   No serif in the desk UI (it is reserved for the client portal).
+   ------------------------------------------------------------ */
+.xms-page-title  { font: 600 22px/1.25 'Inter', sans-serif; letter-spacing: -.015em; color: var(--xms-ink); }
+.xms-card-title  { font: 600 16px/1.3  'Inter', sans-serif; color: var(--xms-ink); }
+.xms-panel-title { font: 600 15px/1    'Inter', sans-serif; color: var(--xms-ink); }
+.xms-strip-title { font: 600 15px/1    'Inter', sans-serif; color: var(--xms-ink); }
+.xms-body        { font: 400 14px/1.45 'Inter', sans-serif; color: var(--xms-ink); }
+.xms-body-2      { font: 400 13px/1.4  'Inter', sans-serif; color: var(--xms-ink-body); }
+.xms-label       { font: 500 13px/1    'Inter', sans-serif; color: var(--xms-ink-body); }
+.xms-meta        { font: 400 12px/1.4  'Inter', sans-serif; color: var(--xms-ink-mute); }
+.xms-eyebrow     { font: 600 11px/1.3  'Inter', sans-serif; letter-spacing: .06em;
+                   text-transform: uppercase; color: var(--xms-ink-mute); }
+.xms-mono        { font: 500 13px/1.3  'IBM Plex Mono', monospace; }
+.xms-mono-sm     { font: 500 12px/1    'IBM Plex Mono', monospace; }
+.xms-kpi         { font: 500 26px/1.15 'IBM Plex Mono', monospace; color: var(--xms-ink); }
+
+/* Minimum sizes: 11px only for uppercase eyebrows; 12px floor elsewhere. */
+
+/* ------------------------------------------------------------
+   4 · LAYOUT SKELETON
+   ------------------------------------------------------------ */
+.xms-app        { display: flex; flex-direction: column; height: 100vh; background: var(--xms-canvas); }
+.xms-bar        { position: relative; z-index: 70; flex: none; height: var(--xms-bar-h);
+                  display: flex; align-items: center; gap: 26px; padding: 0 18px; background: var(--xms-bar); }
+.xms-below      { flex: 1; min-height: 0; display: flex; position: relative; }
+.xms-sidebar    { width: var(--xms-sidebar-w); flex: none; background: var(--xms-sidebar);
+                  border-right: 1px solid var(--xms-line); display: flex; flex-direction: column; overflow: auto; }
+.xms-main-col   { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.xms-strip      { flex: none; height: var(--xms-strip-h); display: flex; align-items: center; gap: 10px;
+                  padding: 0 16px; background: var(--xms-toolstrip);
+                  border-bottom: 1px solid var(--xms-toolstrip-edge); }
+.xms-main       { flex: 1; min-width: 0; overflow: auto; background: var(--xms-canvas); }
+.xms-main > .in { max-width: var(--xms-content-max); padding: 18px var(--xms-gutter) 40px; }
+
+/* Spacing is on a 4px baseline. Every padding/gap above is a multiple. */
+
+/* ------------------------------------------------------------
+   5 · NAVIGATION — four layers, four distinct jobs.
+   Getting this wrong is the most common way the build drifts.
+
+   (a) NAVY BAR  = finders only (All / Favourites / History) + global
+       search + instance pill + identity. NEVER a destination.
+   (b) SIDEBAR   = the only destination list. Short pinned set +
+       starred views + "Browse all screens" opening the full tree.
+   (c) GREY STRIP= where you are + view state (screen name, filters).
+   (d) RECORD TABS = sections of ONE record. Never navigate away.
+   ------------------------------------------------------------ */
+
+/* (a) Finder tabs — connect visually to the dropdown they open. */
+.xms-finder            { font: 500 14px/1 'Inter', sans-serif; color: var(--xms-bar-ink);
+                         padding: 12px; margin-bottom: -8px; border-radius: 5px 5px 0 0;
+                         white-space: nowrap; cursor: pointer; }
+.xms-finder:hover      { background: rgba(59,130,246,.16); color: var(--xms-bar-ink-strong); }
+.xms-finder[aria-expanded="true"] {
+  font-weight: 600; color: var(--xms-bar-ink-strong);
+  background: var(--xms-drop-fill);
+  box-shadow: inset 0 0 0 1px var(--xms-drop-edge);
+}
+/* The -8px bottom margin is deliberate: the tab overlaps the bar edge so
+   tab and panel read as one surface with no seam. */
+
+/* The finder dropdown itself. */
+.xms-drop-scrim { position: absolute; inset: 0; z-index: 55; background: var(--xms-drop-scrim); }
+.xms-drop {
+  position: absolute; top: 0; left: 186px; z-index: 65;
+  width: 640px; max-height: 520px;
+  background: var(--xms-drop-fill);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--xms-drop-edge); border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: var(--xms-drop-shadow);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.xms-drop header    { flex: none; height: 48px; display: flex; align-items: center; gap: 10px;
+                      padding: 0 16px; background: var(--xms-drop-header);
+                      border-bottom: 1px solid var(--xms-drop-header-ed); }
+.xms-drop *         { color: #FFFFFF; }           /* all dropdown ink is white */
+.xms-drop .row      { padding: 9px 16px; cursor: pointer;
+                      border-bottom: 1px solid var(--xms-drop-divider); }
+.xms-drop .row:hover{ background: var(--xms-drop-hover); }
+
+/* (b) Sidebar rows. */
+.xms-nav-row        { display: flex; align-items: center; gap: 10px; padding: 9px 14px;
+                      border-left: 3px solid transparent; cursor: pointer;
+                      font: 400 14px/1.3 'Inter', sans-serif; color: var(--xms-ink-body); }
+.xms-nav-row:hover  { background: #F0F3FA; }
+.xms-nav-row.is-active { background: var(--xms-link-wash); border-left-color: var(--xms-link);
+                         font-weight: 600; color: var(--xms-link-strong); }
+.xms-nav-badge      { font: 500 11px/1 'IBM Plex Mono', monospace; color: var(--xms-ink-meta);
+                      background: #F0F3FA; border-radius: var(--xms-r-chip); padding: 3px 7px; }
+.is-active .xms-nav-badge { color: var(--xms-link-strong); background: #FFF;
+                            border: 1px solid var(--xms-link-edge); }
+
+/* (c) Grey-strip controls. Filter chips are removable objects,
+       not fixed dropdowns — each carries a caret AND an ×,
+       followed by "+ Add filter" and "Clear all". */
+.xms-chip           { display: inline-flex; align-items: center; gap: 7px; flex: none;
+                      height: var(--xms-ctl-h); padding: 0 8px 0 11px;
+                      border: 1px solid var(--xms-line-control); border-radius: var(--xms-r-ctl);
+                      background: #FFF; font: 400 13px/1 'Inter', sans-serif; color: var(--xms-ink-body); }
+.xms-chip:hover     { border-color: #93B4F5; }
+.xms-chip.is-primary{ border-color: var(--xms-link); color: var(--xms-link-strong); font-weight: 500;
+                      padding: 0 11px; }
+.xms-chip.is-add    { border-style: dashed; border-color: #B4BDCC; padding: 0 11px; cursor: pointer; }
+.xms-chip-group     { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; overflow-x: auto; }
+/* Right-hand strip tools (settings, search, + New) must be flex:none
+   so they never collapse when chips overflow. */
+
+/* ------------------------------------------------------------
+   6 · TABLE — the single most important component.
+
+   HARD RULE: no zebra striping, ever. Rows are separated by a
+   1px --xms-line-row divider and distinguished on hover only.
+   ------------------------------------------------------------ */
+.xms-table-card { background: var(--xms-card); border: 1px solid var(--xms-line);
+                  border-radius: var(--xms-r-card); overflow: hidden; }
+.xms-table-card > .toolbar { display: flex; align-items: center; gap: 14px; padding: 18px var(--xms-gutter); }
+.xms-table-scroll { overflow-x: auto; border-top: 1px solid var(--xms-line); }
+.xms-table      { width: 100%; min-width: 1240px; border-collapse: collapse; }
+.xms-table th   { padding: 11px var(--xms-row-x); text-align: left; white-space: nowrap; cursor: pointer;
+                  border-bottom: 1px solid var(--xms-line-strong);
+                  font: 600 13px/1.3 'Inter', sans-serif; color: var(--xms-ink); }
+.xms-table td   { padding: var(--xms-row-y) var(--xms-row-x); white-space: nowrap;
+                  border-bottom: 1px solid var(--xms-line-row); }
+.xms-table tbody tr        { cursor: pointer; background: transparent; }
+.xms-table tbody tr:hover  { background: #F0F3FA; }
+.xms-table tbody tr:nth-child(even) { background: none; }  /* explicit: no striping */
+
+/* Every sortable header shows a chevrons-up-down glyph at 13px in
+   #B4BDCC; the sorted column swaps it for arrow-up in --xms-link. */
+
+/* Contextual selection bar — appears between toolbar and table
+   ONLY when rows are checked. */
+.xms-selectbar  { display: flex; align-items: center; gap: 10px; padding: 11px var(--xms-gutter);
+                  background: var(--xms-select-fill);
+                  border-top: 1px solid var(--xms-select-edge);
+                  border-bottom: 1px solid var(--xms-select-edge);
+                  font: 600 13px/1 'Inter', sans-serif; color: var(--xms-select-ink); }
+
+/* Footer: range readout · pager · rows-per-page. */
+.xms-table-foot { display: flex; align-items: center; gap: 12px; padding: 16px var(--xms-gutter);
+                  border-top: 1px solid var(--xms-line); }
+.xms-pager-btn        { min-width: 32px; height: 32px; padding: 0 8px; border-radius: var(--xms-r-ctl);
+                        font: 500 13px/32px 'Inter', sans-serif; text-align: center;
+                        color: var(--xms-ink-body); cursor: pointer; }
+.xms-pager-btn:hover  { background: #F0F3FA; }
+.xms-pager-btn.is-current { background: var(--xms-link); color: #FFF; font-weight: 600; }
+
+/* ------------------------------------------------------------
+   7 · PILLS, BARS AND SWATCHES
+   ------------------------------------------------------------ */
+.xms-pill      { display: inline-flex; align-items: center; gap: 5px;
+                 font: 500 12px/1 'Inter', sans-serif;
+                 border-radius: var(--xms-r-chip); padding: 5px 10px; border: 1px solid transparent; }
+.xms-pill--mono{ font-family: 'IBM Plex Mono', monospace; }
+
+.st-new      { color: var(--st-new-fg);      background: var(--st-new-bg);      border-color: var(--st-new-br); }
+.st-prog     { color: var(--st-prog-fg);     background: var(--st-prog-bg);     border-color: var(--st-prog-br); }
+.st-client   { color: var(--st-client-fg);   background: var(--st-client-bg);   border-color: var(--st-client-br); }
+.st-approval { color: var(--st-approval-fg); background: var(--st-approval-bg); border-color: var(--st-approval-br); }
+.st-resolved { color: var(--st-resolved-fg); background: var(--st-resolved-bg); border-color: var(--st-resolved-br); }
+.st-closed   { color: var(--st-closed-fg);   background: var(--st-closed-bg);   border-color: var(--st-closed-br); }
+
+.sla-breach  { color: var(--sla-breach-fg);  background: var(--sla-breach-bg);  border-color: var(--sla-breach-br); }
+.sla-warn    { color: var(--sla-warn-fg);    background: var(--sla-warn-bg);    border-color: var(--sla-warn-br); }
+.sla-ok      { color: var(--sla-ok-fg);      background: var(--sla-ok-bg);      border-color: var(--sla-ok-br); }
+.sla-paused  { color: var(--sla-paused-fg);  background: var(--sla-paused-bg);  border-color: var(--sla-paused-br); }
+
+.pri-high    { color: var(--pri-high-fg);    background: var(--pri-high-bg);    border-color: var(--pri-high-br); }
+.pri-mid     { color: var(--pri-mid-fg);     background: var(--pri-mid-bg);     border-color: var(--pri-mid-br); }
+.pri-low     { color: var(--pri-low-fg);     background: var(--pri-low-bg);     border-color: var(--pri-low-br); }
+
+/* Type bar — 3px × 15px, 2px radius, sits 8px left of the label. */
+.xms-type-bar    { display: inline-block; width: 3px; height: 15px; border-radius: 2px; flex: none; }
+/* Account swatch — 7px square, 2px radius, 8px left of the name. */
+.xms-account-dot { display: inline-block; width: 7px; height: 7px; border-radius: 2px; flex: none; }
+
+/* ------------------------------------------------------------
+   8 · BUTTONS
+   ------------------------------------------------------------ */
+.xms-btn        { display: inline-flex; align-items: center; gap: 6px; height: var(--xms-ctl-h);
+                  padding: 0 14px; border-radius: var(--xms-r-ctl); border: 1px solid transparent;
+                  font: 500 13px/1 'Inter', sans-serif; white-space: nowrap; cursor: pointer; }
+.xms-btn--primary   { background: var(--xms-link); color: #FFF; font-weight: 600; }
+.xms-btn--primary:hover  { background: var(--xms-link-strong); }
+.xms-btn--secondary { background: #FFF; color: var(--xms-ink-body); border-color: var(--xms-line-input); }
+.xms-btn--secondary:hover{ background: #F0F3FA; }
+.xms-btn--quiet     { background: transparent; color: var(--xms-link-strong); }
+.xms-btn--lg        { height: var(--xms-ctl-h-lg); padding: 0 16px; font-size: 14px; }
+/* Press: 1–2px inset shadow. Never scale down. */
+.xms-btn:active     { box-shadow: inset 0 1px 2px rgba(15,22,35,.18); }
+
+/* ------------------------------------------------------------
+   9 · CARDS AND RAILS
+   Note: XMS drops the AIX card shadow. Surfaces are flat and
+   separated by hairlines — the shadow is reserved for things
+   that genuinely float (the finder dropdown, menus, modals).
+   ------------------------------------------------------------ */
+.xms-card       { background: var(--xms-card); border: 1px solid var(--xms-line);
+                  border-radius: var(--xms-r-card); }
+.xms-card__head { display: flex; align-items: center; gap: 12px; padding: 16px 18px;
+                  border-bottom: 1px solid var(--xms-line); }
+.xms-card__body { padding: 18px; }
+.xms-rail       { width: var(--xms-rail-w); flex: none; }
+.xms-prop       { padding: 9px 0; border-bottom: 1px solid #F0F3FA; }
+.xms-prop dt    { font: 400 12px/1.3 'Inter', sans-serif; color: var(--xms-ink-mute); }
+.xms-prop dd    { margin: 4px 0 0; font: 500 13px/1.4 'Inter', sans-serif; color: var(--xms-ink); }
+
+/* Record tabs — sections of one record, never navigation. */
+.xms-tabs       { display: flex; gap: 2px; padding: 0 10px; overflow-x: auto;
+                  border-bottom: 1px solid var(--xms-line); }
+.xms-tab        { flex: none; padding: 15px 9px; white-space: nowrap; cursor: pointer;
+                  border-bottom: 2px solid transparent;
+                  font: 500 14px/1 'Inter', sans-serif; color: var(--xms-ink-meta); }
+.xms-tab:hover      { color: var(--xms-ink); }
+.xms-tab.is-active  { font-weight: 600; color: var(--xms-link-strong); border-bottom-color: var(--xms-link); }
+
+/* ------------------------------------------------------------
+   10 · ICONS
+   Lucide, 1.5px stroke, currentColor, never filled.
+   Sizes: 14 / 15 / 16 / 17 / 19px in this UI (24px canvas).
+
+   IMPORTANT FOR THE BUILD: do not call lucide.createIcons() on a
+   React-managed subtree — it mutates the DOM behind React and
+   throws "insertBefore ... not a child of this node". Either use
+   a React icon package (lucide-react), or build a one-time
+   <symbol> sprite outside the React root and reference it with
+   <svg><use href="#i-name"/></svg>. The mock does the latter.
+   ------------------------------------------------------------ */
+.xms-icon { display: inline-flex; flex: none; stroke-width: 1.5; }
+
+/* ------------------------------------------------------------
+   11 · MOTION
+   Inherited from AIX and unchanged.
+   ------------------------------------------------------------ */
+:root { --xms-ease: cubic-bezier(0.2, 0, 0, 1); }
+.xms-t-ui     { transition: background-color 180ms var(--xms-ease), border-color 180ms var(--xms-ease),
+                            color 180ms var(--xms-ease); }
+.xms-t-drawer { transition: transform 320ms var(--xms-ease), opacity 320ms var(--xms-ease); }
+/* Fades and 4–8px translates only. No bounce, no spring, no scale. */
+
+/* ------------------------------------------------------------
+   12 · FOCUS — never removed.
+   ------------------------------------------------------------ */
+:where(a, button, [role="button"], input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--xms-link);
+  outline-offset: 2px;
+  border-radius: var(--xms-r-ctl);
+}
