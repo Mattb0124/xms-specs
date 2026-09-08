@@ -503,3 +503,77 @@ These were traced and are correct; a future reviewer should spend time elsewhere
 4. **Where is the image decode budget set?** Finding 2 needs a number the specification does not give. A megapixel budget belongs beside `MAX_IMAGE_EDGE` with the reasoning written down, and the email path needs a per-attachment byte cap that today only the browser path has.
 5. **Does the connector trust boundary assume a well-behaved instance?** Findings 3, 7, 20 and 21 all read the same way: the code is careful about what XMS sends and comparatively trusting about what comes back. If a client's ServiceNow is inside the trust boundary that is defensible and should be written down; if it is not, the polled payload needs the same treatment an inbound webhook gets.
 6. **Is CI any closer?** The previous review's finding 3 is still open, and every control above that has a test would be caught by one. This review found nothing that a green suite would have caught on its own, which is the argument for the suite, not against it.
+
+---
+
+## Resolution, 2026-09-09
+
+Worked in the backend repository (`xms-backend`, branch `main`) in sixteen
+commits from `b53a4f8` to `4c9c1c7`, one per finding or per tightly coupled
+pair, each with a test that fails before the change and passes after. Every
+finding was verified against the code before it was fixed; none was found to be
+unreal. All three High and all ten Medium findings are closed, and so is every
+Low.
+
+| # | Severity | Status | Closed by | Note |
+|---|---|---|---|---|
+| 1 | High | Fixed | `b53a4f8` | `starts_at`, `ends_at` and `freeze_windows` on a `change_window` require `tickets:override-change-window` or `admin:config`, on create and on patch, and a patch carries `change_window_reason`, which the audit row keeps. `freeze_windows` joins `PATCH_FIELDS`, compared serialised, so the diff can never be empty, and a freeze change publishes `ticket_group.freeze_changed`. `test/change-windows.int-spec.ts` asserts a `tickets:work` principal cannot clear a freeze, widen a span or create a window, and that the override records both values and its reason. Refusing a schedule edit while a member ticket sits in a deploying state was not added: the permission gate is the control, and the extra rule would refuse an administrator moving a window around work in flight, which is the ordinary case. |
+| 2 | High | Fixed | `866c77c` | The header is read before anything is decompressed and an image over `MAX_INPUT_PIXELS` (40 million) or `MAX_INPUT_EDGE` (20000) is refused as `image_too_large` and quarantined exactly as `image_not_decodable` already was; `limitInputPixels` is passed explicitly on every decode, `sharp.concurrency(1)` bounds the peak, and reading the output back moved inside the `try` so a failure there is a quarantine rather than a 500. The email path gained the account's own `attachment_max_bytes` before the re-encode. `src/common/images/reencode.spec.ts` crafts a PNG whose IHDR is rewritten to claim 100000 by 100000, CRC and all. Moving the confirm-time re-encode outside the request transaction was not done: it is a refactor of the confirm flow rather than a bound, and the decode budget removes the exposure it compounded. |
+| 3 | High | Fixed | `510959c` | `downloadAttachment` reads through `readCappedBytes`, the reader loop the rest of the outbound layer uses, cancelling the stream past the limit; a missing `content-length` is unknown rather than zero. The ServiceNow stand-in learned to serve an oversized body and one with no length header, and `test/connectors.int-spec.ts` drives both plus the two cases that must still succeed. Finding 17 is closed in the same commit. |
+| 4 | Medium | Fixed | `0c13887` | All five Security dashboard queries take the principal's granted accounts and append the same `(account_id is null or account_id = any ($n::uuid[]))` clause the audit search writes, from one private helper so the next query cannot forget it. `test/reporting.int-spec.ts` gives an auditor one account and asserts the other account's sign-in failures, isolation probes and rate limits are absent while the portfolio-wide administrator still sees both. |
+| 5 | Medium | Fixed | `228981b` | Approve refuses `requester_cannot_approve` when the approver is the requester, in the shape `decideScope` uses for the out-of-scope flagger, and the approval audit records `requested_by` and `reviewed_by` apart. A second `reports:manage` holder approves; no new permission was introduced, since `reports:manage` is already held by more than one role per account and DR-05 asks for a second reader rather than a second permission. |
+| 6 | Medium | Fixed, with a deviation | `a21e722` | `assertPresignLife` refuses anything over seven days inside both stores, so no call site can mint a URL S3 will refuse at redemption, and the delivery constant and the email copy are derived from it. **Functional 5.7 says fourteen days and the platform now says seven**: fourteen cannot be a presigned URL, because SigV4 caps `X-Amz-Expires` at 604800 seconds. Meeting 5.7 in full needs a stored, revocable, account-bound delivery token that redeems into a short presign, in the shape the CSAT survey token demonstrates; that is a redemption route plus a rate-limit policy and is left as the follow-up rather than smuggled in. The specification and the client-facing copy should be reconciled to one number. |
+| 7 | Medium | Fixed | `7234392` | `ingest` runs the same `ALLOWED_TYPES` and extension parity check the browser path does. A file whose declared type is not one an attachment may be is stored quarantined with `unsupported_type`, never re-encoded and never downloadable, and `abuse.upload.rejected` is written with `via: sync` so the run record says what happened. |
+| 8 | Medium | Fixed | `0f7be99` | The re-encode short-circuit is keyed to the object rather than to the row: the digest of what the re-encode wrote is recorded, and a second confirm compares it against the object that is actually there, so an overwrite is re-encoded, re-scanned and quarantined if it is not an image, while an unchanged object still does no work. The upload credential drops from fifteen minutes to three. Re-heading before every download link was not added; the digest comparison at confirm is the cheaper half of the same control, and the scan-bypass for non-image types on the S3 store predates this work and stays open. |
+| 9 | Medium | Fixed | `d82700b` | `overage_allowance_minutes` is capped at a person-year of billable minutes, an allowance against a locked period is refused with the same `contract_period_locked` a time entry gets, and `addCarriedOverMinutes` carries the version the rest of the time layer uses. |
+| 10 | Medium | Fixed | `6ea51c6` | `answers` carries the 64 kB `@MaxJsonSize` every other open jsonb field has, and the validator names the first fifty unknown keys and then counts the rest in one further problem. Finding 15 is closed in the same commit: `mapSubmission` bounds what a form maps into `form_data` to the same 64 kB the internal DTO enforces. |
+| 11 | Medium | Fixed | `6e42751` | A pack keeps version 1, which is what the template wrote and what a reviewer compares against, and the newest nineteen (`MAX_NARRATIVE_VERSIONS`). What falls out of the middle is still in the audit stream, which records every edit with its author and its character count, and the integration test asserts exactly that after twenty-five edits. |
+| 12 | Medium | Fixed | `94a0fcb` | The calendar span is capped at 366 days with a worded `range_too_wide`, a backwards range is `invalid_range`, `overlapping` takes 500 rows at most, and the member tickets of every window on the page come from one `where ticket_group_id = any ($1)` query. The subscribed ICS feed gets the same range assertion with its own wider maximum, which also collapses one transaction per window into one for the whole document. |
+| 13 | Medium | Fixed | `ef95000` | `ticket.change_window_overridden` and `ticket.change_window_acknowledged` are pushed onto the transition's outbox array where the audit entry is created, carrying the reason, the freeze and the window id. |
+| 14 | Low | Fixed | `866c77c` | `Object.hasOwn` on the email path's allowlist lookup, alongside the byte cap that now runs in the same place. |
+| 15 | Low | Fixed | `6ea51c6` | `mapSubmission` applies the 64 kB `form_data` ceiling the portal used to bypass by building the field in code. |
+| 16 | Low | Fixed | `4c9c1c7` | A failed report run records a code (`render_failed`, or `refused: <status>`) and the driver's message goes to the log. |
+| 17 | Low | Fixed | `510959c` | `attachment_limit_bytes` carries `@Max(MAX_ATTACHMENT_LIMIT_BYTES)`, 100 MB, which is four times the platform's own default attachment ceiling. |
+| 18 | Low | Fixed | `e294e2d` | A field key that is an `Object.prototype` name is refused in `definitionProblems`, and answers are read with `Object.hasOwn`. |
+| 19 | Low | Fixed | `e294e2d` | The `maps_to` allowlist is re-applied inside `validateSubmission`, where the column is written, and a field whose target its kind may not write is dropped with `bad_maps_to`. |
+| 20 | Low | Fixed | `e564ae3` | `assertSysId` requires 32 lowercase hex characters at every use, so a polled id carrying `^OR...` never reaches the encoded query. |
+| 21 | Low | Partly fixed | `e564ae3` | The marker test is anchored exactly as `stripJournalMarker` already was, and the journal read-back after a write is filtered to the element, ordered newest first and limited to one. Writing a connector run row when an inbound entry is dropped for carrying the marker is **not** done: the drop happens inside the apply loop where a run row would be one per entry rather than one per run, and it is bookkeeping rather than a control. |
+| 22 | Low | Fixed | `4c9c1c7` | `RoutingService.replace` throws `NotFoundException` for an account outside the grant before the write, as the ticket-groups service does. |
+| 23 | Low | Fixed | `4c9c1c7` | Withdrawing a scope flag writes `ticket.scope_withdrawn` to both the audit stream and the outbox. |
+| 24 | Low | Fixed | `4c9c1c7` | `limit` carries `@Type(() => Number) @IsInt() @Min(1) @Max(500)`, and `ContactsService.list` asserts the account the way its sibling services do. |
+| 25 | Low | Fixed | `e294e2d` | An option label is capped at 160 like a field label, and an oversized `fields` array returns one problem rather than one per field. |
+| 26 | Low | Fixed | `4c9c1c7` | `code` is on both sides of the bucket audit diff. |
+| 27 | Low | Fixed | `4c9c1c7` | The dead letter's `instance_id` is nulled when the joined instance row is not visible, as its name already was. |
+
+### What the web client has to change
+
+- `PATCH /v1/ticket-groups/{id}` on a `change_window` requires
+  `change_window_reason` whenever the body carries `starts_at`, `ends_at` or
+  `freeze_windows`, and refuses `403 forbidden` without
+  `tickets:override-change-window` or `admin:config`. The schedule fields of a
+  change window should be behind that permission in the UI, and the reason
+  should be prompted for the way the transition override's reason already is.
+  Creating a `change_window` needs the same permission; creating a `project`
+  does not.
+- `GET /v1/change-calendar` refuses a span over 366 days with
+  `{ code: 'range_too_wide', max_days: 366 }` and a backwards range with
+  `invalid_range`.
+- `POST /v1/reporting/runs/{id}/approve` refuses the requester with
+  `409 { code: 'requester_cannot_approve', requested_by }`. The review screen
+  should hide or disable Approve for the person who took the run.
+- Report delivery links are valid for seven days, not fourteen; any copy
+  repeating fourteen days needs changing.
+- The presigned upload credential lives for three minutes, so an attachment
+  upload should start promptly after the presign rather than being held.
+- `POST /v1/portal/tickets` refuses `answers` over 64 kB with
+  `validation_failed`, and an oversized unknown-key set comes back as fifty
+  `unknown_field` problems plus one `too_many_unknown_fields`.
+
+### Verification
+
+`pnpm format`, `pnpm typecheck` and `pnpm lint` clean. 284 unit tests and 54
+end-to-end tests green, with `test/golden/routes.json` unchanged (no route or
+permission declaration moved). The integration suite was then run alone against a
+PostgreSQL 16 container: 1019 tests over 225 suites, 1010 passed, 9 skipped,
+`numFailedTests` 0, with no rerun needed for the two files that have known
+flakes (`test/archive.int-spec.ts` and `test/engagements.int-spec.ts`).
