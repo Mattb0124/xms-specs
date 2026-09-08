@@ -112,6 +112,7 @@ Counts on 2026-09-08, after the PDF rendition and review-before-send work on rep
 | The quarterly survey's reminders and expiry count calendar days (day 7, day 14, expiry at day 21), as the ticket-close survey's already do | "Two reminders over three weeks" is a calendar sentence; the account calendar decides only which day the quarter opens on | `src/domain/portal/csat.ts` (`REMINDER_SCHEDULE`) |
 | The waiting rail's out-of-scope row links to `/tickets` with no query, where the row's own meaning would want `?filter=out_of_scope` | The Queue's URL grammar has view, account, type, priority and state and no dimension for the flag, so an invented parameter would open the wrong list silently; the count carries the meaning until the Queue gains the chip | `src/modules/me/waiting.module.ts`, `frontend/lib/tickets/queue-views.ts` |
 | The waiting rail's article row links to `?status=in_review`, not the `?status=review` the rail was asked for | `in_review` is the article status vocabulary the Solutions screen filters on; `review` alone matches no article | `src/modules/me/waiting.module.ts` |
+| Groups, change windows and non-ticket time, web | The My groups chip and group dimension on the Queue, the group on the record and the picker, routing defaults, the ticket-group catalog, the change calendar and the window rules on a transition with the override, and bucket time on the timesheet with the buckets panel (frontend `6789cd9` to `9fd9fb6`). |
 
 ## 5. Local run-through (2026-09-07)
 
