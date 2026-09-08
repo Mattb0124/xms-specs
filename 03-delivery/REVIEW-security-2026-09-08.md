@@ -126,3 +126,66 @@ Note on the working tree: the finance-delivery work (`0025_finance_delivery.sql`
 6. **When does CI arrive, and what gates it?** There is no workflow in any of the three repositories. The isolation suite, the route-table snapshot, `pnpm audit` and the ZAP baseline named in §9 are all controls that only exist if something runs them. Finding 3 is the first instance of that gap producing a real regression, and findings 1 and 2 are the kind a per-control assertion would have caught.
 7. **`session_replication_role = replica` in tests.** `test/csat.int-spec.ts:40-45` disables triggers to seed fixtures. Legitimate in a test, but it is the one construct that defeats the append-only guards, so it is worth confirming that no production role can `SET` it (it requires superuser, so this is a check rather than a concern) and that it never reaches a seed or a migration.
 8. **Does the "dedicated" isolation tier have an owner?** `op.accounts.isolation_tier` exists in the data model as the escalation path for the pending Security ruling (§4), but `DbPools` resolves one connection string per role with no per-account resolution. If a client contract forces the dedicated tier, how much of the data layer changes?
+
+---
+
+## Resolution, 2026-09-08
+
+Every finding below was worked in the backend repository (`xms-backend`, branch `main`) in eight commits from `28c244a` to `9391d84`, each with tests that would have caught the defect. Findings whose fix belongs to the web client or to `xms-infra` are named as such and stay open here.
+
+| # | Severity | Status | Closed by | Note |
+|---|---|---|---|---|
+| 1 | High | Closed | `28c244a` | The usage digest, its first-day catch-up and the S3 archive read `rpt.usage_events` under a binding covering every account, as the audit stream already did. `test/integrity.int-spec.ts` asserts the digest row count equals the superuser count for the day and that account-scoped rows appear in the canonical rows. |
+| 2 | High | Closed | `28c244a` | Revocation binds the client's granted accounts, so the pause actually writes, and `activeForEvent` joins `op.api_clients.status`. `test/webhooks.int-spec.ts` asserts a revoked client's subscription is paused with `client_revoked` and that no further delivery reaches its endpoint. |
+| 3 | Medium | **Open** | — | Needs a CI workflow, which is a decision for the repository owner (open question 6). What did change: the isolation suite's "portal role has nothing in `op` or `sys`" assertion became an explicit privilege allowlist, so a future grant fails rather than passing unnoticed. The skip-on-setup-failure shape and the missing workflow remain. |
+| 4 | High | Closed | `7f6183e` | `redirect: 'manual'` on the webhook and finance calls with any 3xx a failure; a delivery-time guard (`src/common/http/outbound.ts`) resolves the host and refuses loopback, private, link-local, unique-local and CGNAT answers; the registration guard gains the rest of `fe80::/10` and requires a registered domain or a literal address. Unit tests on the guard, integration refusals in `test/outbound-guard.int-spec.ts`. |
+| 5 | High | Closed | `7f6183e` | The connector base URL goes through the same guard at registration and again when a client is built; `table_name` is an identifier by allowlist and encoded at every use; both ServiceNow calls refuse redirects and the token request has a timeout. |
+| 6 | High | Closed | `0869e61` | `principal.kind` follows `op.users.kind`, so a harness token bearing a portal user's email yields a portal principal on the portal role and is refused by the internal realm. The transport stays in `tokenType`. |
+| 7 | High | Closed | `0869e61` | The portal organisation must equal `acct-<key>` of the user's own account, checked on every request, and the Clerk subject binding is deferred until after that check so a refused attempt leaves nothing behind. |
+| 8 | High | Closed | `117f37e` | `SES_SNS_TOPIC_ARNS` allowlist, fail closed when unset, with a security event naming the reason and a production refusal in `env.ts`. |
+| 9 | High | Closed | `117f37e` | The survey link is minted as `#token=`; the web client already reads the fragment first and still accepts the query for links already sent. The token comparison is `timingSafeEqual`. |
+| 10 | High | **Open (web client)** | — | `Strict-Transport-Security` belongs to `frontend/next.config.ts` and the edge; not in this repository's scope. The exposure it compounded (finding 9) is closed. |
+| 11 | Medium | Closed | `28c244a` | `UnitOfWork.perAccount` gives every sweep one transaction per account bound to that account alone: SLA, at-risk, billing auto-lock, CSAT, report schedules, webhook retries, connector poll, apply and health, and AI suggestion expiry. `test/worker-jobs.int-spec.ts` asserts a sweep sees exactly one account and its own rows. |
+| 12 | Medium | Closed | `5ca814c` | Own-key lookups in the four allowlist maps, with a unit test over `constructor`, `toString`, `__proto__` and `hasOwnProperty`. |
+| 13 | Medium | Closed | `5ca814c` | `/^[ \t]*>/m` and a 512 kB cap before stripping. |
+| 14 | Medium | Closed | `5ca814c` | Row, hours, prospect-name and problem-list caps in the parser, mirroring the single-row DTO. |
+| 15 | Medium | Closed | `5ca814c` | An explicit 1 MB body limit in `main.ts`, and the import DTO reduced to fit inside it. |
+| 16 | Medium | Closed | `5ca814c` | A `@MaxJsonSize` bound on every open `jsonb` field, since `whitelist` cannot help a class with no decorated members. |
+| 17 | Medium | Closed | `7f6183e` | Every outbound body reads through `readCappedText` (2 MB, 8 kB for error detail, 64 kB for the SNS certificate). |
+| 18 | Medium | Closed | `7f6183e` | `@Matches(/^[a-z][a-z0-9_]{0,79}$/)` plus `encodeURIComponent` at each interpolation. |
+| 19 | Medium | Closed | `117f37e` | `POST /v1/csat/:id/answer` joins the public policy; `test/rate-limit.e2e-spec.ts` asserts the policy for every outward-facing path. |
+| 20 | Medium | Closed | `117f37e` | `TRUST_PROXY` drives `app.set('trust proxy', ...)`, off when unset so the header cannot be spoofed with nothing in front. `test/trust-proxy.e2e-spec.ts` asserts the derived hash follows `x-forwarded-for` only when configured. |
+| 21 | Medium | **Decided, documented** | `5ca814c` | The account catalog keeps the implicit binding: `admin:accounts` binds every live account, because account administration is portfolio-wide and every admin screen depends on it. What was unintended is now gone: `admin:users` no longer implies `admin:accounts` (the Administrator role names it directly), and administration no longer implies reading commercial data, which moved to `contracts:view` (finding 22). Recorded in the deviations table of WHAT-WAS-DONE; SECURITY-AND-TENANCY §3 should state the exception. |
+| 22 | Medium | Closed | `5ca814c` | A new `contracts:view`, implied by `contracts:manage`, carries rate cards, budget, budget entries, contracts, contract periods, contract position, account time, comp time and billing periods; raw inbound email moves to `tickets:work`. The Administrator, Account Owner and Finance roles hold it through `contracts:manage`; Consultant and Dispatcher do not. `test/golden/routes.json` re-snapshotted; `test/time.int-spec.ts` asserts a consultant is refused on all six. |
+| 23 | Medium | Closed | `5ca814c` | `isStrongSealingKey`: 32 raw bytes or their 44-character base64, refused in production otherwise. AAD binding a ciphertext to its subscription is **not** done and stays as a smaller open item on the same finding. |
+| 24 | Medium | Closed | `28c244a` | The telemetry flush goes through the explicit `UnitOfWork.telemetry`, so it gets `assertUuid` and the guaranteed reset on release. |
+| 25 | Medium | **Open (web client)** | — | A per-request CSP nonce is a `frontend/middleware.ts` change. |
+| 26 | Medium | Partly closed | `7f6183e` | The backend half is done: the connector DTO now runs the destination guard, which requires `https:`. The shared `safeHref` helper at the six client call sites remains open in the web client. |
+| 27 | Medium | **Open (web client)** | — | Development token storage is a `frontend/lib/auth` change. |
+| 28 | Low | Closed | `0869e61` | `POST /v1/bootstrap` requires the internal organisation for Clerk tokens. |
+| 29 | Low | Partly closed | `5ca814c` | Migration 0026 adds `sys.require_audit` to `acct.billing_periods`, `acct.rate_cards` and `acct.finance_destinations`. `acct.webhook_subscriptions` and `acct.comments` are deliberately excluded and the reasons are written into the migration: the delivery worker updates a failure counter on every attempt, which is bookkeeping and carries no audit event, and the migration importer backdates `created_at` on rows it has just created. The exported `markAudited` stays for now, since removing it is a change to the test kit rather than to production behaviour. |
+| 30 | Low | Closed | `117f37e` | `tokenMatches` uses `timingSafeEqual`. |
+| 31 | Low | Closed | `117f37e` | `newEmailToken` draws from `randomBytes`; 32 divides 256, so masking five bits is uniform without rejection. |
+| 32 | Low | **Open (infrastructure)** | — | The Object-Lock archive bucket and a second `ARCHIVE_STORE` binding belong to `xms-infra`; already recorded as a known gap. |
+| 33 | Low | Closed | `5ca814c` | All six set and insert builders route through `quoteIdent`. |
+| 34 | Low | Closed | `117f37e` | The local store's download signature covers `fileName` and `contentType`; `test/attachments.int-spec.ts` asserts flipping either is refused. |
+| 35 | Low | Closed | `7f6183e` | The SNS certificate fetch has a five-second timeout, a size cap and an in-memory cache per URL. `SignatureVersion: '1'` is still accepted, since AWS emits it for legacy topics; pinning to `'2'` waits on the topic being confirmed. |
+| 36 | Low | Closed | `5ca814c` | Production refusals for `CORS_ORIGINS` (present and https), `CLERK_AGENTS_AUDIENCE` and `SNS_WEBHOOK_SECRET`. The `next.config.ts` half is a web-client change. |
+| 37 | Low | Closed | `5ca814c` | Migration 0026 revokes insert, update and delete on the operator schema from `xms_worker` and grants back exactly two things: `update` on `op.certifications` and `insert` on `op.audit_events`. The seed's own transactions moved to the app role as a result. |
+| 38 | Low | **Open (web client)** | — | `rel="noreferrer"`, download filename hygiene and dev-route exclusion are web-client changes. |
+| 39 | Low | Closed | `5ca814c` | `ParseIntPipe({ optional: true })` on the connector runs limit. |
+| 40 | Low | Closed | `5ca814c` | One neutraliser in `src/domain/reporting/csv.ts` used by both CSV and workbook paths in all five places. |
+
+### Also closed from the web review (backend side)
+
+| # | Status | Closed by | Note |
+|---|---|---|---|
+| Frontend 2 | Closed | `6209cab` | Migration 0027 grants the portal role `select` on `op.config_defaults` and re-installs `acct.config_overrides` as portal readable through `sys.apply_account_isolation`, which is what `GET /v1/portal/tickets` and request detail were failing on. `PortalService.list` loads rows defensively, so one unreadable row no longer empties a client's whole list. |
+| Frontend 5 | Closed | `ac14145` | The seed writes `op.account_grants` for every desk user and the service principal. |
+| Frontend 6 | Closed | `ac14145` | Skills with levels, allocations, demand, a rate card and a billing period per account, answered surveys and article visibility. |
+| Frontend 3 | Not changed | — | The telemetry DTO is deliberately unchanged; the web client is being aligned to it. |
+
+### Verification
+
+`pnpm lint` and `pnpm typecheck` clean; 206 unit tests, 51 end-to-end tests and 858 integration tests green, the isolation suite 624 of 624, and `test/golden/routes.json` re-snapshotted for the `contracts:view` move. Run on `main` at `9391d84` against a PostgreSQL 16 container.
+
