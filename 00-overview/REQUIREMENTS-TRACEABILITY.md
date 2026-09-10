@@ -57,23 +57,23 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 
 | Status | Rows |
 |---|---|
-| Built | 96 |
-| Partial | 11 |
-| Not started | 83 |
+| Built | 94 |
+| Partial | 14 |
+| Not started | 82 |
 | **Total** | **190** |
 
 | Module spec | Built | Partial | Not started |
 |---|---|---|---|
 | [Accounts & Administration](../02-modules/accounts-and-administration/FUNCTIONAL-SPEC.md) | 4 | 0 | 1 |
-| [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 13 | 1 | 7 |
-| [Solution Knowledge Base](../02-modules/knowledge-base/FUNCTIONAL-SPEC.md) | 5 | 5 | 1 |
-| [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 15 | 3 | 1 |
+| [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 15 | 0 | 6 |
+| [Solution Knowledge Base](../02-modules/knowledge-base/FUNCTIONAL-SPEC.md) | 4 | 6 | 1 |
+| [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 16 | 2 | 1 |
 | [Capacity & Allocation](../02-modules/capacity-and-allocation/FUNCTIONAL-SPEC.md) | 8 | 1 | 3 |
 | [Client Portal](../02-modules/client-portal/FUNCTIONAL-SPEC.md) | 6 | 0 | 1 |
 | [Email Intake & Outbound](../02-modules/email-intake/FUNCTIONAL-SPEC.md) | 8 | 0 | 0 |
 | [Dashboards & Report Packs](../02-modules/dashboard-and-reporting/FUNCTIONAL-SPEC.md) | 9 | 0 | 8 |
 | [ServiceNow Sync](../02-modules/servicenow-integration/FUNCTIONAL-SPEC.md) | 9 | 0 | 0 |
-| [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 10 | 1 | 12 |
+| [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 6 | 5 | 12 |
 | [Data Migration & Cutover](../02-modules/data-migration/FUNCTIONAL-SPEC.md) | 3 | 0 | 2 |
 | [Platform Integrations](../02-modules/integrations/FUNCTIONAL-SPEC.md) | 1 | 0 | 1 |
 | [Audit Log & User Analytics](../01-architecture/AUDIT-AND-ANALYTICS.md) | 5 | 0 | 0 |
@@ -89,13 +89,16 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 
 | ID | Requirement | What is missing |
 |---|---|---|
-| TM-11 | Ability to flag out-of-scope / over-budget work | The flag, the decision and the allowance ship. Revision 3 adds an immutable, client-visible, exportable decision record, which does not exist |
 | TM-17 | Ticket templates | Schema only; one reference in the backend and no authoring or apply surface |
 | TB-02 | Mandatory time entry before resolution | The time-or-exemption gate ships. Revision 3 makes it composite (resolution code, notes completeness, article prompt, certification-sourced time), and that is not built |
 | TB-15 | Multi-currency support | Currency is carried on rate cards and amounts; no FX conversion for consolidated views |
-| TB-16 | Profitability view per account | Cost rates and revenue exist; the profitability view and the revision 3 rule that margin never renders without delivered value do not |
 | CAP-09 | On-call / shift rota | A rota exists in the backend; no desk surface, no coverage-gap detection, and it drives no routing |
 | EM-09 | Priority detection from email content | The prioritise capability exists and is wired to tickets, not to email intake |
+| AI-01 | Auto-categorisation and priority suggestion | The classify and prioritise builders exist behind the adapter; the harness is unconfigured and the suggestion has no confirmed surface at intake |
+| AI-02 | Duplicate detection with merge suggestion | The duplicate builder exists; unexercised while the harness is unconfigured, and no merge-proposal surface is reachable |
+| AI-03 | Long-thread summarisation | The summarise builder exists; Ask Axel was removed from the record and the bar on 2026-09-08 and 2026-09-09 because the turn surface is held |
+| AI-04 | Draft response generation | The draft_reply builder exists; Draft with Axel was removed from the composer on 2026-09-08 because the surface behind it is held |
+| AI-07 | Similar-ticket retrieval and KB suggestion | Retrieval and the solutions rail ship; ranking depends on embeddings the harness produces, and the harness is unconfigured |
 | AI-18 | Auto-resolution of allowlisted request types | The allowlist configuration exists; no end-to-end auto-resolution path |
 | KB-03 | Client-to-global promotion with sanitisation | The generalise flow with its findings sheet ships; the AI-23 cross-account consent gate that must block it does not exist |
 | KB-04 | Article health and coverage | Staleness and reuse signals exist on articles; the coverage report listing high-volume patterns with no article does not |
@@ -118,7 +121,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TM-08 | Assignment groups | Built | Must Have | [Accounts & Administration](../02-modules/accounts-and-administration/FUNCTIONAL-SPEC.md) | 1 Foundations | Workbook | Groups mapped to CSM, OneStream Technical and Infrastructure teams. Support for group-level and individual assignment. |
 | TM-09 | Parent / child and related ticket linking | Built | Must Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Link types: parent-child, related, duplicate, blocks/blocked-by. |
 | TM-10 | Grouping under project or change window | Built | Must Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Ability to group a ticket tree under a project or scheduled window (e.g. one tree per Azure Files cutover weekend). |
-| TM-11 | Ability to flag out-of-scope / over-budget work | Partial | Must Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Configurable flag with client-side visibility. Ticket blocked from progressing until approved. |
+| TM-11 | Ability to flag out-of-scope / over-budget work | Built | Must Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Configurable flag with client-side visibility. Ticket blocked from progressing until approved. |
 | TM-12 | Immutable audit trail | Built | Must Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 1 Foundations | Workbook | Every field change recorded with user, timestamp, old value, new value. Non-editable, non-deletable. |
 | TM-13 | Public comments vs internal work notes | Built | Must Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Two distinct objects. Internal notes must never be exposed through the portal or ServiceNow public sync. |
 | TM-14 | Attachments with virus scanning | Built | Must Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 1 Foundations | Workbook | Size limits, allowed file types, AV scan on upload, quarantine on detection. |
@@ -131,7 +134,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TM-22 | Invite a collaborator without transferring ownership | Not started | Unassessed | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | A named person or skill group is invited, accepts or declines, is notified, and the assignee is unchanged throughout. |
 | TM-23 | Account ownership and team construct | Not started | Unassessed | [Accounts & Administration](../02-modules/accounts-and-administration/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | Every account has exactly one named primary owner; changing it is audited; teams group accounts and people; ownership drives default routing and report authorship. |
 | TM-24 | Ranked work queue with stall weighting | Not started | Unassessed | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | The landing queue orders by a server-computed score over client priority, severity, breach proximity, shift context and, weighted at least as heavily, time since last movement, age against expected duration for that ticket type, and time since last client contact. An administrator changes a weight and the order changes. |
-| TM-25 | Default active-work view | Not started | Unassessed | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | Resolved, closed and transferred tickets are absent from the default view and require a deliberate action to reach. |
+| TM-25 | Default active-work view | Built | Unassessed | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | Resolved, closed and transferred tickets are absent from the default view and require a deliberate action to reach. |
 | TM-26 | Ticket-to-outcome association with coverage measure | Not started | Unassessed | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | A ticket can be attached to and detached from an outcome, and the outcome lists it. Linkage coverage, the share of tickets and of delivered hours carrying an outcome, is reportable per account, per engineer and per period, and accounts below a configured coverage floor surface to the account owner and the support director. |
 | TM-27 | Container-case detection | Not started | Unassessed | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | A ticket crossing the configured time-entry, elapsed-day or effort threshold raises TM-11 and notifies the account owner. |
 | TM-28 | Shift handover | Not started | Unassessed | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | At the close of a coverage window the outgoing owner produces a handover for the incoming one covering open work, items at risk of breach, commitments made to clients, and anything awaiting a third party. The incoming owner acknowledges it. Unacknowledged handovers are visible to the technical manager. Drafted by Axel (AI-25) and editable before it is passed; retained and searchable against the ticket. |
@@ -155,7 +158,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TB-13 | After-hours and weekend flagging | Built | Must Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Automatic flagging based on the client business calendar, with premium rate or comp-time handling. Needed across the cutover weekend programme. |
 | TB-14 | Billing export | Built | Must Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Export in the format THG finance consumes, with a locked/approved period concept so exported data cannot be silently altered. |
 | TB-15 | Multi-currency support | Partial | Nice to Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 4 Later releases | Workbook | Rate cards and reporting in local currency with FX conversion for consolidated views. |
-| TB-16 | Profitability view per account | Partial | Nice to Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 4 Later releases | Workbook | Revenue vs delivery cost using cost rates, at account and engagement level. |
+| TB-16 | Profitability view per account | Built | Nice to Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 4 Later releases | Workbook | Revenue vs delivery cost using cost rates, at account and engagement level. |
 | TB-17 | Commercial model as a configurable type | Not started | Unassessed | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | A new model type is added with its own consumption rules and the finance export still resolves it to hours and value with no interface change. |
 
 ### Team Allocation & Capacity
@@ -242,13 +245,13 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 
 | ID | Requirement | Status | Priority | Module spec | Phase | Source | Acceptance notes |
 |---|---|---|---|---|---|---|---|
-| AI-01 | Auto-categorisation and priority suggestion | Built | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Category, priority, account and CI tagging suggested on intake, human-confirmed. |
-| AI-02 | Duplicate detection with merge suggestion | Built | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Flag likely duplicates at creation and propose a merge. |
-| AI-03 | Long-thread summarisation | Built | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Summarise ticket history for handover, shift change and escalation briefing. |
-| AI-04 | Draft response generation | Built | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Generate a suggested reply; a human always reviews and sends. |
+| AI-01 | Auto-categorisation and priority suggestion | Partial | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Category, priority, account and CI tagging suggested on intake, human-confirmed. |
+| AI-02 | Duplicate detection with merge suggestion | Partial | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Flag likely duplicates at creation and propose a merge. |
+| AI-03 | Long-thread summarisation | Partial | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Summarise ticket history for handover, shift change and escalation briefing. |
+| AI-04 | Draft response generation | Partial | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Generate a suggested reply; a human always reviews and sends. |
 | AI-05 | Weekly report narrative generation | Not started | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Convert dashboard figures into the written talk track for the WSR. |
 | AI-06 | Time entry assistance | Not started | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Normalise work descriptions and prompt on unlogged time (e.g. 'you have 6 unlogged hours on Tuesday'). |
-| AI-07 | Similar-ticket retrieval and KB suggestion | Built | Must Have | [Solution Knowledge Base](../02-modules/knowledge-base/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Surface comparable resolved tickets and relevant knowledge articles to the assignee. |
+| AI-07 | Similar-ticket retrieval and KB suggestion | Partial | Must Have | [Solution Knowledge Base](../02-modules/knowledge-base/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Surface comparable resolved tickets and relevant knowledge articles to the assignee. |
 | AI-08 | Human-in-the-loop by default | Built | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | No AI action takes effect without human confirmation unless explicitly opted in per client. |
 | AI-09 | Confidence thresholds with human fallback | Built | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Below threshold, the suggestion is withheld and the item routes to a human. |
 | AI-10 | AI actions logged and attributable | Built | Must Have | [Axel AI Functionality](../02-modules/ai-functionality/FUNCTIONAL-SPEC.md) | 1 Foundations | Workbook | Every AI suggestion and action recorded in the audit trail, distinguishable from human actions. |
@@ -413,7 +416,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TM-07 | SLA clock pause with reason logging | Built | Must Have | 2 Focused pilot | Workbook |
 | TM-09 | Parent / child and related ticket linking | Built | Must Have | 2 Focused pilot | Workbook |
 | TM-10 | Grouping under project or change window | Built | Must Have | 3 Operational replacement | Workbook |
-| TM-11 | Ability to flag out-of-scope / over-budget work | Partial | Must Have | 3 Operational replacement | Workbook |
+| TM-11 | Ability to flag out-of-scope / over-budget work | Built | Must Have | 3 Operational replacement | Workbook |
 | TM-12 | Immutable audit trail | Built | Must Have | 1 Foundations | Workbook |
 | TM-13 | Public comments vs internal work notes | Built | Must Have | 2 Focused pilot | Workbook |
 | TM-14 | Attachments with virus scanning | Built | Must Have | 1 Foundations | Workbook |
@@ -423,7 +426,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TM-21 | Ticket participant record | Not started | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
 | TM-22 | Invite a collaborator without transferring ownership | Not started | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
 | TM-24 | Ranked work queue with stall weighting | Not started | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
-| TM-25 | Default active-work view | Not started | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
+| TM-25 | Default active-work view | Built | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
 | TM-26 | Ticket-to-outcome association with coverage measure | Not started | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
 | TM-27 | Container-case detection | Not started | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
 | TM-28 | Shift handover | Not started | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
@@ -435,7 +438,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TM-17 | Ticket templates | Partial | Nice to Have | 4 Later releases | Workbook |
 | TM-19 | CMDB / lightweight asset register | Built | Nice to Have | 4 Later releases | Workbook |
 | CP-08 | Knowledge base with per-client article visibility | Built | Must Have | 2 Focused pilot | Workbook |
-| AI-07 | Similar-ticket retrieval and KB suggestion | Built | Must Have | 2 Focused pilot | Workbook |
+| AI-07 | Similar-ticket retrieval and KB suggestion | Partial | Must Have | 2 Focused pilot | Workbook |
 | AI-18 | Auto-resolution of allowlisted request types | Partial | Nice to Have | 4 Later releases | Workbook |
 | KB-01 | Authoring, lifecycle, ownership, versioning | Built | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
 | KB-02 | Candidate queue and promotion | Built | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
@@ -463,7 +466,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TB-13 | After-hours and weekend flagging | Built | Must Have | 3 Operational replacement | Workbook |
 | TB-14 | Billing export | Built | Must Have | 3 Operational replacement | Workbook |
 | TB-15 | Multi-currency support | Partial | Nice to Have | 4 Later releases | Workbook |
-| TB-16 | Profitability view per account | Partial | Nice to Have | 4 Later releases | Workbook |
+| TB-16 | Profitability view per account | Built | Nice to Have | 4 Later releases | Workbook |
 | TB-17 | Commercial model as a configurable type | Not started | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
 | INT-02 | Finance / billing system export interface | Built | Must Have | 3 Operational replacement | Workbook |
 | INT-03 | Renewal and contract expiry alerting | Built | Must Have | 3 Operational replacement | Workbook |
@@ -551,10 +554,10 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | ID | Requirement | Status | Priority | Phase | Source |
 |---|---|---|---|---|---|
 | EM-09 | Priority detection from email content | Partial | Nice to Have | 4 Later releases | Workbook |
-| AI-01 | Auto-categorisation and priority suggestion | Built | Must Have | 2 Focused pilot | Workbook |
-| AI-02 | Duplicate detection with merge suggestion | Built | Must Have | 2 Focused pilot | Workbook |
-| AI-03 | Long-thread summarisation | Built | Must Have | 2 Focused pilot | Workbook |
-| AI-04 | Draft response generation | Built | Must Have | 3 Operational replacement | Workbook |
+| AI-01 | Auto-categorisation and priority suggestion | Partial | Must Have | 2 Focused pilot | Workbook |
+| AI-02 | Duplicate detection with merge suggestion | Partial | Must Have | 2 Focused pilot | Workbook |
+| AI-03 | Long-thread summarisation | Partial | Must Have | 2 Focused pilot | Workbook |
+| AI-04 | Draft response generation | Partial | Must Have | 3 Operational replacement | Workbook |
 | AI-05 | Weekly report narrative generation | Not started | Must Have | 3 Operational replacement | Workbook |
 | AI-06 | Time entry assistance | Not started | Must Have | 3 Operational replacement | Workbook |
 | AI-08 | Human-in-the-loop by default | Built | Must Have | 2 Focused pilot | Workbook |

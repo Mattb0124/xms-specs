@@ -128,8 +128,8 @@
     "module": "ticket-management",
     "phase": "3 Operational replacement",
     "source": "Workbook",
-    "status": "Partial",
-    "gap": "The flag, the decision and the allowance ship. Revision 3 adds an immutable, client-visible, exportable decision record, which does not exist"
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-12",
@@ -284,7 +284,7 @@
     "module": "ticket-management",
     "phase": "0 Unscoped (revision 3 intake)",
     "source": "Functional RTM r3",
-    "status": "Not started",
+    "status": "Built",
     "gap": ""
   },
   {
@@ -512,8 +512,8 @@
     "module": "time-and-budget",
     "phase": "4 Later releases",
     "source": "Workbook",
-    "status": "Partial",
-    "gap": "Cost rates and revenue exist; the profitability view and the revision 3 rule that margin never renders without delivered value do not"
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TB-17",
@@ -1196,8 +1196,8 @@
     "module": "ai-functionality",
     "phase": "2 Focused pilot",
     "source": "Workbook",
-    "status": "Built",
-    "gap": ""
+    "status": "Partial",
+    "gap": "The classify and prioritise builders exist behind the adapter; the harness is unconfigured and the suggestion has no confirmed surface at intake"
   },
   {
     "id": "AI-02",
@@ -1208,8 +1208,8 @@
     "module": "ai-functionality",
     "phase": "2 Focused pilot",
     "source": "Workbook",
-    "status": "Built",
-    "gap": ""
+    "status": "Partial",
+    "gap": "The duplicate builder exists; unexercised while the harness is unconfigured, and no merge-proposal surface is reachable"
   },
   {
     "id": "AI-03",
@@ -1220,8 +1220,8 @@
     "module": "ai-functionality",
     "phase": "2 Focused pilot",
     "source": "Workbook",
-    "status": "Built",
-    "gap": ""
+    "status": "Partial",
+    "gap": "The summarise builder exists; Ask Axel was removed from the record and the bar on 2026-09-08 and 2026-09-09 because the turn surface is held"
   },
   {
     "id": "AI-04",
@@ -1232,8 +1232,8 @@
     "module": "ai-functionality",
     "phase": "3 Operational replacement",
     "source": "Workbook",
-    "status": "Built",
-    "gap": ""
+    "status": "Partial",
+    "gap": "The draft_reply builder exists; Draft with Axel was removed from the composer on 2026-09-08 because the surface behind it is held"
   },
   {
     "id": "AI-05",
@@ -1268,8 +1268,8 @@
     "module": "knowledge-base",
     "phase": "2 Focused pilot",
     "source": "Workbook",
-    "status": "Built",
-    "gap": ""
+    "status": "Partial",
+    "gap": "Retrieval and the solutions rail ship; ranking depends on embeddings the harness produces, and the harness is unconfigured"
   },
   {
     "id": "AI-08",

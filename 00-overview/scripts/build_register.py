@@ -184,8 +184,9 @@ MODULE_LINK = {"audit-and-analytics": "../01-architecture/AUDIT-AND-ANALYTICS.md
 # the row. Anything not listed here is "Not started".
 BUILT = {
     "TM-01", "TM-02", "TM-03", "TM-04", "TM-05", "TM-06", "TM-07", "TM-08", "TM-09",
-    "TM-10", "TM-12", "TM-13", "TM-14", "TM-15", "TM-16", "TM-18", "TM-19",
-    "TB-01", "TB-03", "TB-04", "TB-05", "TB-06", "TB-07", "TB-08", "TB-09", "TB-10",
+    "TM-10", "TM-11", "TM-12", "TM-13", "TM-14", "TM-15", "TM-16", "TM-18", "TM-19",
+    "TM-25",
+    "TB-01", "TB-03", "TB-16", "TB-04", "TB-05", "TB-06", "TB-07", "TB-08", "TB-09", "TB-10",
     "TB-11", "TB-12", "TB-13", "TB-14",
     "CAP-01", "CAP-02", "CAP-03", "CAP-04", "CAP-05", "CAP-06", "CAP-07", "CAP-08",
     "CP-02", "CP-03", "CP-04", "CP-05", "CP-06", "CP-07", "CP-08",
@@ -193,8 +194,7 @@ BUILT = {
     "EM-01", "EM-02", "EM-03", "EM-04", "EM-05", "EM-06", "EM-07", "EM-08",
     "SN-01", "SN-02", "SN-03", "SN-04", "SN-05", "SN-06", "SN-07", "SN-08", "SN-09",
     "INT-01", "INT-02", "INT-03", "INT-05",
-    "AI-01", "AI-02", "AI-03", "AI-04", "AI-07", "AI-08", "AI-09", "AI-10", "AI-11",
-    "AI-12", "AI-13",
+    "AI-08", "AI-09", "AI-10", "AI-11", "AI-12", "AI-13",
     "DM-01", "DM-02", "DM-03",
     "XA-01", "XA-02", "XA-03", "XA-04", "XA-05",
     "KB-01", "KB-02",
@@ -203,11 +203,24 @@ BUILT = {
 # Partly built, with the specific gap named. A partial with no named gap is a
 # guess, so every entry here says what is missing.
 PARTIAL = {
-    "TM-11": "The flag, the decision and the allowance ship. Revision 3 adds an immutable, client-visible, exportable decision record, which does not exist",
+    # The five capability builders (classify, prioritise, duplicate, summarise,
+    # draft_reply) are real code against a real SSE client, and the adapter commit
+    # of 2026-09-07 claims AI-09 to AI-13 only. Three things stop these being built:
+    # HARNESS_BASE_URL is optional and unset (.env.example says to leave it empty to
+    # run without AI), NullHarnessClient throws HarnessUnavailableError, and the UI
+    # entry points were deliberately removed. "Ask Axel and Draft with Axel are out.
+    # Both opened a surface that is held, and a control that opens nothing is not a
+    # control" (frontend c9c3225, 2026-09-08), then "Axel is out of the bar: the
+    # panel behind it is held" (2026-09-09). The panel frame survives; the turn
+    # surface behind it does not.
+    "AI-01": "The classify and prioritise builders exist behind the adapter; the harness is unconfigured and the suggestion has no confirmed surface at intake",
+    "AI-02": "The duplicate builder exists; unexercised while the harness is unconfigured, and no merge-proposal surface is reachable",
+    "AI-03": "The summarise builder exists; Ask Axel was removed from the record and the bar on 2026-09-08 and 2026-09-09 because the turn surface is held",
+    "AI-04": "The draft_reply builder exists; Draft with Axel was removed from the composer on 2026-09-08 because the surface behind it is held",
+    "AI-07": "Retrieval and the solutions rail ship; ranking depends on embeddings the harness produces, and the harness is unconfigured",
     "TM-17": "Schema only; one reference in the backend and no authoring or apply surface",
     "TB-02": "The time-or-exemption gate ships. Revision 3 makes it composite (resolution code, notes completeness, article prompt, certification-sourced time), and that is not built",
     "TB-15": "Currency is carried on rate cards and amounts; no FX conversion for consolidated views",
-    "TB-16": "Cost rates and revenue exist; the profitability view and the revision 3 rule that margin never renders without delivered value do not",
     "CAP-09": "A rota exists in the backend; no desk surface, no coverage-gap detection, and it drives no routing",
     "AI-18": "The allowlist configuration exists; no end-to-end auto-resolution path",
     "KB-03": "The generalise flow with its findings sheet ships; the AI-23 cross-account consent gate that must block it does not exist",
