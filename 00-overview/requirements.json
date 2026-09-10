@@ -6,7 +6,10 @@
     "description": "Hard isolation per client at the data layer, not row-level filtering.",
     "priority": "Must Have",
     "module": "accounts-and-administration",
-    "phase": "1 Foundations"
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-02",
@@ -15,7 +18,10 @@
     "description": "Incident, Service Request, Change, Problem, Project Task. Each with its own workflow and billing treatment.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "2 Focused pilot"
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-03",
@@ -24,7 +30,10 @@
     "description": "States and transitions aligned to the existing DMS ticket lifecycle procedure. Configurable per ticket type.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "2 Focused pilot"
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-04",
@@ -33,7 +42,10 @@
     "description": "Standard impact x urgency matrix producing priority, with per-client override capability.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "2 Focused pilot"
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-05",
@@ -42,7 +54,10 @@
     "description": "Response and resolution targets per ticket type, priority and client contract.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "2 Focused pilot"
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-06",
@@ -51,7 +66,10 @@
     "description": "Required for UK, Brazil, Australia, Canada and US coverage. SLA clocks must respect local working hours and holidays.",
     "priority": "Must Have",
     "module": "accounts-and-administration",
-    "phase": "3 Operational replacement"
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-07",
@@ -60,7 +78,10 @@
     "description": "Pause on 'Awaiting Client' / 'Awaiting Third Party'. Pause reason and duration stored - this is the evidence used in hour-justification discussions.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "2 Focused pilot"
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-08",
@@ -69,7 +90,10 @@
     "description": "Groups mapped to CSM, OneStream Technical and Infrastructure teams. Support for group-level and individual assignment.",
     "priority": "Must Have",
     "module": "accounts-and-administration",
-    "phase": "1 Foundations"
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-09",
@@ -78,7 +102,10 @@
     "description": "Link types: parent-child, related, duplicate, blocks/blocked-by.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "2 Focused pilot"
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-10",
@@ -87,7 +114,10 @@
     "description": "Ability to group a ticket tree under a project or scheduled window (e.g. one tree per Azure Files cutover weekend).",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "3 Operational replacement"
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-11",
@@ -96,7 +126,10 @@
     "description": "Configurable flag with client-side visibility. Ticket blocked from progressing until approved.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "3 Operational replacement"
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Partial",
+    "gap": "The flag, the decision and the allowance ship. Revision 3 adds an immutable, client-visible, exportable decision record, which does not exist"
   },
   {
     "id": "TM-12",
@@ -105,7 +138,10 @@
     "description": "Every field change recorded with user, timestamp, old value, new value. Non-editable, non-deletable.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "1 Foundations"
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-13",
@@ -114,7 +150,10 @@
     "description": "Two distinct objects. Internal notes must never be exposed through the portal or ServiceNow public sync.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "2 Focused pilot"
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-14",
@@ -123,7 +162,10 @@
     "description": "Size limits, allowed file types, AV scan on upload, quarantine on detection.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "1 Foundations"
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-15",
@@ -132,682 +174,10 @@
     "description": "Search across ticket fields, comments and attachments metadata. User-defined saved views.",
     "priority": "Must Have",
     "module": "ticket-management",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "TB-01",
-    "category": "Time Tracking & Budget",
-    "requirement": "Time entry at ticket level",
-    "description": "Fields: duration, date performed, activity type, billable flag, description. Multiple entries per ticket per user.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "TB-02",
-    "category": "Time Tracking & Budget",
-    "requirement": "Mandatory time entry before resolution",
-    "description": "A ticket cannot move to Resolved/Closed with zero logged time unless an exemption reason is selected.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "TB-03",
-    "category": "Time Tracking & Budget",
-    "requirement": "Activity type taxonomy",
-    "description": "Analysis, Development, Testing, Client Communication, Documentation, Meeting. This is what makes 'where did the hours go' answerable.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "TB-04",
-    "category": "Time Tracking & Budget",
-    "requirement": "Billable classification",
-    "description": "Billable / Non-billable / Internal / Pre-sales, set per time entry with a default per activity type.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "TB-05",
-    "category": "Time Tracking & Budget",
-    "requirement": "Rate cards by client, contract and role",
-    "description": "Effective-dated versions so historical entries retain the rate in force at the time performed.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "TB-06",
-    "category": "Time Tracking & Budget",
-    "requirement": "Contract object with multiple commercial models",
-    "description": "Retainer hours, prepaid blocks, T&M, fixed fee. Includes rollover rules and overage rules.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "TB-07",
-    "category": "Time Tracking & Budget",
-    "requirement": "Budget burn-down per client per period",
-    "description": "Consumed vs contracted hours and value, by period, with drill-through to source entries.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "TB-08",
-    "category": "Time Tracking & Budget",
-    "requirement": "Forecast to period end",
-    "description": "Projected consumption at period end based on current run rate.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "TB-09",
-    "category": "Time Tracking & Budget",
-    "requirement": "Threshold alerts",
-    "description": "Configurable percentage thresholds (e.g. 50/75/90/100%) alerting internal owner and optionally the client contact.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "TB-10",
-    "category": "Time Tracking & Budget",
-    "requirement": "Per-ticket hours breakdown",
-    "description": "Hours by person, role, date and activity type for any single ticket. Exportable to Excel/CSV.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "TB-11",
-    "category": "Time Tracking & Budget",
-    "requirement": "Adjustment and write-off workflow",
-    "description": "Original entry preserved; adjustment recorded as a separate linked record.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "TB-12",
-    "category": "Time Tracking & Budget",
-    "requirement": "Non-ticket time capture",
-    "description": "Per-client buckets for governance, QBR prep, account management and escalation handling. Without this, utilisation reads artificially low and budget burn reads artificially favourable.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "4 Later releases"
-  },
-  {
-    "id": "TB-13",
-    "category": "Time Tracking & Budget",
-    "requirement": "After-hours and weekend flagging",
-    "description": "Automatic flagging based on the client business calendar, with premium rate or comp-time handling. Needed across the cutover weekend programme.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "TB-14",
-    "category": "Time Tracking & Budget",
-    "requirement": "Billing export",
-    "description": "Export in the format THG finance consumes, with a locked/approved period concept so exported data cannot be silently altered.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "CAP-01",
-    "category": "Team Allocation & Capacity",
-    "requirement": "Resource roster",
-    "description": "Role, FTE %, cost rate, bill rate, skills, certifications, timezone and working calendar per person.",
-    "priority": "Must Have",
-    "module": "capacity-and-allocation",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "CAP-02",
-    "category": "Team Allocation & Capacity",
-    "requirement": "PTO and holiday calendar",
-    "description": "Per-country holiday calendars and individual PTO, feeding the capacity calculation.",
-    "priority": "Must Have",
-    "module": "capacity-and-allocation",
-    "phase": "4 Later releases"
-  },
-  {
-    "id": "CAP-03",
-    "category": "Team Allocation & Capacity",
-    "requirement": "Available capacity calculation",
-    "description": "Contracted hours minus PTO minus holidays minus a configurable admin overhead factor.",
-    "priority": "Must Have",
-    "module": "capacity-and-allocation",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "CAP-04",
-    "category": "Team Allocation & Capacity",
-    "requirement": "Planned allocation per person per client per period",
-    "description": "Forward-looking allocation grid, editable by team lead.",
-    "priority": "Must Have",
-    "module": "capacity-and-allocation",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "CAP-05",
-    "category": "Team Allocation & Capacity",
-    "requirement": "Planned vs actual variance reporting",
-    "description": "Planned allocation compared against logged time. This is the report that actually changes behaviour.",
-    "priority": "Must Have",
-    "module": "capacity-and-allocation",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "CAP-06",
-    "category": "Team Allocation & Capacity",
-    "requirement": "Overallocation detection",
-    "description": "Warning raised at assignment time when a person exceeds available capacity in a period.",
-    "priority": "Must Have",
-    "module": "capacity-and-allocation",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "CAP-07",
-    "category": "Team Allocation & Capacity",
-    "requirement": "Skills matrix with single-point-of-failure flagging",
-    "description": "Identify where only one person can service a given client or technology.",
-    "priority": "Must Have",
-    "module": "capacity-and-allocation",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "CAP-08",
-    "category": "Team Allocation & Capacity",
-    "requirement": "Forward demand from pipeline",
-    "description": "Pipeline and project demand included in capacity view, not only current ticket load.",
-    "priority": "Must Have",
-    "module": "capacity-and-allocation",
-    "phase": "4 Later releases"
-  },
-  {
-    "id": "CP-01",
-    "category": "Client Portal",
-    "requirement": "SSO via SAML / OIDC",
-    "description": "Authenticate against the client IdP, with local account fallback for clients without federation.",
-    "priority": "Must Have",
-    "module": "client-portal",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "CP-02",
-    "category": "Client Portal",
-    "requirement": "Strict data scoping",
-    "description": "A client user sees only their own organisation's tickets and data. Enforced server-side, verified by automated test.",
-    "priority": "Must Have",
-    "module": "client-portal",
-    "phase": "1 Foundations"
-  },
-  {
-    "id": "CP-03",
-    "category": "Client Portal",
-    "requirement": "Ticket submission with dynamic forms",
-    "description": "Form fields vary by request type; required fields enforced at submission.",
-    "priority": "Must Have",
-    "module": "client-portal",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "CP-04",
-    "category": "Client Portal",
-    "requirement": "Ticket status tracking and comment threads",
-    "description": "Client can view status, add comments and see public updates only.",
-    "priority": "Must Have",
-    "module": "client-portal",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "CP-05",
-    "category": "Client Portal",
-    "requirement": "Attachment upload from portal",
-    "description": "Same AV scanning and size limits as internal upload.",
-    "priority": "Must Have",
-    "module": "client-portal",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "CP-06",
-    "category": "Client Portal",
-    "requirement": "Budget / consumption visibility toggle",
-    "description": "Per-client switch controlling whether consumption data is exposed in the portal.",
-    "priority": "Must Have",
-    "module": "client-portal",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "CP-07",
-    "category": "Client Portal",
-    "requirement": "CSAT survey on ticket close and every quarter end",
-    "description": "Triggered on closure, plus a periodic relationship survey. Results feed reporting.",
-    "priority": "Must Have",
-    "module": "client-portal",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "CP-08",
-    "category": "Client Portal",
-    "requirement": "Knowledge base with per-client article visibility",
-    "description": "Articles scoped to global or specific clients.",
-    "priority": "Must Have",
-    "module": "knowledge-base",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "EM-01",
-    "category": "Email Intake",
-    "requirement": "Dedicated inbound address",
-    "description": "With alias support so existing client-facing addresses can be retained.",
-    "priority": "Must Have",
-    "module": "email-intake",
-    "phase": "1 Foundations"
-  },
-  {
-    "id": "EM-02",
-    "category": "Email Intake",
-    "requirement": "Thread matching on message headers",
-    "description": "Match on Message-ID / References / In-Reply-To.",
-    "priority": "Must Have",
-    "module": "email-intake",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "EM-03",
-    "category": "Email Intake",
-    "requirement": "Reply-to-update on existing tickets",
-    "description": "A reply to a ticket notification appends a comment rather than creating a duplicate.",
-    "priority": "Must Have",
-    "module": "email-intake",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "EM-04",
-    "category": "Email Intake",
-    "requirement": "Attachment and inline image extraction",
-    "description": "Attachments stored on the ticket; inline images preserved in the comment body.",
-    "priority": "Must Have",
-    "module": "email-intake",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "EM-05",
-    "category": "Email Intake",
-    "requirement": "Signature and quoted-reply stripping",
-    "description": "Strip signatures, disclaimers and quoted history so comments stay readable.",
-    "priority": "Must Have",
-    "module": "email-intake",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "EM-06",
-    "category": "Email Intake",
-    "requirement": "Loop protection and auto-responder suppression",
-    "description": "Detect and suppress mail loops and out-of-office auto-replies. A loop with a client mail system is a severity-1 event.",
-    "priority": "Must Have",
-    "module": "email-intake",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "EM-07",
-    "category": "Email Intake",
-    "requirement": "Unknown-sender quarantine queue",
-    "description": "Unrecognised senders go to a review queue rather than auto-creating tickets.",
-    "priority": "Must Have",
-    "module": "email-intake",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "EM-08",
-    "category": "Email Intake",
-    "requirement": "Outbound email threading and branding",
-    "description": "Outbound notifications correctly threaded and branded per client.",
-    "priority": "Must Have",
-    "module": "email-intake",
-    "phase": "1 Foundations"
-  },
-  {
-    "id": "DR-01",
-    "category": "Dashboard & Reporting",
-    "requirement": "Near-real-time dashboard refresh",
-    "description": "Defined refresh interval / push updates. Role-scoped and client-scoped.",
-    "priority": "Must Have",
-    "module": "dashboard-and-reporting",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "DR-02",
-    "category": "Dashboard & Reporting",
-    "requirement": "Internal operational view",
-    "description": "Backlog by age, SLA attainment and at-risk, MTTR by type, reopen rate, volume trend, team utilisation, portfolio budget burn.",
-    "priority": "Must Have",
-    "module": "dashboard-and-reporting",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "DR-03",
-    "category": "Dashboard & Reporting",
-    "requirement": "Client-facing view",
-    "description": "Their tickets, their SLA performance, their consumption, their CSAT. Nothing else.",
-    "priority": "Must Have",
-    "module": "dashboard-and-reporting",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "DR-04",
-    "category": "Dashboard & Reporting",
-    "requirement": "Auto-generated weekly report pack (PPTX / PDF)",
-    "description": "Generated from live data on a schedule. Highest-ROI item in the build - it replaces the manual WSR cycle. We would present on a call from a dashboard that can be exported and sent via email for client review",
-    "priority": "Must Have",
-    "module": "dashboard-and-reporting",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "DR-05",
-    "category": "Dashboard & Reporting",
-    "requirement": "Scheduled email delivery of report packs",
-    "description": "Per-client schedule and distribution list.",
-    "priority": "Must Have",
-    "module": "dashboard-and-reporting",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "DR-06",
-    "category": "Dashboard & Reporting",
-    "requirement": "Export to Excel / CSV on all views",
-    "description": "Raw data export for ad-hoc analysis and finance reconciliation.",
-    "priority": "Must Have",
-    "module": "dashboard-and-reporting",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "DR-07",
-    "category": "Dashboard & Reporting",
-    "requirement": "Historical trend retention",
-    "description": "Point-in-time snapshots so trends survive record edits and reclassification.",
-    "priority": "Must Have",
-    "module": "dashboard-and-reporting",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "SN-01",
-    "category": "ServiceNow Integration",
-    "requirement": "Bidirectional sync with configurable field mapping",
-    "description": "Per-client-instance mapping configuration, maintainable without a code change.",
-    "priority": "Must Have",
-    "module": "servicenow-integration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "SN-02",
-    "category": "ServiceNow Integration",
-    "requirement": "State machine translation",
-    "description": "Translate between the internal state model and each client's. They will not match out of the box.",
-    "priority": "Must Have",
-    "module": "servicenow-integration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "SN-03",
-    "category": "ServiceNow Integration",
-    "requirement": "Loop prevention",
-    "description": "Correlation IDs and update watermarking to prevent infinite update ping-pong.",
-    "priority": "Must Have",
-    "module": "servicenow-integration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "SN-04",
-    "category": "ServiceNow Integration",
-    "requirement": "Conflict resolution policy",
-    "description": "Defined system of record per field. Last-write-wins is not acceptable as a blanket rule.",
-    "priority": "Must Have",
-    "module": "servicenow-integration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "SN-05",
-    "category": "ServiceNow Integration",
-    "requirement": "Comment and work note sync",
-    "description": "Respecting the public vs internal distinction in both directions.",
-    "priority": "Must Have",
-    "module": "servicenow-integration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "SN-06",
-    "category": "ServiceNow Integration",
-    "requirement": "Attachment sync",
-    "description": "Two-way attachment transfer with size limit handling.",
-    "priority": "Must Have",
-    "module": "servicenow-integration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "SN-07",
-    "category": "ServiceNow Integration",
-    "requirement": "Sync health monitoring and dead-letter queue",
-    "description": "Failed messages retained, alerting on failure, manual replay capability.",
-    "priority": "Must Have",
-    "module": "servicenow-integration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "SN-08",
-    "category": "ServiceNow Integration",
-    "requirement": "Multiple concurrent client instances",
-    "description": "Different schemas, different auth, different versions - running simultaneously.",
-    "priority": "Must Have",
-    "module": "servicenow-integration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "SN-09",
-    "category": "ServiceNow Integration",
-    "requirement": "One-way ingest mode",
-    "description": "Read-only ingest as a lower-risk starting configuration and as a fallback if write-back is suspended.",
-    "priority": "Must Have",
-    "module": "servicenow-integration",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "AI-01",
-    "category": "AI Functionality",
-    "requirement": "Auto-categorisation and priority suggestion",
-    "description": "Category, priority, account and CI tagging suggested on intake, human-confirmed.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "AI-02",
-    "category": "AI Functionality",
-    "requirement": "Duplicate detection with merge suggestion",
-    "description": "Flag likely duplicates at creation and propose a merge.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "AI-03",
-    "category": "AI Functionality",
-    "requirement": "Long-thread summarisation",
-    "description": "Summarise ticket history for handover, shift change and escalation briefing.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "AI-04",
-    "category": "AI Functionality",
-    "requirement": "Draft response generation",
-    "description": "Generate a suggested reply; a human always reviews and sends.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "AI-05",
-    "category": "AI Functionality",
-    "requirement": "Weekly report narrative generation",
-    "description": "Convert dashboard figures into the written talk track for the WSR.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "AI-06",
-    "category": "AI Functionality",
-    "requirement": "Time entry assistance",
-    "description": "Normalise work descriptions and prompt on unlogged time (e.g. 'you have 6 unlogged hours on Tuesday').",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "AI-07",
-    "category": "AI Functionality",
-    "requirement": "Similar-ticket retrieval and KB suggestion",
-    "description": "Surface comparable resolved tickets and relevant knowledge articles to the assignee.",
-    "priority": "Must Have",
-    "module": "knowledge-base",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "AI-08",
-    "category": "AI Functionality",
-    "requirement": "Human-in-the-loop by default",
-    "description": "No AI action takes effect without human confirmation unless explicitly opted in per client.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "AI-09",
-    "category": "AI Functionality",
-    "requirement": "Confidence thresholds with human fallback",
-    "description": "Below threshold, the suggestion is withheld and the item routes to a human.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "AI-10",
-    "category": "AI Functionality",
-    "requirement": "AI actions logged and attributable",
-    "description": "Every AI suggestion and action recorded in the audit trail, distinguishable from human actions.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "1 Foundations"
-  },
-  {
-    "id": "AI-11",
-    "category": "AI Functionality",
-    "requirement": "Per-client AI disable switch",
-    "description": "Some clients will contractually prohibit AI processing of their data. Must be enforceable at the data layer.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "1 Foundations"
-  },
-  {
-    "id": "AI-12",
-    "category": "AI Functionality",
-    "requirement": "No training on client data; DPA and residency compliance",
-    "description": "Contractual and technical guarantee before any client data reaches a model provider.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "1 Foundations"
-  },
-  {
-    "id": "AI-13",
-    "category": "AI Functionality",
-    "requirement": "Feedback capture on AI suggestions",
-    "description": "Accept/reject captured to measure accuracy and drive tuning.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "DM-01",
-    "category": "Data Migration",
-    "requirement": "Historical import from ServiceNow CSM",
-    "description": "Open and closed tickets, comments, attachments and time entries. Without history the baseline is lost.",
-    "priority": "Must Have",
-    "module": "data-migration",
-    "phase": "2 Focused pilot"
-  },
-  {
-    "id": "DM-02",
-    "category": "Data Migration",
-    "requirement": "Contract and budget history import",
-    "description": "Existing contracts, consumed hours and current balances, reconciled to finance records.",
-    "priority": "Must Have",
-    "module": "data-migration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "DM-03",
-    "category": "Data Migration",
-    "requirement": "Reconciliation report post-migration",
-    "description": "Record counts and hour totals reconciled source vs target, signed off before cutover.",
-    "priority": "Must Have",
-    "module": "data-migration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "DM-04",
-    "category": "Data Migration",
-    "requirement": "Parallel run period",
-    "description": "Both systems operating concurrently for an agreed period before decommissioning the old one.",
-    "priority": "Must Have",
-    "module": "data-migration",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "INT-01",
-    "category": "Integrations",
-    "requirement": "Identity provider integration (internal)",
-    "description": "Internal users authenticate via the THG IdP.",
-    "priority": "Must Have",
-    "module": "accounts-and-administration",
-    "phase": "1 Foundations"
-  },
-  {
-    "id": "INT-02",
-    "category": "Integrations",
-    "requirement": "Finance / billing system export interface",
-    "description": "Structured interface to the billing system rather than manual file handling.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "AI-14",
-    "category": "AI Functionality",
-    "requirement": "Budget burn anomaly detection",
-    "description": "Flag accounts tracking materially above or below expected run rate.",
-    "priority": "Must Have",
-    "module": "ai-functionality",
-    "phase": "3 Operational replacement"
-  },
-  {
-    "id": "INT-03",
-    "category": "Integrations",
-    "requirement": "Renewal and contract expiry alerting",
-    "description": "Alerts ahead of contract end dates, surfaced to the account owner.",
-    "priority": "Must Have",
-    "module": "time-and-budget",
-    "phase": "3 Operational replacement"
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-16",
@@ -816,7 +186,10 @@
     "description": "Bulk reassign, bulk state change, bulk tag - with audit entries per affected record.",
     "priority": "Nice to Have",
     "module": "ticket-management",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-17",
@@ -825,7 +198,10 @@
     "description": "Pre-filled templates for recurring request types to reduce intake time.",
     "priority": "Nice to Have",
     "module": "knowledge-base",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Partial",
+    "gap": "Schema only; one reference in the backend and no authoring or apply surface"
   },
   {
     "id": "TM-18",
@@ -834,7 +210,10 @@
     "description": "Visual change calendar with freeze windows and overlap warnings across clients.",
     "priority": "Nice to Have",
     "module": "ticket-management",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TM-19",
@@ -843,7 +222,274 @@
     "description": "Per-client configuration item register, linkable to tickets.",
     "priority": "Nice to Have",
     "module": "knowledge-base",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TM-21",
+    "category": "Ticket Management",
+    "requirement": "Ticket participant record",
+    "description": "People appear on a ticket in roles other than assignee, with joined and left timestamps and who invited them; contributor count is queryable.",
+    "priority": "Unassessed",
+    "module": "ticket-management",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TM-22",
+    "category": "Ticket Management",
+    "requirement": "Invite a collaborator without transferring ownership",
+    "description": "A named person or skill group is invited, accepts or declines, is notified, and the assignee is unchanged throughout.",
+    "priority": "Unassessed",
+    "module": "ticket-management",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TM-23",
+    "category": "Ticket Management",
+    "requirement": "Account ownership and team construct",
+    "description": "Every account has exactly one named primary owner; changing it is audited; teams group accounts and people; ownership drives default routing and report authorship.",
+    "priority": "Unassessed",
+    "module": "accounts-and-administration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TM-24",
+    "category": "Ticket Management",
+    "requirement": "Ranked work queue with stall weighting",
+    "description": "The landing queue orders by a server-computed score over client priority, severity, breach proximity, shift context and, weighted at least as heavily, time since last movement, age against expected duration for that ticket type, and time since last client contact. An administrator changes a weight and the order changes.",
+    "priority": "Unassessed",
+    "module": "ticket-management",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TM-25",
+    "category": "Ticket Management",
+    "requirement": "Default active-work view",
+    "description": "Resolved, closed and transferred tickets are absent from the default view and require a deliberate action to reach.",
+    "priority": "Unassessed",
+    "module": "ticket-management",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TM-26",
+    "category": "Ticket Management",
+    "requirement": "Ticket-to-outcome association with coverage measure",
+    "description": "A ticket can be attached to and detached from an outcome, and the outcome lists it. Linkage coverage, the share of tickets and of delivered hours carrying an outcome, is reportable per account, per engineer and per period, and accounts below a configured coverage floor surface to the account owner and the support director.",
+    "priority": "Unassessed",
+    "module": "ticket-management",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TM-27",
+    "category": "Ticket Management",
+    "requirement": "Container-case detection",
+    "description": "A ticket crossing the configured time-entry, elapsed-day or effort threshold raises TM-11 and notifies the account owner.",
+    "priority": "Unassessed",
+    "module": "ticket-management",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TM-28",
+    "category": "Ticket Management",
+    "requirement": "Shift handover",
+    "description": "At the close of a coverage window the outgoing owner produces a handover for the incoming one covering open work, items at risk of breach, commitments made to clients, and anything awaiting a third party. The incoming owner acknowledges it. Unacknowledged handovers are visible to the technical manager. Drafted by Axel (AI-25) and editable before it is passed; retained and searchable against the ticket.",
+    "priority": "Unassessed",
+    "module": "ticket-management",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TB-01",
+    "category": "Time Tracking & Budget",
+    "requirement": "Time entry at ticket level",
+    "description": "Fields: duration, date performed, activity type, billable flag, description. Multiple entries per ticket per user.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-02",
+    "category": "Time Tracking & Budget",
+    "requirement": "Mandatory time entry before resolution",
+    "description": "A ticket cannot move to Resolved/Closed with zero logged time unless an exemption reason is selected.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Partial",
+    "gap": "The time-or-exemption gate ships. Revision 3 makes it composite (resolution code, notes completeness, article prompt, certification-sourced time), and that is not built"
+  },
+  {
+    "id": "TB-03",
+    "category": "Time Tracking & Budget",
+    "requirement": "Activity type taxonomy",
+    "description": "Analysis, Development, Testing, Client Communication, Documentation, Meeting. This is what makes 'where did the hours go' answerable.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-04",
+    "category": "Time Tracking & Budget",
+    "requirement": "Billable classification",
+    "description": "Billable / Non-billable / Internal / Pre-sales, set per time entry with a default per activity type.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-05",
+    "category": "Time Tracking & Budget",
+    "requirement": "Rate cards by client, contract and role",
+    "description": "Effective-dated versions so historical entries retain the rate in force at the time performed.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-06",
+    "category": "Time Tracking & Budget",
+    "requirement": "Contract object with multiple commercial models",
+    "description": "Retainer hours, prepaid blocks, T&M, fixed fee. Includes rollover rules and overage rules.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-07",
+    "category": "Time Tracking & Budget",
+    "requirement": "Budget burn-down per client per period",
+    "description": "Consumed vs contracted hours and value, by period, with drill-through to source entries.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-08",
+    "category": "Time Tracking & Budget",
+    "requirement": "Forecast to period end",
+    "description": "Projected consumption at period end based on current run rate.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-09",
+    "category": "Time Tracking & Budget",
+    "requirement": "Threshold alerts",
+    "description": "Configurable percentage thresholds (e.g. 50/75/90/100%) alerting internal owner and optionally the client contact.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-10",
+    "category": "Time Tracking & Budget",
+    "requirement": "Per-ticket hours breakdown",
+    "description": "Hours by person, role, date and activity type for any single ticket. Exportable to Excel/CSV.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-11",
+    "category": "Time Tracking & Budget",
+    "requirement": "Adjustment and write-off workflow",
+    "description": "Original entry preserved; adjustment recorded as a separate linked record.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-12",
+    "category": "Time Tracking & Budget",
+    "requirement": "Non-ticket time capture",
+    "description": "Per-client buckets for governance, QBR prep, account management and escalation handling. Without this, utilisation reads artificially low and budget burn reads artificially favourable.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-13",
+    "category": "Time Tracking & Budget",
+    "requirement": "After-hours and weekend flagging",
+    "description": "Automatic flagging based on the client business calendar, with premium rate or comp-time handling. Needed across the cutover weekend programme.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "TB-14",
+    "category": "Time Tracking & Budget",
+    "requirement": "Billing export",
+    "description": "Export in the format THG finance consumes, with a locked/approved period concept so exported data cannot be silently altered.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TB-15",
@@ -852,7 +498,10 @@
     "description": "Rate cards and reporting in local currency with FX conversion for consolidated views.",
     "priority": "Nice to Have",
     "module": "time-and-budget",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Partial",
+    "gap": "Currency is carried on rate cards and amounts; no FX conversion for consolidated views"
   },
   {
     "id": "TB-16",
@@ -861,7 +510,118 @@
     "description": "Revenue vs delivery cost using cost rates, at account and engagement level.",
     "priority": "Nice to Have",
     "module": "time-and-budget",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Partial",
+    "gap": "Cost rates and revenue exist; the profitability view and the revision 3 rule that margin never renders without delivered value do not"
+  },
+  {
+    "id": "TB-17",
+    "category": "Time Tracking & Budget",
+    "requirement": "Commercial model as a configurable type",
+    "description": "A new model type is added with its own consumption rules and the finance export still resolves it to hours and value with no interface change.",
+    "priority": "Unassessed",
+    "module": "time-and-budget",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CAP-01",
+    "category": "Team Allocation & Capacity",
+    "requirement": "Resource roster",
+    "description": "Role, FTE %, cost rate, bill rate, skills, certifications, timezone and working calendar per person.",
+    "priority": "Must Have",
+    "module": "capacity-and-allocation",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CAP-02",
+    "category": "Team Allocation & Capacity",
+    "requirement": "PTO and holiday calendar",
+    "description": "Per-country holiday calendars and individual PTO, feeding the capacity calculation.",
+    "priority": "Must Have",
+    "module": "capacity-and-allocation",
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CAP-03",
+    "category": "Team Allocation & Capacity",
+    "requirement": "Available capacity calculation",
+    "description": "Contracted hours minus PTO minus holidays minus a configurable admin overhead factor.",
+    "priority": "Must Have",
+    "module": "capacity-and-allocation",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CAP-04",
+    "category": "Team Allocation & Capacity",
+    "requirement": "Planned allocation per person per client per period",
+    "description": "Forward-looking allocation grid, editable by team lead.",
+    "priority": "Must Have",
+    "module": "capacity-and-allocation",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CAP-05",
+    "category": "Team Allocation & Capacity",
+    "requirement": "Planned vs actual variance reporting",
+    "description": "Planned allocation compared against logged time. This is the report that actually changes behaviour.",
+    "priority": "Must Have",
+    "module": "capacity-and-allocation",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CAP-06",
+    "category": "Team Allocation & Capacity",
+    "requirement": "Overallocation detection",
+    "description": "Warning raised at assignment time when a person exceeds available capacity in a period.",
+    "priority": "Must Have",
+    "module": "capacity-and-allocation",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CAP-07",
+    "category": "Team Allocation & Capacity",
+    "requirement": "Skills matrix with single-point-of-failure flagging",
+    "description": "Identify where only one person can service a given client or technology.",
+    "priority": "Must Have",
+    "module": "capacity-and-allocation",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CAP-08",
+    "category": "Team Allocation & Capacity",
+    "requirement": "Forward demand from pipeline",
+    "description": "Pipeline and project demand included in capacity view, not only current ticket load.",
+    "priority": "Must Have",
+    "module": "capacity-and-allocation",
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "CAP-09",
@@ -870,7 +630,10 @@
     "description": "Rota management with coverage gap detection, linked to after-hours flagging.",
     "priority": "Nice to Have",
     "module": "capacity-and-allocation",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Partial",
+    "gap": "A rota exists in the backend; no desk surface, no coverage-gap detection, and it drives no routing"
   },
   {
     "id": "CAP-10",
@@ -879,7 +642,226 @@
     "description": "Model the capacity impact of a prospective win before it is booked.",
     "priority": "Nice to Have",
     "module": "capacity-and-allocation",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CAP-11",
+    "category": "Team Allocation & Capacity",
+    "requirement": "Account concentration detection with owned response",
+    "description": "Any account where one person holds more than the configured share of delivered hours in a rolling window raises an alert to the technical manager, escalating to the support director if unactioned within a configured period. The alert carries a state (acknowledged, mitigation planned, accepted as risk, resolved) with the reason recorded, and open alerts are visible on the portfolio and AH-05 views.",
+    "priority": "Unassessed",
+    "module": "capacity-and-allocation",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CAP-12",
+    "category": "Team Allocation & Capacity",
+    "requirement": "Absence-aware routing",
+    "description": "A person recorded as absent cannot be assigned a ticket, invited as a collaborator, or placed on the triage rota for that period without an explicit recorded override. Work already assigned at the point absence begins is surfaced for reassignment, and the ranked queue excludes them from scoring.",
+    "priority": "Unassessed",
+    "module": "capacity-and-allocation",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CP-01",
+    "category": "Client Portal",
+    "requirement": "SSO via SAML / OIDC",
+    "description": "Authenticate against the client IdP, with local account fallback for clients without federation.",
+    "priority": "Must Have",
+    "module": "client-portal",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CP-02",
+    "category": "Client Portal",
+    "requirement": "Strict data scoping",
+    "description": "A client user sees only their own organisation's tickets and data. Enforced server-side, verified by automated test.",
+    "priority": "Must Have",
+    "module": "client-portal",
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CP-03",
+    "category": "Client Portal",
+    "requirement": "Ticket submission with dynamic forms",
+    "description": "Form fields vary by request type; required fields enforced at submission.",
+    "priority": "Must Have",
+    "module": "client-portal",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CP-04",
+    "category": "Client Portal",
+    "requirement": "Ticket status tracking and comment threads",
+    "description": "Client can view status, add comments and see public updates only.",
+    "priority": "Must Have",
+    "module": "client-portal",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CP-05",
+    "category": "Client Portal",
+    "requirement": "Attachment upload from portal",
+    "description": "Same AV scanning and size limits as internal upload.",
+    "priority": "Must Have",
+    "module": "client-portal",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CP-06",
+    "category": "Client Portal",
+    "requirement": "Budget / consumption visibility toggle",
+    "description": "Per-client switch controlling whether consumption data is exposed in the portal.",
+    "priority": "Must Have",
+    "module": "client-portal",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CP-07",
+    "category": "Client Portal",
+    "requirement": "CSAT survey on ticket close and every quarter end",
+    "description": "Triggered on closure, plus a periodic relationship survey. Results feed reporting.",
+    "priority": "Must Have",
+    "module": "client-portal",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "CP-08",
+    "category": "Client Portal",
+    "requirement": "Knowledge base with per-client article visibility",
+    "description": "Articles scoped to global or specific clients.",
+    "priority": "Must Have",
+    "module": "knowledge-base",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "EM-01",
+    "category": "Email Intake",
+    "requirement": "Dedicated inbound address",
+    "description": "With alias support so existing client-facing addresses can be retained.",
+    "priority": "Must Have",
+    "module": "email-intake",
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "EM-02",
+    "category": "Email Intake",
+    "requirement": "Thread matching on message headers",
+    "description": "Match on Message-ID / References / In-Reply-To.",
+    "priority": "Must Have",
+    "module": "email-intake",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "EM-03",
+    "category": "Email Intake",
+    "requirement": "Reply-to-update on existing tickets",
+    "description": "A reply to a ticket notification appends a comment rather than creating a duplicate.",
+    "priority": "Must Have",
+    "module": "email-intake",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "EM-04",
+    "category": "Email Intake",
+    "requirement": "Attachment and inline image extraction",
+    "description": "Attachments stored on the ticket; inline images preserved in the comment body.",
+    "priority": "Must Have",
+    "module": "email-intake",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "EM-05",
+    "category": "Email Intake",
+    "requirement": "Signature and quoted-reply stripping",
+    "description": "Strip signatures, disclaimers and quoted history so comments stay readable.",
+    "priority": "Must Have",
+    "module": "email-intake",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "EM-06",
+    "category": "Email Intake",
+    "requirement": "Loop protection and auto-responder suppression",
+    "description": "Detect and suppress mail loops and out-of-office auto-replies. A loop with a client mail system is a severity-1 event.",
+    "priority": "Must Have",
+    "module": "email-intake",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "EM-07",
+    "category": "Email Intake",
+    "requirement": "Unknown-sender quarantine queue",
+    "description": "Unrecognised senders go to a review queue rather than auto-creating tickets.",
+    "priority": "Must Have",
+    "module": "email-intake",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "EM-08",
+    "category": "Email Intake",
+    "requirement": "Outbound email threading and branding",
+    "description": "Outbound notifications correctly threaded and branded per client.",
+    "priority": "Must Have",
+    "module": "email-intake",
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "EM-09",
@@ -888,7 +870,94 @@
     "description": "Suggest priority based on message content, subject to human confirmation.",
     "priority": "Nice to Have",
     "module": "ai-functionality",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Partial",
+    "gap": "The prioritise capability exists and is wired to tickets, not to email intake"
+  },
+  {
+    "id": "DR-01",
+    "category": "Dashboard & Reporting",
+    "requirement": "Near-real-time dashboard refresh",
+    "description": "Defined refresh interval / push updates. Role-scoped and client-scoped.",
+    "priority": "Must Have",
+    "module": "dashboard-and-reporting",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "DR-02",
+    "category": "Dashboard & Reporting",
+    "requirement": "Internal operational view",
+    "description": "Backlog by age, SLA attainment and at-risk, MTTR by type, reopen rate, volume trend, team utilisation, portfolio budget burn.",
+    "priority": "Must Have",
+    "module": "dashboard-and-reporting",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "DR-03",
+    "category": "Dashboard & Reporting",
+    "requirement": "Client-facing view",
+    "description": "Their tickets, their SLA performance, their consumption, their CSAT. Nothing else.",
+    "priority": "Must Have",
+    "module": "dashboard-and-reporting",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "DR-04",
+    "category": "Dashboard & Reporting",
+    "requirement": "Auto-generated weekly report pack (PPTX / PDF)",
+    "description": "Generated from live data on a schedule. Highest-ROI item in the build - it replaces the manual WSR cycle. We would present on a call from a dashboard that can be exported and sent via email for client review",
+    "priority": "Must Have",
+    "module": "dashboard-and-reporting",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "DR-05",
+    "category": "Dashboard & Reporting",
+    "requirement": "Scheduled email delivery of report packs",
+    "description": "Per-client schedule and distribution list.",
+    "priority": "Must Have",
+    "module": "dashboard-and-reporting",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "DR-06",
+    "category": "Dashboard & Reporting",
+    "requirement": "Export to Excel / CSV on all views",
+    "description": "Raw data export for ad-hoc analysis and finance reconciliation.",
+    "priority": "Must Have",
+    "module": "dashboard-and-reporting",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "DR-07",
+    "category": "Dashboard & Reporting",
+    "requirement": "Historical trend retention",
+    "description": "Point-in-time snapshots so trends survive record edits and reclassification.",
+    "priority": "Must Have",
+    "module": "dashboard-and-reporting",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "DR-08",
@@ -897,7 +966,10 @@
     "description": "Quarterly pack assembled from the period's data, following the standard QBR structure.",
     "priority": "Nice to Have",
     "module": "dashboard-and-reporting",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "DR-09",
@@ -906,7 +978,10 @@
     "description": "Composite of CSAT, SLA attainment, budget position and engagement signals.",
     "priority": "Nice to Have",
     "module": "dashboard-and-reporting",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "DR-10",
@@ -915,7 +990,370 @@
     "description": "Self-service report definition for power users without developer involvement.",
     "priority": "Nice to Have",
     "module": "dashboard-and-reporting",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "DR-12",
+    "category": "Dashboard & Reporting",
+    "requirement": "Client self-service measure",
+    "description": "The client sees how many issues they resolved without raising a ticket, and which articles they used.",
+    "priority": "Unassessed",
+    "module": "dashboard-and-reporting",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "DR-13",
+    "category": "Dashboard & Reporting",
+    "requirement": "Collaboration and contribution measures",
+    "description": "Median time to first response, contributors per ticket, and share of tickets first touched by a principal engineer. The first-touch figure reports beside MC-05 over-routing, since over-routing is its mechanism.",
+    "priority": "Unassessed",
+    "module": "dashboard-and-reporting",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "DR-14",
+    "category": "Dashboard & Reporting",
+    "requirement": "Renewal exposure view",
+    "description": "For every contract approaching expiry, one view shows contracted value, delivered value, forecast consumption at expiry, the resulting undelivered exposure, and the account's health score, sortable by exposure and filterable by expiry window. Exposure totals roll up to the portfolio.",
+    "priority": "Unassessed",
+    "module": "dashboard-and-reporting",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "DR-15",
+    "category": "Dashboard & Reporting",
+    "requirement": "Portfolio scorecard surface",
+    "description": "The scorecard exists in the product, read quarterly, organised as four movements: is the ladder shifting downward, is the classifier getting braver safely, is knowledge compounding, is the conversation flipping from effort to value. Each line carries baseline, current, direction and target, and names the decision it informs. Ticket volume and MTTR cannot be added to it.",
+    "priority": "Unassessed",
+    "module": "dashboard-and-reporting",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "DR-16",
+    "category": "Dashboard & Reporting",
+    "requirement": "Capture-rate gate on the scorecard",
+    "description": "Time-capture rate renders at the top of DR-15. Every value-derived line displays as provisional, and is labelled as such on screen and in export, until capture rate passes its configured threshold.",
+    "priority": "Unassessed",
+    "module": "dashboard-and-reporting",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "DR-17",
+    "category": "Dashboard & Reporting",
+    "requirement": "Two pillar scorecards from one dataset",
+    "description": "An operational scoping for the support director and a commercial scoping for the customer experience lead render from the same underlying data with no divergent figures; a number appearing on both is identical.",
+    "priority": "Unassessed",
+    "module": "dashboard-and-reporting",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "DR-18",
+    "category": "Dashboard & Reporting",
+    "requirement": "Service desk team view",
+    "description": "Team resolution rate within paths 1 and 2, early-escalation pattern, path mix and certification completeness, on a surface the service desk lead owns. Per-person detail is limited to MC-07 cause tags and CL-04; the team rate does not decompose to an individual figure.",
+    "priority": "Unassessed",
+    "module": "dashboard-and-reporting",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "SN-01",
+    "category": "ServiceNow Integration",
+    "requirement": "Bidirectional sync with configurable field mapping",
+    "description": "Per-client-instance mapping configuration, maintainable without a code change.",
+    "priority": "Must Have",
+    "module": "servicenow-integration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "SN-02",
+    "category": "ServiceNow Integration",
+    "requirement": "State machine translation",
+    "description": "Translate between the internal state model and each client's. They will not match out of the box.",
+    "priority": "Must Have",
+    "module": "servicenow-integration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "SN-03",
+    "category": "ServiceNow Integration",
+    "requirement": "Loop prevention",
+    "description": "Correlation IDs and update watermarking to prevent infinite update ping-pong.",
+    "priority": "Must Have",
+    "module": "servicenow-integration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "SN-04",
+    "category": "ServiceNow Integration",
+    "requirement": "Conflict resolution policy",
+    "description": "Defined system of record per field. Last-write-wins is not acceptable as a blanket rule.",
+    "priority": "Must Have",
+    "module": "servicenow-integration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "SN-05",
+    "category": "ServiceNow Integration",
+    "requirement": "Comment and work note sync",
+    "description": "Respecting the public vs internal distinction in both directions.",
+    "priority": "Must Have",
+    "module": "servicenow-integration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "SN-06",
+    "category": "ServiceNow Integration",
+    "requirement": "Attachment sync",
+    "description": "Two-way attachment transfer with size limit handling.",
+    "priority": "Must Have",
+    "module": "servicenow-integration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "SN-07",
+    "category": "ServiceNow Integration",
+    "requirement": "Sync health monitoring and dead-letter queue",
+    "description": "Failed messages retained, alerting on failure, manual replay capability.",
+    "priority": "Must Have",
+    "module": "servicenow-integration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "SN-08",
+    "category": "ServiceNow Integration",
+    "requirement": "Multiple concurrent client instances",
+    "description": "Different schemas, different auth, different versions - running simultaneously.",
+    "priority": "Must Have",
+    "module": "servicenow-integration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "SN-09",
+    "category": "ServiceNow Integration",
+    "requirement": "One-way ingest mode",
+    "description": "Read-only ingest as a lower-risk starting configuration and as a fallback if write-back is suspended.",
+    "priority": "Must Have",
+    "module": "servicenow-integration",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-01",
+    "category": "AI Functionality",
+    "requirement": "Auto-categorisation and priority suggestion",
+    "description": "Category, priority, account and CI tagging suggested on intake, human-confirmed.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-02",
+    "category": "AI Functionality",
+    "requirement": "Duplicate detection with merge suggestion",
+    "description": "Flag likely duplicates at creation and propose a merge.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-03",
+    "category": "AI Functionality",
+    "requirement": "Long-thread summarisation",
+    "description": "Summarise ticket history for handover, shift change and escalation briefing.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-04",
+    "category": "AI Functionality",
+    "requirement": "Draft response generation",
+    "description": "Generate a suggested reply; a human always reviews and sends.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-05",
+    "category": "AI Functionality",
+    "requirement": "Weekly report narrative generation",
+    "description": "Convert dashboard figures into the written talk track for the WSR.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AI-06",
+    "category": "AI Functionality",
+    "requirement": "Time entry assistance",
+    "description": "Normalise work descriptions and prompt on unlogged time (e.g. 'you have 6 unlogged hours on Tuesday').",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AI-07",
+    "category": "AI Functionality",
+    "requirement": "Similar-ticket retrieval and KB suggestion",
+    "description": "Surface comparable resolved tickets and relevant knowledge articles to the assignee.",
+    "priority": "Must Have",
+    "module": "knowledge-base",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-08",
+    "category": "AI Functionality",
+    "requirement": "Human-in-the-loop by default",
+    "description": "No AI action takes effect without human confirmation unless explicitly opted in per client.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-09",
+    "category": "AI Functionality",
+    "requirement": "Confidence thresholds with human fallback",
+    "description": "Below threshold, the suggestion is withheld and the item routes to a human.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-10",
+    "category": "AI Functionality",
+    "requirement": "AI actions logged and attributable",
+    "description": "Every AI suggestion and action recorded in the audit trail, distinguishable from human actions.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-11",
+    "category": "AI Functionality",
+    "requirement": "Per-client AI disable switch",
+    "description": "Some clients will contractually prohibit AI processing of their data. Must be enforceable at the data layer.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-12",
+    "category": "AI Functionality",
+    "requirement": "No training on client data; DPA and residency compliance",
+    "description": "Contractual and technical guarantee before any client data reaches a model provider.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-13",
+    "category": "AI Functionality",
+    "requirement": "Feedback capture on AI suggestions",
+    "description": "Accept/reject captured to measure accuracy and drive tuning.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "AI-14",
+    "category": "AI Functionality",
+    "requirement": "Budget burn anomaly detection",
+    "description": "Flag accounts tracking materially above or below expected run rate.",
+    "priority": "Must Have",
+    "module": "ai-functionality",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
   },
   {
     "id": "AI-15",
@@ -924,7 +1362,10 @@
     "description": "Early warning on threads trending negative, before a formal escalation occurs.",
     "priority": "Nice to Have",
     "module": "ai-functionality",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
   },
   {
     "id": "AI-16",
@@ -933,7 +1374,10 @@
     "description": "Suggested effort range on new tickets based on comparable closed work.",
     "priority": "Nice to Have",
     "module": "ai-functionality",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
   },
   {
     "id": "AI-17",
@@ -942,7 +1386,10 @@
     "description": "Recommend assignee based on skills, current capacity and account familiarity.",
     "priority": "Nice to Have",
     "module": "ai-functionality",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
   },
   {
     "id": "AI-18",
@@ -951,7 +1398,10 @@
     "description": "Fully automated handling of simple, explicitly allowlisted requests. Requires strong guardrails and per-client opt-in.",
     "priority": "Nice to Have",
     "module": "knowledge-base",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Partial",
+    "gap": "The allowlist configuration exists; no end-to-end auto-resolution path"
   },
   {
     "id": "AI-19",
@@ -960,7 +1410,10 @@
     "description": "Autonomous triage. Only after measured accuracy on the human-in-the-loop version.",
     "priority": "Nice to Have",
     "module": "ai-functionality",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
   },
   {
     "id": "AI-20",
@@ -969,7 +1422,154 @@
     "description": "Ask questions of the dataset in plain language and get a chart or table back.",
     "priority": "Nice to Have",
     "module": "ai-functionality",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AI-21",
+    "category": "AI Functionality",
+    "requirement": "Confidence persisted and calibratable",
+    "description": "The confidence value is stored, and a calibration report compares stated confidence against realised outcome.",
+    "priority": "Unassessed",
+    "module": "ai-functionality",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AI-22",
+    "category": "AI Functionality",
+    "requirement": "Draft outcome capture",
+    "description": "Within the AI-13 stream, a draft records sent unchanged, light edit, heavy edit or discarded, with edit distance.",
+    "priority": "Unassessed",
+    "module": "ai-functionality",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AI-24",
+    "category": "AI Functionality",
+    "requirement": "Resolution note drafting",
+    "description": "On close, Axel drafts resolution notes from the thread, work notes and time entries, and proposes a resolution code. The draft satisfies the TB-02 completeness rule only once a human confirms it. Confirmation without edit is recorded distinctly from edited confirmation, and the unedited rate is reported.",
+    "priority": "Unassessed",
+    "module": "ai-functionality",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AI-25",
+    "category": "AI Functionality",
+    "requirement": "Shift handover summary",
+    "description": "At the end of a coverage window Axel drafts the TM-28 handover (open work, breach risk, client commitments, third-party waits) from ticket state and activity, editable before it is passed.",
+    "priority": "Unassessed",
+    "module": "ai-functionality",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "DM-01",
+    "category": "Data Migration",
+    "requirement": "Historical import from ServiceNow CSM",
+    "description": "Open and closed tickets, comments, attachments and time entries. Without history the baseline is lost.",
+    "priority": "Must Have",
+    "module": "data-migration",
+    "phase": "2 Focused pilot",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "DM-02",
+    "category": "Data Migration",
+    "requirement": "Contract and budget history import",
+    "description": "Existing contracts, consumed hours and current balances, reconciled to finance records.",
+    "priority": "Must Have",
+    "module": "data-migration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "DM-03",
+    "category": "Data Migration",
+    "requirement": "Reconciliation report post-migration",
+    "description": "Record counts and hour totals reconciled source vs target, signed off before cutover.",
+    "priority": "Must Have",
+    "module": "data-migration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "DM-04",
+    "category": "Data Migration",
+    "requirement": "Parallel run period",
+    "description": "Both systems operating concurrently for an agreed period before decommissioning the old one.",
+    "priority": "Must Have",
+    "module": "data-migration",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "DM-05",
+    "category": "Data Migration",
+    "requirement": "Knowledge corpus backfill",
+    "description": "The existing knowledge corpus is imported and is governed by the AI-23 two-scope contribution rule; nothing crosses an account boundary without recorded opt-in.",
+    "priority": "Unassessed",
+    "module": "data-migration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "INT-01",
+    "category": "Integrations",
+    "requirement": "Identity provider integration (internal)",
+    "description": "Internal users authenticate via the THG IdP.",
+    "priority": "Must Have",
+    "module": "accounts-and-administration",
+    "phase": "1 Foundations",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "INT-02",
+    "category": "Integrations",
+    "requirement": "Finance / billing system export interface",
+    "description": "Structured interface to the billing system rather than manual file handling.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "INT-03",
+    "category": "Integrations",
+    "requirement": "Renewal and contract expiry alerting",
+    "description": "Alerts ahead of contract end dates, surfaced to the account owner.",
+    "priority": "Must Have",
+    "module": "time-and-budget",
+    "phase": "3 Operational replacement",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "INT-04",
@@ -978,7 +1578,10 @@
     "description": "Ticket notifications, create-from-message, and time logging via command.",
     "priority": "Nice to Have",
     "module": "integrations",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Not started",
+    "gap": ""
   },
   {
     "id": "INT-05",
@@ -987,7 +1590,10 @@
     "description": "Push change windows and scheduled work to Outlook calendars.",
     "priority": "Nice to Have",
     "module": "integrations",
-    "phase": "4 Later releases"
+    "phase": "4 Later releases",
+    "source": "Workbook",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "XA-01",
@@ -996,7 +1602,10 @@
     "description": "Every authentication, authorisation, administration, data-movement, abuse and AI decision is recorded as an append-only security event with actor, principal kind, request and trace ids; searchable and exportable.",
     "priority": "Must Have",
     "module": "audit-and-analytics",
-    "phase": "1 Foundations"
+    "phase": "1 Foundations",
+    "source": "XMS addition",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "XA-02",
@@ -1005,7 +1614,10 @@
     "description": "Screen views, named actions, searches, Axel decisions and API requests are captured as usage events (no ticket, email or article content), per role and per account, with portal capture governed by an account setting.",
     "priority": "Must Have",
     "module": "audit-and-analytics",
-    "phase": "1 Foundations"
+    "phase": "1 Foundations",
+    "source": "XMS addition",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "XA-03",
@@ -1014,7 +1626,10 @@
     "description": "Admin screens for audit search over all three streams, a security dashboard and a usage dashboard (active users, feature adoption, core-loop funnel, knowledge gaps, Axel acceptance, portal deflection), with exports and an analyst SQL surface.",
     "priority": "Must Have",
     "module": "audit-and-analytics",
-    "phase": "2 Focused pilot"
+    "phase": "2 Focused pilot",
+    "source": "XMS addition",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "XA-04",
@@ -1023,7 +1638,10 @@
     "description": "Every change passes the security definition of done (isolation, visibility, realm, evidence, egress) with the required tests and a completed checklist; controls are mapped to ISO 27001, SOC 2 and OWASP ASVS with evidence produced automatically; monthly access reviews, quarterly runbook rehearsals, annual penetration test.",
     "priority": "Must Have",
     "module": "audit-and-analytics",
-    "phase": "1 Foundations"
+    "phase": "1 Foundations",
+    "source": "XMS addition",
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "XA-05",
@@ -1032,6 +1650,633 @@
     "description": "Append-only event tables, nightly Parquet archive to an Object Lock bucket, chained daily digests with weekly verification, retention per stream and per account DPA, pseudonymisation for erasure requests.",
     "priority": "Must Have",
     "module": "audit-and-analytics",
-    "phase": "3 Operational replacement"
+    "phase": "3 Operational replacement",
+    "source": "XMS addition",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "RL-01",
+    "category": "Resolution Ladder & Routing",
+    "requirement": "Path as a first-class ticket attribute",
+    "description": "Every ticket carries a classified path (0 client self-service, 1 front-desk resolved, 2 front-desk owned and engineer-validated, 3 engineer-owned) stamped at intake, and an actual path derived from the ownership and participant trail at close. Both are stored, neither overwrites the other, and both are reportable.",
+    "priority": "Unassessed",
+    "module": "resolution-ladder",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "RL-02",
+    "category": "Resolution Ladder & Routing",
+    "requirement": "Historical profiling layer",
+    "description": "Closed historical records are profiled by client, request type, complexity, who resolved them, and whether resolution required credentialed access or genuine expertise. Queryable per client and per request type, and the classifier's prior from day one.",
+    "priority": "Unassessed",
+    "module": "resolution-ladder",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "RL-03",
+    "category": "Resolution Ladder & Routing",
+    "requirement": "Path classification at intake",
+    "description": "Axel proposes a path from the profile and the request content, with confidence, subject to AI-08 and AI-09. The proposed path drives routing. A human can override, and the override is recorded against the proposal.",
+    "priority": "Unassessed",
+    "module": "resolution-ladder",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "RL-04",
+    "category": "Resolution Ladder & Routing",
+    "requirement": "Credential-blocked action taxonomy",
+    "description": "Request types are marked where resolution requires client-side access or elevated permission. A marked type cannot classify to path 1 and routes to path 3 or path 0. The marking is maintained per client, since access varies by account.",
+    "priority": "Unassessed",
+    "module": "resolution-ladder",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "RL-05",
+    "category": "Resolution Ladder & Routing",
+    "requirement": "Path 2 validation touch",
+    "description": "An engineer records a validation, certification or coordination touch on a ticket the agent still owns. The touch is a TM-21 participant event carrying a touch type, the assignee is unchanged, and the actual path resolves to 2 rather than 3.",
+    "priority": "Unassessed",
+    "module": "resolution-ladder",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "RL-06",
+    "category": "Resolution Ladder & Routing",
+    "requirement": "Path 0 stays on platform",
+    "description": "A client resolving through self-service produces a record without a Hackett touch: what was asked, what was returned, and whether the experience satisfied. The record attaches to the account and feeds AH-03.",
+    "priority": "Unassessed",
+    "module": "resolution-ladder",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "RL-07",
+    "category": "Resolution Ladder & Routing",
+    "requirement": "Path 0 fallback capture",
+    "description": "A self-service attempt abandoned into a raised ticket links to that attempt, and fallback rate is reportable by request type and account.",
+    "priority": "Unassessed",
+    "module": "resolution-ladder",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "RL-08",
+    "category": "Resolution Ladder & Routing",
+    "requirement": "Guided resolution for the front desk",
+    "description": "Where the profile holds a known-good path, Axel walks a non-technical resolver through it step by step against the current corpus. Where the profile says expertise or access is required, Axel proposes path 2 or path 3 instead of guidance.",
+    "priority": "Unassessed",
+    "module": "resolution-ladder",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "RL-09",
+    "category": "Resolution Ladder & Routing",
+    "requirement": "Self-service candidate surfacing",
+    "description": "Request types resolved repeatedly at path 1 without engineer involvement surface as path-0 candidates, ranked by volume and consistency of resolution, on a surface the service desk lead owns.",
+    "priority": "Unassessed",
+    "module": "resolution-ladder",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-01",
+    "category": "Measurement & Calibration",
+    "requirement": "Intake mix by path",
+    "description": "The share of intake landing at each of the four paths reports per account, per period, with trend, and rolls up to the portfolio.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-02",
+    "category": "Measurement & Calibration",
+    "requirement": "Front-desk resolution rate, paths 1 and 2",
+    "description": "Computed over tickets whose classified path was 1 or 2. A ticket classified 3 is absent from the denominator regardless of outcome, and no configuration can move it in. Reported at team and account level only; no screen, export or report resolves it to an individual.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-03",
+    "category": "Measurement & Calibration",
+    "requirement": "Engineer resolution rate, path 3",
+    "description": "Computed over tickets whose classified path was 3, reported at account and practice level only; no screen, export or report resolves it to an individual. Individual coaching signal comes from MC-07 cause tags and CL-04.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-04",
+    "category": "Measurement & Calibration",
+    "requirement": "Automatic misroute detection",
+    "description": "Where classified path and actual path disagree, a misroute is raised without anyone reporting it, and its direction is derived from the ownership trail.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-05",
+    "category": "Measurement & Calibration",
+    "requirement": "Under-routing and over-routing reported separately",
+    "description": "Under-routing (classified low, escalated) and over-routing (classified high, resolvable at the front desk) report as distinct rates, never as one accuracy figure.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-06",
+    "category": "Measurement & Calibration",
+    "requirement": "First-move-to-resolver measure",
+    "description": "First-contact resolution is defined and computed as the ticket reaching its final resolver on the first move, not as the service desk having solved it. The legacy first-level figure remains available during transition and is labelled as such.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-07",
+    "category": "Measurement & Calibration",
+    "requirement": "Misroute review queue with cause tagging",
+    "description": "Misroutes queue for the technical manager on a weekly cadence. Each is tagged model was wrong or person was wrong with a short reason. Unreviewed misroutes age visibly and surface to the support director past a configured age.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-08",
+    "category": "Measurement & Calibration",
+    "requirement": "Tags feed classifier improvement",
+    "description": "Cause tags are retained as labelled training signal, are reportable by cause, account and manager, and a model-was-wrong volume trend is visible beside the classifier's accuracy.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-09",
+    "category": "Measurement & Calibration",
+    "requirement": "Tag sampling by the support director",
+    "description": "The director can sample a manager's tags, record agreement or disagreement per sampled item, and see disagreement rate per manager. Sampling is visible to the manager.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "MC-10",
+    "category": "Measurement & Calibration",
+    "requirement": "Cross-manager variance view",
+    "description": "Calibration quality, ladder mix, misroute rate and certification completeness compare between managers and between service desk teams, not only within accounts, on a surface the support director and service desk lead own.",
+    "priority": "Unassessed",
+    "module": "measurement-and-calibration",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AH-01",
+    "category": "Account Health & Experience",
+    "requirement": "Continuous account activity record",
+    "description": "Every touch on an account, any path, any shift, any person, any reporting line, lands in one account-level record the account owner sees without running a report, including work done by people who do not report to them.",
+    "priority": "Unassessed",
+    "module": "account-health",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AH-02",
+    "category": "Account Health & Experience",
+    "requirement": "Patterns, not a feed",
+    "description": "The account view surfaces recurring requests, repeated themes, commitments made to the client and precedents set, as patterns over a rolling window, not only as a chronological list.",
+    "priority": "Unassessed",
+    "module": "account-health",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AH-03",
+    "category": "Account Health & Experience",
+    "requirement": "Readiness trajectory",
+    "description": "A per-account trajectory composed of front-desk share, path-0 volume and fallback rate, profile maturity and knowledge coverage, calibrated against that account's own historical mix rather than a global target. Rising front-desk share reads as readiness, not as risk.",
+    "priority": "Unassessed",
+    "module": "account-health",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AH-04",
+    "category": "Account Health & Experience",
+    "requirement": "Experience trajectory",
+    "description": "A per-account trajectory composed of CSAT, responsiveness, expectation-management signal and perception notes. No surface renders AH-03 without AH-04 beside it.",
+    "priority": "Unassessed",
+    "module": "account-health",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AH-05",
+    "category": "Account Health & Experience",
+    "requirement": "Ranked account surface",
+    "description": "The CSM, the technical manager, the CSM lead and the director land on accounts ranked by attention need, computed server-side from health movement, exposure, consumption position and open divergences, never on an alphabetical or portfolio-order list.",
+    "priority": "Unassessed",
+    "module": "account-health",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AH-06",
+    "category": "Account Health & Experience",
+    "requirement": "Flexible perception capture",
+    "description": "Meeting transcripts, forwarded emails, typed notes and voice notes attach to the account record, are attributable and timestamped, are searchable, and feed AH-04. Voice notes transcribe.",
+    "priority": "Unassessed",
+    "module": "account-health",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AH-07",
+    "category": "Account Health & Experience",
+    "requirement": "Crystallised prior at cutover",
+    "description": "An account can be seeded with a dated starting assessment (owner's read of health, known fragility, key relationships, continuity risk) recorded as a stated prior. Later movement renders against the prior rather than against an empty history, and the prior remains readable and attributable.",
+    "priority": "Unassessed",
+    "module": "account-health",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AH-08",
+    "category": "Account Health & Experience",
+    "requirement": "Service-line seam",
+    "description": "The account-health object holds more than one service line. Support is the only line populated at launch; adding a second requires configuration, not schema change, and no surface hard-codes support as the only line.",
+    "priority": "Unassessed",
+    "module": "account-health",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "AH-09",
+    "category": "Account Health & Experience",
+    "requirement": "Account touch cadence",
+    "description": "Direct account conversations log against the account with date and participant. Rolling coverage per account is visible, a per-account target interval is configurable, and accounts past their interval surface on AH-05.",
+    "priority": "Unassessed",
+    "module": "account-health",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TC-01",
+    "category": "Time Certification",
+    "requirement": "Daily certification flow",
+    "description": "Every role from agent to director completes a card-based end-of-day wrap-up in under a minute. It is available on any device and does not require opening a ticket.",
+    "priority": "Unassessed",
+    "module": "time-certification",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TC-02",
+    "category": "Time Certification",
+    "requirement": "System-proposed activity",
+    "description": "The first card proposes the day's activities from ticket, comment, time-entry and calendar signals for confirmation. The person confirms, removes or corrects; nothing is entered from a blank screen.",
+    "priority": "Unassessed",
+    "module": "time-certification",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TC-03",
+    "category": "Time Certification",
+    "requirement": "Off-system capture by text or voice",
+    "description": "One prompt asks whether anything else happened, answerable by typing or by speaking. Spoken input is transcribed into a candidate entry the person confirms.",
+    "priority": "Unassessed",
+    "module": "time-certification",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TC-04",
+    "category": "Time Certification",
+    "requirement": "Effort estimation against placeholders",
+    "description": "Each confirmed activity gets one card for effort. Duration fields show a placeholder and are never pre-filled with a computed actual; the person supplies the figure.",
+    "priority": "Unassessed",
+    "module": "time-certification",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TC-05",
+    "category": "Time Certification",
+    "requirement": "Catch-all bucket",
+    "description": "An other bucket accepts effort without forcing a ticket, an account or an activity type, so no one is blocked from completing the wrap-up.",
+    "priority": "Unassessed",
+    "module": "time-certification",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TC-06",
+    "category": "Time Certification",
+    "requirement": "Other-bucket guardrail, weekly",
+    "description": "The size of other is policed weekly, never daily. Crossing a role-configurable threshold raises to the person and their manager, and the threshold and its owner appear in the CG-01 register.",
+    "priority": "Unassessed",
+    "module": "time-certification",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "TC-07",
+    "category": "Time Certification",
+    "requirement": "Completeness tracking, not content grading",
+    "description": "A missed evening is permitted; the next login shows outstanding wrap-ups. Completeness is reportable per person and per period and may drive enforcement. No report, screen or export renders certification magnitude as a performance measure of a person, and this is enforced rather than conventional.",
+    "priority": "Unassessed",
+    "module": "time-certification",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CL-01",
+    "category": "Collaboration Signal",
+    "requirement": "Closure grading of collaborators",
+    "description": "At closure the ticket owner grades each TM-21 participant on a short scale with optional comment. Skipping is permitted and the skip rate is reportable.",
+    "priority": "Unassessed",
+    "module": "collaboration-signal",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CL-02",
+    "category": "Collaboration Signal",
+    "requirement": "CSM grading from client-relayed feedback",
+    "description": "A CSM records feedback about a named person as relayed from the client, attributed to the client source and dated, feeding the client side of CL-04.",
+    "priority": "Unassessed",
+    "module": "collaboration-signal",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CL-03",
+    "category": "Collaboration Signal",
+    "requirement": "Weekly collaboration digest",
+    "description": "Once a week a person is shown who they worked with and invited to comment. It is skippable, takes under a minute, and never chases.",
+    "priority": "Unassessed",
+    "module": "collaboration-signal",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CL-04",
+    "category": "Collaboration Signal",
+    "requirement": "Peer-and-client quadrant view",
+    "description": "Peer signal renders against client satisfaction in four quadrants per person and per account. Client satisfaction governs where the two disagree, and the disagreement is itself the reported signal.",
+    "priority": "Unassessed",
+    "module": "collaboration-signal",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CL-05",
+    "category": "Collaboration Signal",
+    "requirement": "Asymmetric visibility",
+    "description": "Positive feedback is attributable and visible to its subject. Concerns are aggregated and anonymised, never rendered attributably, and are withheld from display until a configured minimum contributor count is reached. No interface, export or audit view can resolve an anonymised concern to its author.",
+    "priority": "Unassessed",
+    "module": "collaboration-signal",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CG-01",
+    "category": "Configuration Governance",
+    "requirement": "Configuration register with named owners",
+    "description": "Every configurable parameter appears in one register with a named owner and a plain-language description of what it affects: path rules and credential markings, classifier and queue weights, all thresholds, the TC-06 guardrail, activity and outcome taxonomies, auto-resolution allowlists, consent flags, CL-05 aggregation minimums, and coverage floors. A parameter with no owner is visible as unowned.",
+    "priority": "Unassessed",
+    "module": "configuration-governance",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CG-02",
+    "category": "Configuration Governance",
+    "requirement": "Audited change with reason and effective date",
+    "description": "Changing a parameter records who, when, old value, new value, a reason and an effective date. Prior values remain readable, and no interface edits or deletes the history.",
+    "priority": "Unassessed",
+    "module": "configuration-governance",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CG-03",
+    "category": "Configuration Governance",
+    "requirement": "Change visible where it moves a number",
+    "description": "A trend or scorecard line spanning a configuration change renders a marker for that change, so a step is never read as behaviour when it was a setting.",
+    "priority": "Unassessed",
+    "module": "configuration-governance",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "CG-04",
+    "category": "Configuration Governance",
+    "requirement": "Review cadence and staleness",
+    "description": "Each parameter carries a review cadence; parameters past it surface to their owner and, unactioned, to the support director.",
+    "priority": "Unassessed",
+    "module": "configuration-governance",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "OC-01",
+    "category": "Outcomes",
+    "requirement": "Outcome object above the ticket",
+    "description": "An outcome carries name, stated business result, owner, period, status, type, client visibility, linked tickets and linked contract. The type taxonomy is configurable per client from a maintained default list, each type carrying a default client-visibility setting that can be overridden per instance and is audited when it is.",
+    "priority": "Unassessed",
+    "module": "outcomes",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "OC-02",
+    "category": "Outcomes",
+    "requirement": "Outcome-framed client reporting",
+    "description": "The client-facing report leads on business result with tickets and hours as supporting evidence, and shows only client-visible outcome types.",
+    "priority": "Unassessed",
+    "module": "outcomes",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
+  },
+  {
+    "id": "KB-01",
+    "category": "Solution Knowledge Base",
+    "requirement": "Authoring, lifecycle, ownership, versioning",
+    "description": "An article moves draft to review to published to retired, has a named owner, and prior versions remain readable.",
+    "priority": "Unassessed",
+    "module": "knowledge-base",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "KB-02",
+    "category": "Solution Knowledge Base",
+    "requirement": "Candidate queue and promotion",
+    "description": "A candidate submitted at resolution appears in the queue and can be promoted, merged, or rejected with a reportable reason.",
+    "priority": "Unassessed",
+    "module": "knowledge-base",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Built",
+    "gap": ""
+  },
+  {
+    "id": "KB-03",
+    "category": "Solution Knowledge Base",
+    "requirement": "Client-to-global promotion with sanitisation",
+    "description": "Promoting to global forces a review for client identifiers and configuration detail, and is blocked unless the source account has explicitly opted in to cross-account contribution (AI-23).",
+    "priority": "Unassessed",
+    "module": "knowledge-base",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Partial",
+    "gap": "The generalise flow with its findings sheet ships; the AI-23 cross-account consent gate that must block it does not exist"
+  },
+  {
+    "id": "KB-04",
+    "category": "Solution Knowledge Base",
+    "requirement": "Article health and coverage",
+    "description": "Each article shows reuse count and last-validated date, stale articles flag against the review cadence, and a report lists high-volume patterns with no article.",
+    "priority": "Unassessed",
+    "module": "knowledge-base",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Partial",
+    "gap": "Staleness and reuse signals exist on articles; the coverage report listing high-volume patterns with no article does not"
+  },
+  {
+    "id": "KB-05",
+    "category": "Solution Knowledge Base",
+    "requirement": "Contribution attribution",
+    "description": "Author and improver are recorded per version and aggregate per person and per account.",
+    "priority": "Unassessed",
+    "module": "knowledge-base",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Partial",
+    "gap": "Author and improver are recorded per version; the per-person and per-account aggregation is not built"
+  },
+  {
+    "id": "AI-23",
+    "category": "Solution Knowledge Base",
+    "requirement": "Two-scope knowledge contribution consent",
+    "description": "Contribution within the originating account is on by default and can be switched off per account. Contribution across accounts is off by default and requires explicit opt-in recorded in account configuration. Both are enforced at the data layer, honoured by KB-02, KB-03, AI-07, RL-08 and any historical backfill, and independent of the AI-11 processing switch.",
+    "priority": "Unassessed",
+    "module": "knowledge-base",
+    "phase": "0 Unscoped (revision 3 intake)",
+    "source": "Functional RTM r3",
+    "status": "Not started",
+    "gap": ""
   }
 ]
