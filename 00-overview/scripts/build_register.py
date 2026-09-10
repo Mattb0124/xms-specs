@@ -240,6 +240,55 @@ def build_status(rid: str) -> tuple[str, str]:
     return "Not started", ""
 
 
+# Triage of the revision 3 intake (C-02), one category at a time.
+#
+# A row leaves phase "U" only when somebody has decided where it belongs, so
+# this map is the decision and the register is its output. Anything not named
+# here is still Unassessed and still unscheduled, which is the point of the
+# holding pen.
+#
+# The rule applied, so the next category is triaged the same way: Must Have
+# means ServiceNow cannot be switched off without it, which is what phase 3
+# is for. Valuable work that the replacement does not depend on is Nice to
+# Have in phase 4, however much anyone wants it.
+#
+# Ticket Management, triaged 2026-09-10 with Matt:
+#
+#   TM-21 participant record   3 / Must Have. DMS uses ServiceNow's watchers
+#         and collaborators today, and TM-22 has nowhere to write an invitation
+#         without it. A join table is far cheaper now than retrofitted.
+#   TM-22 invite a collaborator 3 / Must Have. The day-in-the-life analysis
+#         found people transferring a ticket to ask a question and never
+#         getting it back. Parity, not improvement.
+#   TM-23 ownership and teams  3 / Must Have. The owner half exists; the
+#         audited change, the team construct and report authorship do not.
+#         C-01 is still open and still blocks the routing half of this row:
+#         ownership-driven routing contradicts the assignment-group routing
+#         already shipped, and that is a decision, not a build.
+#   TM-24 ranked queue          4 / Nice to Have. The queue works and sorts on
+#         the tightest clock. A weighted stall score is an optimisation over
+#         something that already does its job.
+#   TM-26 outcome coverage      4 / Nice to Have. It cannot start before the
+#         Outcomes module exists (OC-01), which is itself unbuilt and, as of
+#         today, itself untriaged.
+#   TM-27 container detection   3 / Nice to Have. Cheap now that TM-11 keeps a
+#         real decision record: a threshold, a flag and a notification. The
+#         replacement does not depend on it, since a consultant can still flag
+#         a container case by hand.
+#   TM-28 shift handover        4 / Nice to Have. An operating-model
+#         improvement rather than parity: ServiceNow does not do this either,
+#         and today the handover is verbal.
+TRIAGE: dict[str, tuple[str, str]] = {
+    "TM-21": ("O", "Must Have"),
+    "TM-22": ("O", "Must Have"),
+    "TM-23": ("O", "Must Have"),
+    "TM-24": ("L", "Nice to Have"),
+    "TM-26": ("L", "Nice to Have"),
+    "TM-27": ("O", "Nice to Have"),
+    "TM-28": ("L", "Nice to Have"),
+}
+
+
 # Requirements introduced by the functional RTM revision 3 (2026-09-09), which
 # folds in the gap analysis, the day-in-the-life analysis and the operating model
 # session. That document carries no phases and no priorities by design, so every
@@ -379,14 +428,15 @@ def load(xlsx: Path) -> list[dict]:
             "gap": build_status(f"{EXTRA_PREFIX}-{i:02d}")[1],
         })
     for rid, cat, name, desc, module in NEW_REQUIREMENTS:
+        phase_key, priority = TRIAGE.get(rid, ("U", "Unassessed"))
         out.append({
             "id": rid,
             "category": cat,
             "requirement": name,
             "description": desc,
-            "priority": "Unassessed",
+            "priority": priority,
             "module": module,
-            "phase": PHASE_LABEL["U"],
+            "phase": PHASE_LABEL[phase_key],
             "source": "Functional RTM r3",
             "status": build_status(rid)[0],
             "gap": build_status(rid)[1],

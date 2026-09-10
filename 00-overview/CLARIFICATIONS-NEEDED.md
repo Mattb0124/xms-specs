@@ -43,6 +43,20 @@ That is honest but it is not a plan. Nothing in the roadmap covers them, so toda
 
 **What we need:** a triage pass assigning a phase and a priority to each of the 75. The seven new modules are the bulk (47 rows) and can be triaged as blocks; the 28 rows landing in existing modules need individual calls.
 
+**In progress, one category at a time.** Ticket Management was triaged with Matt on 2026-09-10, which moved seven rows out of the pen and leaves 68 in it. The rule applied, so the next category is triaged the same way: **Must Have means ServiceNow cannot be switched off without it**, which is what phase 3 is for; valuable work the replacement does not depend on is Nice to Have in phase 4, however much anyone wants it.
+
+| Row | Phase | Priority | Why |
+|---|---|---|---|
+| TM-21 participant record | 3 | Must Have | DMS uses ServiceNow's watchers and collaborators today, and TM-22 has nowhere to write an invitation without it |
+| TM-22 invite a collaborator | 3 | Must Have | Parity, not improvement: people transfer a ticket to ask a question and never get it back |
+| TM-23 ownership and teams | 3 | Must Have | The owner half exists; the audited change, the team construct and report authorship do not. **The routing half stays blocked on C-01** |
+| TM-24 ranked queue | 4 | Nice to Have | The queue works and sorts on the tightest clock; a weighted stall score is an optimisation over something already doing its job |
+| TM-26 outcome coverage | 4 | Nice to Have | Cannot start before the Outcomes module exists (OC-01), which is unbuilt and itself untriaged |
+| TM-27 container detection | 3 | Nice to Have | Cheap now TM-11 keeps a real decision record; the replacement does not depend on it, since a consultant can still flag by hand |
+| TM-28 shift handover | 4 | Nice to Have | An operating-model improvement rather than parity: ServiceNow does not do this either |
+
+The triage lives in `TRIAGE` in [build_register.py](./scripts/build_register.py), so the register is its output and no row is moved by hand (ADR-00).
+
 ### C-03 Which register is the authority?
 
 Two registers now exist: ours (generated, phased, prioritised, 190 rows) and the functional RTM (176 functional rows, no phases, richer "Done when" statements).
