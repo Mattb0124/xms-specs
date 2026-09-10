@@ -185,7 +185,7 @@ MODULE_LINK = {"audit-and-analytics": "../01-architecture/AUDIT-AND-ANALYTICS.md
 BUILT = {
     "TM-01", "TM-02", "TM-03", "TM-04", "TM-05", "TM-06", "TM-07", "TM-08", "TM-09",
     "TM-10", "TM-11", "TM-12", "TM-13", "TM-14", "TM-15", "TM-16", "TM-18", "TM-19",
-    "TM-21", "TM-25",
+    "TM-21", "TM-22", "TM-25",
     "TB-01", "TB-03", "TB-16", "TB-04", "TB-05", "TB-06", "TB-07", "TB-08", "TB-09", "TB-10",
     "TB-11", "TB-12", "TB-13", "TB-14",
     "CAP-01", "CAP-02", "CAP-03", "CAP-04", "CAP-05", "CAP-06", "CAP-07", "CAP-08",
