@@ -72,6 +72,7 @@ xms/
   03-delivery/
     ROADMAP.md                        phases, milestones, team shape, decision gates
     TEST-STRATEGY.md                  layers, isolation suite, pipeline gates
+    GO-LIVE-PLAN.md                   build to mid-Oct, parallel run and training to Nov, cutover, go live 1 Dec
     THIRTY-DAY-BUILD.md               the one-month build: day-by-day tracks, cuts, circuit breakers, acceptance
     IMPLEMENTATION-PLAN.md            the ordered work breakdown: every item, its dependencies and its test
     TODO.md                           the durable task list for the spec set and the build
