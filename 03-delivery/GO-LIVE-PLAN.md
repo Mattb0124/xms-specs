@@ -9,6 +9,44 @@
 
 ## 1. The shape of it
 
+```mermaid
+gantt
+    title XMS: build, parallel run, go live
+    dateFormat YYYY-MM-DD
+    axisFormat %d %b
+    todayMarker off
+
+    section Decisions
+    C-01 does a group route          :crit, dec1, 2026-09-14, 5d
+    Harness dev access confirmed     :crit, dec2, 2026-09-14, 3d
+    ADR-02 security ruling           :dec3, 2026-09-14, 20d
+
+    section Build
+    Wire the Axel harness            :a1, 2026-09-14, 5d
+    AI-01 to AI-04 and AI-07 proven  :a2, after a1, 10d
+    AI-05 narrative, AI-14 anomaly   :a3, after a2, 5d
+    AI-06 time assistance            :a4, after a3, 5d
+    CP-01 portal SSO, Clerk SAML     :crit, b1, 2026-09-14, 20d
+    TB-02 resolution gate            :b2, 2026-09-21, 10d
+    TM-23 account ownership          :b3, after dec1, 15d
+    Feature complete                 :milestone, m1, 2026-10-16, 0d
+
+    section Parallel run and training
+    Parallel run, DM-04              :c1, 2026-10-19, 30d
+    Weekly delta and reconciliation  :c2, 2026-10-19, 30d
+    Train service desk               :t1, 2026-10-19, 5d
+    Train engineers                  :t2, 2026-10-26, 5d
+    Train CSMs and leads             :t3, 2026-11-02, 5d
+    Client portal pilot              :t4, 2026-11-09, 5d
+    Exit criteria review             :milestone, m2, 2026-11-27, 0d
+
+    section Cutover
+    Freeze, final delta, reconcile   :crit, d1, 2026-11-27, 3d
+    Go live                          :milestone, crit, m3, 2026-12-01, 0d
+```
+
+Red bars are the things that stop other things. The three decisions at the top are not work, they are answers we need: **C-01 blocks TM-23**, and **harness access blocks eight of the twelve Must Have rows at once**.
+
 | Phase | Dates | What happens |
 |---|---|---|
 | **Build** | Mon 14 Sep to Fri 16 Oct 2026 (4 working weeks) | The twelve outstanding Must Have rows close. Feature complete for the replacement |
