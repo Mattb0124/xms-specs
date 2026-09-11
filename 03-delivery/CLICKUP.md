@@ -1,6 +1,6 @@
 # ClickUp publication map
 
-**Status:** Published 2026-09-04
+**Status:** Published 2026-09-04, revision 3 modules added 2026-09-10
 **Owner:** Matt Brown
 **Workspace:** 9015896416, space "X Platforms" (901511370980)
 **List:** XMS, id `901525777420`, https://app.clickup.com/9015896416/v/l/li/901525777420
@@ -9,7 +9,7 @@ ClickUp is a one-way copy of this repository. Edit the local markdown, then re-s
 
 | Document | document_id | Pages (local source) |
 |---|---|---|
-| XMS 00 · Overview | `8cp7ab0-48195` | README, Product Vision, Glossary, Decision Log, Requirements Traceability Matrix |
+| XMS 00 · Overview | `8cp7ab0-48195` | README, Product Vision, Glossary, Decision Log, Requirements Traceability Matrix, Clarifications needed |
 | XMS 01 · Architecture | `8cp7ab0-48215` | Architecture, Domain Model, Data Model, Security and Tenancy, Security Assurance, AI Integration, Integration Patterns, Platform and Operations, Design System, User Experience, Wireframes v2, Audit Log and User Analytics, AIX Pattern Reuse |
 | XMS 02 · Accounts & Administration | `8cp7ab0-48235` | Functional Spec, Technical Spec |
 | XMS 02 · Ticket Management | `8cp7ab0-48255` | Functional Spec, Technical Spec |
@@ -23,6 +23,13 @@ ClickUp is a one-way copy of this repository. Edit the local markdown, then re-s
 | XMS 02 · Axel AI Functionality | `8cp7ab0-48415` | Functional Spec, Technical Spec |
 | XMS 02 · Data Migration & Cutover | `8cp7ab0-48435` | Functional Spec, Technical Spec |
 | XMS 02 · Platform Integrations | `8cp7ab0-48455` | Functional Spec, Technical Spec |
+| XMS 02 · Resolution Ladder & Routing | `8cp7ab0-50115` | Functional Spec, Technical Spec |
+| XMS 02 · Measurement & Calibration | `8cp7ab0-50135` | Functional Spec, Technical Spec |
+| XMS 02 · Account Health & Experience | `8cp7ab0-50155` | Functional Spec, Technical Spec |
+| XMS 02 · Time Certification | `8cp7ab0-50175` | Functional Spec, Technical Spec |
+| XMS 02 · Collaboration Signal | `8cp7ab0-50195` | Functional Spec, Technical Spec |
+| XMS 02 · Configuration Governance | `8cp7ab0-50215` | Functional Spec, Technical Spec |
+| XMS 02 · Outcomes | `8cp7ab0-50235` | Functional Spec, Technical Spec |
 | XMS 03 · Delivery | `8cp7ab0-48475` | Roadmap, Test Strategy, Thirty-Day Build, Implementation Plan, TODO, ClickUp Publication Map |
 
 Publishing rule learned 2026-09-04: ClickUp rejects a page (HTTP 400) when a markdown table cell contains an unescaped pipe inside a code span; `check_links.py` now flags this. Escape as `\|`.
