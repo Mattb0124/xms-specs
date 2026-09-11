@@ -1,6 +1,6 @@
 # Implementation Plan: XMS, ordered work breakdown
 
-**Status:** Draft, built for Path 1 (six-month ServiceNow extension, current team fully dedicated); the first month is re-sequenced by the [Thirty-Day Build](./THIRTY-DAY-BUILD.md) (ADR-15), which references these item ids
+**Status:** Superseded from 2026-09-14 by the [Implementation Plan to go-live](./IMPLEMENTATION-PLAN-GO-LIVE.md). Kept as the record of how Phases 0 and 1 were built. Draft, built for Path 1 (six-month ServiceNow extension, current team fully dedicated); the first month is re-sequenced by the [Thirty-Day Build](./THIRTY-DAY-BUILD.md) (ADR-15), which references these item ids
 **Owner:** Matt Brown
 **Last updated:** 2026-09-04
 **Related:** [Roadmap](./ROADMAP.md), [TODO](./TODO.md), [Test Strategy](./TEST-STRATEGY.md), [Architecture](../01-architecture/ARCHITECTURE.md), [User Experience](../01-architecture/USER-EXPERIENCE.md), [Decision Log](../00-overview/DECISION-LOG.md)

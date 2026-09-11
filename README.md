@@ -13,7 +13,7 @@ The Hackett Group's Digital Managed Services practice is replacing ServiceNow wi
 4. Go to the module you are building. Each module has a `FUNCTIONAL-SPEC.md` (what and why, readable by a non-engineer, no code) and a `TECHNICAL-SPEC.md` (how, grounded in the architecture and in verified AIX code paths).
 5. Check the [Requirements Traceability Matrix](00-overview/REQUIREMENTS-TRACEABILITY.md) to see where any row landed, and the [Decision Log](00-overview/DECISION-LOG.md) before reopening a settled question.
 6. **Before starting work, read [Clarifications needed](00-overview/CLARIFICATIONS-NEEDED.md).** It carries the questions that block a spec or contradict something already built, including the TM-08 routing conflict.
-7. Delivery: [Roadmap](03-delivery/ROADMAP.md), [Thirty-Day Build](03-delivery/THIRTY-DAY-BUILD.md), [Implementation Plan](03-delivery/IMPLEMENTATION-PLAN.md), [Test Strategy](03-delivery/TEST-STRATEGY.md), [TODO](03-delivery/TODO.md).
+7. Delivery: [Go-Live Plan](03-delivery/GO-LIVE-PLAN.md) and [Implementation Plan to go-live](03-delivery/IMPLEMENTATION-PLAN-GO-LIVE.md) are current; [Roadmap](03-delivery/ROADMAP.md), [Thirty-Day Build](03-delivery/THIRTY-DAY-BUILD.md), [Implementation Plan](03-delivery/IMPLEMENTATION-PLAN.md), [Test Strategy](03-delivery/TEST-STRATEGY.md), [TODO](03-delivery/TODO.md).
 
 ## Layout
 
@@ -74,7 +74,8 @@ xms/
     TEST-STRATEGY.md                  layers, isolation suite, pipeline gates
     GO-LIVE-PLAN.md                   build to mid-Oct, parallel run and training to Nov, cutover, go live 1 Dec
     THIRTY-DAY-BUILD.md               the one-month build: day-by-day tracks, cuts, circuit breakers, acceptance
-    IMPLEMENTATION-PLAN.md            the ordered work breakdown: every item, its dependencies and its test
+    IMPLEMENTATION-PLAN.md            the ordered work breakdown for the original six-month build (Phases 0 and 1 as built)
+    IMPLEMENTATION-PLAN-GO-LIVE.md    supersedes it from 2026-09-14: the twelve Must Have rows, parallel run, cutover
     TODO.md                           the durable task list for the spec set and the build
     CLICKUP.md                        where each document is published in ClickUp (list XMS, X Platforms)
 ```
