@@ -57,15 +57,15 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 
 | Status | Rows |
 |---|---|
-| Built | 96 |
-| Partial | 14 |
-| Not started | 80 |
+| Built | 97 |
+| Partial | 15 |
+| Not started | 78 |
 | **Total** | **190** |
 
 | Module spec | Built | Partial | Not started |
 |---|---|---|---|
-| [Accounts & Administration](../02-modules/accounts-and-administration/FUNCTIONAL-SPEC.md) | 4 | 0 | 1 |
-| [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 17 | 0 | 4 |
+| [Accounts & Administration](../02-modules/accounts-and-administration/FUNCTIONAL-SPEC.md) | 4 | 1 | 0 |
+| [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 18 | 0 | 3 |
 | [Solution Knowledge Base](../02-modules/knowledge-base/FUNCTIONAL-SPEC.md) | 4 | 6 | 1 |
 | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 16 | 2 | 1 |
 | [Capacity & Allocation](../02-modules/capacity-and-allocation/FUNCTIONAL-SPEC.md) | 8 | 1 | 3 |
@@ -90,6 +90,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | ID | Requirement | What is missing |
 |---|---|---|
 | TM-17 | Ticket templates | Schema only; one reference in the backend and no authoring or apply surface |
+| TM-23 | Account ownership and team construct | Ownership, the audited handover and the team construct ship, and a report run carries its author. The routing half stays blocked on C-01: until TM-08 is settled, 'ownership drives default routing' has no agreed meaning |
 | TB-02 | Mandatory time entry before resolution | The time-or-exemption gate ships. Revision 3 makes it composite (resolution code, notes completeness, article prompt, certification-sourced time), and that is not built |
 | TB-15 | Multi-currency support | Currency is carried on rate cards and amounts; no FX conversion for consolidated views |
 | CAP-09 | On-call / shift rota | A rota exists in the backend; no desk surface, no coverage-gap detection, and it drives no routing |
@@ -132,11 +133,11 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TM-19 | CMDB / lightweight asset register | Built | Nice to Have | [Solution Knowledge Base](../02-modules/knowledge-base/FUNCTIONAL-SPEC.md) | 4 Later releases | Workbook | Per-client configuration item register, linkable to tickets. |
 | TM-21 | Ticket participant record | Built | Must Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Functional RTM r3 | People appear on a ticket in roles other than assignee, with joined and left timestamps and who invited them; contributor count is queryable. |
 | TM-22 | Invite a collaborator without transferring ownership | Built | Must Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Functional RTM r3 | A named person or skill group is invited, accepts or declines, is notified, and the assignee is unchanged throughout. |
-| TM-23 | Account ownership and team construct | Not started | Must Have | [Accounts & Administration](../02-modules/accounts-and-administration/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Functional RTM r3 | Every account has exactly one named primary owner; changing it is audited; teams group accounts and people; ownership drives default routing and report authorship. |
+| TM-23 | Account ownership and team construct | Partial | Must Have | [Accounts & Administration](../02-modules/accounts-and-administration/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Functional RTM r3 | Every account has exactly one named primary owner; changing it is audited; teams group accounts and people; ownership drives default routing and report authorship. |
 | TM-24 | Ranked work queue with stall weighting | Not started | Nice to Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 4 Later releases | Functional RTM r3 | The landing queue orders by a server-computed score over client priority, severity, breach proximity, shift context and, weighted at least as heavily, time since last movement, age against expected duration for that ticket type, and time since last client contact. An administrator changes a weight and the order changes. |
 | TM-25 | Default active-work view | Built | Unassessed | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 0 Unscoped (revision 3 intake) | Functional RTM r3 | Resolved, closed and transferred tickets are absent from the default view and require a deliberate action to reach. |
 | TM-26 | Ticket-to-outcome association with coverage measure | Not started | Nice to Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 4 Later releases | Functional RTM r3 | A ticket can be attached to and detached from an outcome, and the outcome lists it. Linkage coverage, the share of tickets and of delivered hours carrying an outcome, is reportable per account, per engineer and per period, and accounts below a configured coverage floor surface to the account owner and the support director. |
-| TM-27 | Container-case detection | Not started | Nice to Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Functional RTM r3 | A ticket crossing the configured time-entry, elapsed-day or effort threshold raises TM-11 and notifies the account owner. |
+| TM-27 | Container-case detection | Built | Nice to Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Functional RTM r3 | A ticket crossing the configured time-entry, elapsed-day or effort threshold raises TM-11 and notifies the account owner. |
 | TM-28 | Shift handover | Not started | Nice to Have | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 4 Later releases | Functional RTM r3 | At the close of a coverage window the outgoing owner produces a handover for the incoming one covering open work, items at risk of breach, commitments made to clients, and anything awaiting a third party. The incoming owner acknowledges it. Unacknowledged handovers are visible to the technical manager. Drafted by Axel (AI-25) and editable before it is passed; retained and searchable against the ticket. |
 
 ### Time Tracking & Budget
@@ -402,7 +403,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TM-01 | Multi-tenant data isolation | Built | Must Have | 1 Foundations | Workbook |
 | TM-06 | Per-client business calendars and timezones | Built | Must Have | 3 Operational replacement | Workbook |
 | TM-08 | Assignment groups | Built | Must Have | 1 Foundations | Workbook |
-| TM-23 | Account ownership and team construct | Not started | Must Have | 3 Operational replacement | Functional RTM r3 |
+| TM-23 | Account ownership and team construct | Partial | Must Have | 3 Operational replacement | Functional RTM r3 |
 | INT-01 | Identity provider integration (internal) | Built | Must Have | 1 Foundations | Workbook |
 
 ### Ticket Management (`02-modules/ticket-management/`)
@@ -428,7 +429,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | TM-24 | Ranked work queue with stall weighting | Not started | Nice to Have | 4 Later releases | Functional RTM r3 |
 | TM-25 | Default active-work view | Built | Unassessed | 0 Unscoped (revision 3 intake) | Functional RTM r3 |
 | TM-26 | Ticket-to-outcome association with coverage measure | Not started | Nice to Have | 4 Later releases | Functional RTM r3 |
-| TM-27 | Container-case detection | Not started | Nice to Have | 3 Operational replacement | Functional RTM r3 |
+| TM-27 | Container-case detection | Built | Nice to Have | 3 Operational replacement | Functional RTM r3 |
 | TM-28 | Shift handover | Not started | Nice to Have | 4 Later releases | Functional RTM r3 |
 
 ### Solution Knowledge Base (`02-modules/knowledge-base/`)
