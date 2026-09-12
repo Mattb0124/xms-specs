@@ -344,8 +344,8 @@
     "module": "time-and-budget",
     "phase": "2 Focused pilot",
     "source": "Workbook",
-    "status": "Partial",
-    "gap": "The time-or-exemption gate ships. Revision 3 makes it composite (resolution code, notes completeness, article prompt, certification-sourced time), and that is not built"
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TB-03",

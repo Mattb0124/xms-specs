@@ -57,8 +57,8 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 
 | Status | Rows |
 |---|---|
-| Built | 97 |
-| Partial | 15 |
+| Built | 98 |
+| Partial | 14 |
 | Not started | 78 |
 | **Total** | **190** |
 
@@ -67,7 +67,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | [Accounts & Administration](../02-modules/accounts-and-administration/FUNCTIONAL-SPEC.md) | 4 | 1 | 0 |
 | [Ticket Management](../02-modules/ticket-management/FUNCTIONAL-SPEC.md) | 18 | 0 | 3 |
 | [Solution Knowledge Base](../02-modules/knowledge-base/FUNCTIONAL-SPEC.md) | 4 | 6 | 1 |
-| [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 16 | 2 | 1 |
+| [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 17 | 1 | 1 |
 | [Capacity & Allocation](../02-modules/capacity-and-allocation/FUNCTIONAL-SPEC.md) | 8 | 1 | 3 |
 | [Client Portal](../02-modules/client-portal/FUNCTIONAL-SPEC.md) | 6 | 0 | 1 |
 | [Email Intake & Outbound](../02-modules/email-intake/FUNCTIONAL-SPEC.md) | 8 | 0 | 0 |
@@ -91,7 +91,6 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 |---|---|---|
 | TM-17 | Ticket templates | Schema only; one reference in the backend and no authoring or apply surface |
 | TM-23 | Account ownership and team construct | Ownership, the audited handover and the team construct ship, and a report run carries its author. The routing half stays blocked on C-01: until TM-08 is settled, 'ownership drives default routing' has no agreed meaning |
-| TB-02 | Mandatory time entry before resolution | The time-or-exemption gate ships. Revision 3 makes it composite (resolution code, notes completeness, article prompt, certification-sourced time), and that is not built |
 | TB-15 | Multi-currency support | Currency is carried on rate cards and amounts; no FX conversion for consolidated views |
 | CAP-09 | On-call / shift rota | A rota exists in the backend; no desk surface, no coverage-gap detection, and it drives no routing |
 | EM-09 | Priority detection from email content | The prioritise capability exists and is wired to tickets, not to email intake |
@@ -145,7 +144,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | ID | Requirement | Status | Priority | Module spec | Phase | Source | Acceptance notes |
 |---|---|---|---|---|---|---|---|
 | TB-01 | Time entry at ticket level | Built | Must Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Fields: duration, date performed, activity type, billable flag, description. Multiple entries per ticket per user. |
-| TB-02 | Mandatory time entry before resolution | Partial | Must Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | A ticket cannot move to Resolved/Closed with zero logged time unless an exemption reason is selected. |
+| TB-02 | Mandatory time entry before resolution | Built | Must Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | A ticket cannot move to Resolved/Closed with zero logged time unless an exemption reason is selected. |
 | TB-03 | Activity type taxonomy | Built | Must Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Analysis, Development, Testing, Client Communication, Documentation, Meeting. This is what makes 'where did the hours go' answerable. |
 | TB-04 | Billable classification | Built | Must Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 2 Focused pilot | Workbook | Billable / Non-billable / Internal / Pre-sales, set per time entry with a default per activity type. |
 | TB-05 | Rate cards by client, contract and role | Built | Must Have | [Time, Contracts & Budget](../02-modules/time-and-budget/FUNCTIONAL-SPEC.md) | 3 Operational replacement | Workbook | Effective-dated versions so historical entries retain the rate in force at the time performed. |
@@ -453,7 +452,7 @@ Established by inspecting `frontend` and `backend` on 2026-09-09: requirement-id
 | ID | Requirement | Status | Priority | Phase | Source |
 |---|---|---|---|---|---|
 | TB-01 | Time entry at ticket level | Built | Must Have | 2 Focused pilot | Workbook |
-| TB-02 | Mandatory time entry before resolution | Partial | Must Have | 2 Focused pilot | Workbook |
+| TB-02 | Mandatory time entry before resolution | Built | Must Have | 2 Focused pilot | Workbook |
 | TB-03 | Activity type taxonomy | Built | Must Have | 2 Focused pilot | Workbook |
 | TB-04 | Billable classification | Built | Must Have | 2 Focused pilot | Workbook |
 | TB-05 | Rate cards by client, contract and role | Built | Must Have | 3 Operational replacement | Workbook |
