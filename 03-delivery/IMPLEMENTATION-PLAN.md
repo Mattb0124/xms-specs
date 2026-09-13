@@ -13,7 +13,7 @@ This is the build order. The [TODO](./TODO.md) is the durable checklist; this do
 
 **Item format.** `P<phase>.<sprint>.<n>` followed by the outcome, then four lines: **Depends on** (item ids), **Spec** (document and section), **Owner** (stream), **Done when** (the verifiable condition, usually a test). The requirement IDs from the register appear in brackets where an item closes one.
 
-**Streams.** `INF` infrastructure and pipeline; `BE` backend (API and worker); `FE` frontend (internal and portal); `AI` Axel adapter, `xms_mcp` and harness requests; `DATA` migration and ServiceNow. Owners map to the [Roadmap §4](./ROADMAP.md) team: Developer A (tickets, SLA, state machines, portal), Developer B (time, contracts, capacity, reporting), Developer C (email, connectors, ServiceNow, migration, worker platform), Vini (Brookfield mappings, extraction, reconciliation), Matt (architecture, Axel, security, pipeline).
+**Streams.** `INF` infrastructure and pipeline; `BE` backend (API, worker and MCP); `FE` frontend (internal and portal); `AI` Axel adapter, the MCP entrypoint and harness requests; `DATA` migration and ServiceNow. Owners map to the [Roadmap §4](./ROADMAP.md) team: Developer A (tickets, SLA, state machines, portal), Developer B (time, contracts, capacity, reporting), Developer C (email, connectors, ServiceNow, migration, worker platform), Vini (Brookfield mappings, extraction, reconciliation), Matt (architecture, Axel, security, pipeline).
 
 **Sequencing rules (apply to every sprint).**
 
@@ -103,7 +103,7 @@ This is the build order. The [TODO](./TODO.md) is the durable checklist; this do
 
 - **P1.7.1** Axel adapter module in `backend/src/axel`: session token exchange with the harness and per-user cache, the interactive SSE relay for `POST /v1/axel/turns` (stream id capture, cancel, detach), explicit `Origin` header, `opportunity_id = solution:xms`, typed `unavailable` and `withheld` results, contract tests against recorded harness fixtures. **Depends on** P1.3.4, P0.0.5. **Spec** AI Integration §2, §3, §7. **Owner** AI (Matt). **Done when** a recorded harness stream replays through the adapter into an SSE client and a 422 from the harness surfaces as `unavailable` with the body logged.
 - **P1.7.2** AI switch enforcement: `acct.ai_settings`, `acct.ai_suggestions`, `acct.ai_suggestion_decisions`, `acct.ai_feedback`; adapter pre-flight (switch, capability opt-in, permission); the RLS `WITH CHECK` policy that refuses suggestion rows for disabled accounts; the disable cascade. **Depends on** P1.7.1, P1.4.3. **Spec** AI Functionality technical §2, §5; Security §8. **Owner** AI (Matt). **Done when** with the switch off no HTTP call leaves the adapter (asserted with a mocked transport) and an insert into `ai_suggestions` for that account is rejected by the database. [AI-08, AI-10, AI-11]
-- **P1.7.3** `xms_mcp` module in `aix-mcp`: `make_mcp("xms")`, auth middleware validating the harness session token, the `current_bearer` forwarding (harness change 1), read tools `get_ticket`, `list_tickets`, `get_ticket_thread` calling the XMS API as the caller; catalog row with `useCallerToken`; registered in the harness `McpServer` catalog for dev. **Depends on** P1.7.1, P1.5.2. **Spec** AI Integration §4. **Owner** AI (Matt). **Done when** a harness agent turn lists the caller's tickets and a user without a grant on an account gets no rows through the tool.
+- **P1.7.3** `backend/src/mcp`, the third entrypoint (ADR-19): the MCP server on `@modelcontextprotocol/sdk` mounting the worker's core modules, the harness session token validated by the XMS guard, read tools `get_ticket`, `list_tickets`, `get_ticket_thread` calling the XMS API as the caller; catalog row with `useCallerToken`; registered in the harness `McpServer` catalog for dev. **Depends on** P1.7.1, P1.5.2. **Spec** AI Integration §4. **Owner** AI (Matt). **Done when** a harness agent turn lists the caller's tickets and a user without a grant on an account gets no rows through the tool.
 - **P1.7.4** Frontend Axel panel over a small streaming client in `frontend/lib/axel-client` (line buffer carry, heartbeat skip, chunk union subset), docked and resizable, cancel on close, detach on navigation; `xms-desk-assistant` inline agent registered in the harness (harness change 5) with the MCP server enabled. **Depends on** P1.7.1, P1.7.3. **Spec** AI Integration §3, User Experience §3.13. **Owner** FE (Developer A) with AI. **Done when** a consultant asks "what is on my queue" and the answer cites real ticket keys from dev.
 - **P1.7.5** Alarms and runbooks v0: DLQ depth, outbox lag, queue age, readiness, SES failures; runbooks for deploy and rollback, DLQ replay, email loop severity-1, secrets rotation. **Depends on** P1.2.4, P1.5.3. **Spec** Platform §5, §8. **Owner** INF. **Done when** a synthetic DLQ message triggers the alarm to the team channel.
 - **P1.7.6** Event archive and tamper evidence: nightly Parquet export of the three streams to the Object Lock bucket, chained daily digests, `integrity.*` events, ingestion-lag and buffer-overflow alarms, retention partition detach job. **Depends on** P1.5.6, P1.2.2. **Spec** Audit & Analytics §6. **Owner** INF (Matt). **Done when** a modified archived row is detected by the verification job in dev and raises the alarm. [XA-04]
@@ -295,7 +295,7 @@ flowchart LR
     TS --> ATT["P1.6.1 attachments"]
     AUTH --> AXEL["P1.7.1 Axel adapter"]
     AXEL --> SWITCH["P1.7.2 AI switch"]
-    AXEL --> MCP["P1.7.3 xms_mcp"]
+    AXEL --> MCP["P1.7.3 backend/src/mcp"]
     TS --> TIME["P2.12.2 time entries"]
     TIME --> CONTRACT["P2.13.1 contracts"]
     TS --> KB["P2.14.1 knowledge tables"]
@@ -338,7 +338,7 @@ flowchart LR
 | 4 | Shell, components | Accounts, users, roles, groups | Notifications design | Reviews, Clerk webhook |
 | 5 | Ticket tables, service, screens | Roster design | Outbox, dispatcher, notifications | Reviews, alarms |
 | 6 | Attachments UI, quarantine UI | Contracts design | Attachments, inbound and outbound email | Security of presigned flow |
-| 7 | Axel panel | Measures design | Alarms, runbooks | Axel adapter, AI switch, xms_mcp |
+| 7 | Axel panel | Measures design | Alarms, runbooks | Axel adapter, AI switch, MCP entrypoint |
 | 8 | e2e | Seed data | Load baseline | Hardening, gate |
 | 9 to 25 | State machines, SLA, search, dispatch, close discipline, portal, chips, quarantine, e2e | Roster, time, contracts, knowledge core and screens, timesheet, measures, snapshots, dashboards, packs | Email hardening, stand-in, connector model, ingest, migration loader and console | Suggestions, embeddings, portal identity, reviews, gates |
 
@@ -346,7 +346,7 @@ flowchart LR
 
 | Risk | Effect on the plan | Mitigation |
 |---|---|---|
-| Harness change 1 (bearer context variable) slips | P1.7.3 and P1.7.4 block | Temporary internal-secret bridge in `xms_mcp` for dev only, removed when the change lands |
+| ~~Harness change 1 (bearer context variable) slips~~ | ~~P1.7.3 and P1.7.4 block~~ | Retired 2026-09-12 by ADR-19: the MCP is a TypeScript entrypoint in `backend/` and holds the bearer itself, so there is no harness change to wait for |
 | Clerk portal licensing fails the spike | P2.16.1 changes shape | The DMS-owned realm fallback behind the same Principal interface; two weeks added to Sprint 16 |
 | Brookfield facts arrive late | P2.21.3 runs only against the stand-in | Sprint 21 is stand-in first by design; Brookfield sandbox becomes a Phase 3 Month 1 item |
 | Security rules for dedicated databases | P3.36.2 adds provisioning work | The tier is a per-account setting from P1.3.2; provisioning is a runbook plus Terraform module, not a redesign |

@@ -75,13 +75,16 @@ Every face runs the same pre-flight: account `ai_enabled` is true, the capabilit
 
 ## 4. XMS as an MCP server
 
-Axel reads XMS data through a XMS-owned MCP server, not through a harness toolbox, because it needs no harness code change and keeps the data path inside the XMS boundary:
+Axel reads XMS data through a XMS-owned MCP server, not through a harness toolbox, because it keeps the data path inside the XMS boundary:
 
-- Built with the `aix-mcp` scaffolding (`app/mcp_common`: `make_mcp`, `build_streamable_app`, `make_auth_middleware`) as module `xms_mcp` inside the house `aix-mcp` repository and service (the create-mcp-module house pattern), reachable at the aix-mcp host under `/xms/mcp` (ADR-12).
+- `backend/src/mcp`, a third entrypoint beside the API and the worker, built to its own image and ECS service `xms-mcp` (ADR-19). It mounts the same `*CoreModule` providers the worker mounts, so a tool answers from the same domain code a route does, and reads through the same pool-per-role and session binding, so tenancy is the same data-layer property either way. It was a Python module in the house `aix-mcp` repository until 2026-09-12; ADR-19 records why it moved.
 - Registered in app-api's `McpServer` catalog with `transport: streamable_http`, `useCallerToken: true`, `credentialScope: opportunity`, no credential schema; the XMS agents list it in `enabledMcpServers`.
-- Auth: the harness mints an 8-hour HS256 session token for the calling user and sends it as the bearer. The XMS MCP validates it with the shared `SESSION_SECRET` (as the OneStream internal MCP does), then calls the XMS API **with that same bearer**. One addition is required in `mcp_common`: a `current_bearer` context variable set beside `current_user` so the raw token can be forwarded (verified: `AuthenticatedUser` does not retain the token).
-- The XMS API accepts harness session tokens as a second token type on its guard (§5), maps `sub`/`email` to the XMS user, and applies RLS exactly as for a browser call. Axel can therefore never read more than the invoking user can.
+- Auth: the harness mints an 8-hour HS256 session token for the calling user and sends it as the bearer. The MCP entrypoint validates it with the shared `SESSION_SECRET` and resolves the XMS principal through the same guard the API uses, rather than validating a signature and forwarding the token to a service that resolves it again.
+- The guard maps `sub`/`email` to the XMS user and binds the session exactly as for a browser call (§5), so RLS applies unchanged. Axel can therefore never read more than the invoking user can, and that is enforced by the data layer rather than by the tool implementations.
 - Tools return prose, are read-mostly, and every write tool is a `propose_*` that creates an AISuggestion rather than mutating the ticket. The only direct writes are `add_work_note` (internal, marked AI) and `create_article_draft` (status draft), both of which are still human-reviewed.
+- The guard settles what the caller may see; it does not settle whether that account's data may travel towards a model at all, which is the adapter's question and is asked in `backend/src/mcp/gate.ts` before any tool runs. Every tool declares where its account comes from: from the ticket key it was given, or across the accounts the caller may see. The gate resolves `AiSettingsService.effective` for that account, which covers the account's own switch, the residency rule and the operator kill switch in one call, and a tool for an account with AI off does not run rather than running and having its answer discarded, so a write to such an account never reaches the database. A tool spanning accounts is narrowed to those with AI on through the `account_id` filter the service already takes; where a service takes no such filter the answer is confined on the way out instead, a row owned by an account with AI off dropped and a row with no account of its own (the global knowledge library) kept.
+- Everything a tool returns is redacted at that account's own profile by `domain/ai/redaction`, the same function the Axel adapter uses, so there is one redaction policy rather than two. It is walked field by field rather than applied to the serialised whole, so the fields an agent reads as fields survive. Under `strict` the gate hands the ticket's requester over to be labelled by role, because `redact` only labels names it is given; a tool spanning accounts has no one ticket to take participants from and passes none, which is recorded in `GateScope`. A payload still carrying a hard block after masking (a private key) is withheld rather than sent.
+- A refusal names the rule that caused it in the adapter's own vocabulary (`switch_off`, `residency`, `kill_switch`, `redaction_refused`) so an agent can tell "AI is off for this account" from "that ticket does not exist" and say which to the person. The operator kill switch closing the tools is what C-07 settled: it needs no mechanism of its own, though it propagates in up to 60 seconds because the AI defaults come through the 60-second `ConfigService` cache.
 
 | Tool | Reads | Notes |
 |---|---|---|
@@ -101,7 +104,7 @@ Axel reads XMS data through a XMS-owned MCP server, not through a harness toolbo
 |---|---|---|---|
 | XMS Web user | Clerk JWT (XMS Clerk application) | XMS API guard | User's account grants |
 | XMS API calling the harness | Harness session token minted from the user's Clerk JWT | Harness `get_current_user` | Harness tenant `org_slug` = the XMS operator slug; XMS is one tenant in the harness |
-| Harness calling XMS MCP | Harness-minted session token for the same user | XMS MCP middleware, then XMS API guard | The same user, same RLS |
+| Harness calling XMS MCP | Harness-minted session token for the same user | The XMS guard, once, in the MCP entrypoint | The same user, same RLS |
 | XMS worker batch | Session token minted for a XMS service principal user per account | Harness and XMS API | A service user with grants limited to the accounts in the batch |
 
 The harness sees one tenant (the operator) for all XMS accounts. Account isolation is therefore entirely a XMS property: the harness never receives an account id as a trust boundary, only as a tool argument that XMS validates against the caller's grants. Threads in the harness are keyed by user and `solution:xms`; XMS stores which ticket a thread belongs to.
@@ -126,14 +129,15 @@ The harness sees one tenant (the operator) for all XMS accounts. Account isolati
 
 ## 8. Changes requested of the harness (small, listed for the Axel owners)
 
-1. **`current_bearer` context variable in `aix-mcp/app/mcp_common/auth_middleware.py`** so a caller-token MCP module can forward the validated bearer. One addition, benefits every module.
-2. **Embeddings endpoint** `POST /api/ai-core/embeddings` wrapping `embedding_service.generate_batch_embeddings`, authenticated like every other route, so XMS can embed articles and ticket summaries through the harness rather than calling Bedrock directly. Until it exists, the XMS worker calls Bedrock Titan directly with the same model id under the same AWS account, recorded as a temporary exception in ADR-04.
-3. **Headless run HTTP route** exposing `execute_agent_headless` for an authenticated service caller (today the function is in-process only, driven by `ai_routines`). Alternative if declined: XMS registers `ai_routines` rows through the existing router and reads results from `GET /chat/threads/{thread_id}/messages`; this keeps scheduling in the harness, which the roadmap prefers to avoid.
-4. **Thread deletion by scope tag** for offboarding (`solution:xms` threads carrying an account tag).
-5. **Inline agent registrations** for `xms-triage`, `xms-desk-assistant`, `xms-narrative`, `xms-time-assistant` in `INLINE_AGENTS`, each a copy of the `xt_axel` skeleton with `enabledToolboxes=[]` and the XMS MCP server enabled, prompts in `app/modules/ai_execution/services/xms_*_agent.py`.
-6. **Confirmation of the `solution:` sentinel** as a supported contract (it is code today, not documented in `XT_AXEL_API.md`).
+1. **Embeddings endpoint** `POST /api/ai-core/embeddings` wrapping `embedding_service.generate_batch_embeddings`, authenticated like every other route, so XMS can embed articles and ticket summaries through the harness rather than calling Bedrock directly. Until it exists, the XMS worker calls Bedrock Titan directly with the same model id under the same AWS account, recorded as a temporary exception in ADR-04.
+2. **Headless run HTTP route** exposing `execute_agent_headless` for an authenticated service caller (today the function is in-process only, driven by `ai_routines`). Alternative if declined: XMS registers `ai_routines` rows through the existing router and reads results from `GET /chat/threads/{thread_id}/messages`; this keeps scheduling in the harness, which the roadmap prefers to avoid.
+3. **Thread deletion by scope tag** for offboarding (`solution:xms` threads carrying an account tag).
+4. **Inline agent registrations** for `xms-triage`, `xms-desk-assistant`, `xms-narrative`, `xms-time-assistant` in `INLINE_AGENTS`, each a copy of the `xt_axel` skeleton with `enabledToolboxes=[]` and the XMS MCP server enabled, prompts in `app/modules/ai_execution/services/xms_*_agent.py`.
+5. **Confirmation of the `solution:` sentinel** as a supported contract (it is code today, not documented in `XT_AXEL_API.md`).
 
-Items 1, 5 and 6 are required for Phase 2; items 2 to 4 are required for Phase 3.
+Items 4 and 5 are required for Phase 2; items 1 to 3 are required for Phase 3.
+
+A sixth item stood here until 2026-09-12: a `current_bearer` context variable in `aix-mcp/app/mcp_common/auth_middleware.py`, so that a Python MCP module could forward the bearer it had validated. ADR-19 withdrew it. The MCP is a TypeScript entrypoint in `backend/` now and holds the token itself, so the request would be asking another team for work XMS no longer needs.
 
 ## 9. What XMS does not do
 

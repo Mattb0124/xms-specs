@@ -31,6 +31,8 @@ Under revision 3, routing moves to two other rows: **TM-23** (account ownership 
 
 **Until this is answered:** `02-modules/resolution-ladder/` cannot be specced. RL-03 says the proposed path drives routing, and that sentence means nothing until we know what routing is. Do not build more on the group-routing model in the meantime.
 
+**Built around it, 2026-09-11.** TM-23's three unblocked halves shipped without touching routing: the owner is now a real foreign key required past onboarding, the handover is its own audited route, teams group people and accounts, and a report run names its author. Nothing was built on the group-routing model and nothing was removed from it, so whichever way C-01 lands, the answer is still free to go either way. What the answer decides is whether the Routing defaults panel and the group queue dimensions stay, and what `ownership drives default routing` is then wired to.
+
 ---
 
 ## Blocking the new module specs
@@ -49,7 +51,7 @@ That is honest but it is not a plan. Nothing in the roadmap covers them, so toda
 |---|---|---|---|
 | TM-21 participant record | 3 | Must Have | DMS uses ServiceNow's watchers and collaborators today, and TM-22 has nowhere to write an invitation without it |
 | TM-22 invite a collaborator | 3 | Must Have | Parity, not improvement: people transfer a ticket to ask a question and never get it back |
-| TM-23 ownership and teams | 3 | Must Have | The owner half exists; the audited change, the team construct and report authorship do not. **The routing half stays blocked on C-01** |
+| TM-23 ownership and teams | 3 | Must Have | Built 2026-09-11 except the routing half: the enforced owner, the audited handover, teams and report authorship all ship. **The routing half stays blocked on C-01** and is the only reason the row is Partial |
 | TM-24 ranked queue | 4 | Nice to Have | The queue works and sorts on the tightest clock; a weighted stall score is an optimisation over something already doing its job |
 | TM-26 outcome coverage | 4 | Nice to Have | Cannot start before the Outcomes module exists (OC-01), which is unbuilt and itself untriaged |
 | TM-27 container detection | 3 | Nice to Have | Cheap now TM-11 keeps a real decision record; the replacement does not depend on it, since a consultant can still flag by hand |

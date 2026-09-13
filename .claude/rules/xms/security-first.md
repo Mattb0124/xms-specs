@@ -1,6 +1,6 @@
 # Rule: XMS is built to pass security audits
 
-XMS holds several clients' data in one product and will face ISO 27001, SOC 2 and client security audits. Every change in `frontend/`, `backend/`, `infra/` and `xms_mcp` is made audit-ready by construction. Load the `xms-security-first` skill before designing, coding or reviewing any change, and apply these rules without exception:
+XMS holds several clients' data in one product and will face ISO 27001, SOC 2 and client security audits. Every change in `frontend/`, `backend/` (API, worker and MCP) and `infra/` is made audit-ready by construction. Load the `xms-security-first` skill before designing, coding or reviewing any change, and apply these rules without exception:
 
 * Isolation is a data-layer property: every account-scoped table ships with forced row-level security and both policies in the same migration; ids from clients are asserted in-account; no optional account parameters, no header-driven tenancy, no `default` fallbacks.
 * Authorisation is server-side only: every route declares its permission or a justified `@Public()`, the route-and-permission snapshot changes with it, portal and internal realms never cross, and the browser only mirrors the server's decision.

@@ -33,7 +33,7 @@
 | `xms-web` (from `frontend/`) | `node:20-alpine`, multi-stage, `output: 'standalone'`, non-root `nextjs:nodejs` (the AIX web-ui Dockerfile discipline) | `NEXT_PUBLIC_*` values are baked per environment, so the image is environment-specific; the pipeline builds one per target |
 | `xms-api` (from `backend/`) | `node:20-alpine`, multi-stage, `pnpm install --frozen-lockfile`, prod deps only, non-root | The RDS CA bundle is vendored in the repo, not downloaded at build time (AIX's app-api Dockerfile fetches it with `wget` during the build) |
 | `xms-worker` | Same as API plus Chromium for PDF rendering | Separate image so the API stays small |
-| `xms-mcp` | `python:3.12-slim` on the `aix-mcp` scaffolding | Built from `aix-mcp/app/modules/xms_mcp` |
+| `xms-mcp` | Same Node base as the API | Built from `backend/src/mcp`, the third entrypoint (ADR-19) |
 
 All images are ARM64 because the build pool is ARM64; base images and native dependencies (Chromium, `sharp`) are chosen accordingly.
 

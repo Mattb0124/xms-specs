@@ -5,7 +5,7 @@
 **Last updated:** 2026-09-04
 **Related:** [Functional Spec](./FUNCTIONAL-SPEC.md), [AI Integration](../../01-architecture/AI-INTEGRATION.md) (harness contract, adapter faces, MCP server, requested harness changes; not repeated here), [Security & Tenancy §8](../../01-architecture/SECURITY-AND-TENANCY.md), [Data Model](../../01-architecture/DATA-MODEL.md), [AIX Pattern Reuse](../../01-architecture/AIX-PATTERN-REUSE.md), [Solution Knowledge Base](../knowledge-base/TECHNICAL-SPEC.md), [Dashboards & Report Packs](../dashboard-and-reporting/TECHNICAL-SPEC.md), [Test Strategy](../../03-delivery/TEST-STRATEGY.md)
 **Requirements covered:** AI-01 to AI-06, AI-08 to AI-16, AI-18 to AI-20, EM-09
-**Repos affected:** `backend` Axel adapter module, `backend/src/worker` `axel.batch` handler and jobs, `frontend` panel and surfaces, `aix-mcp/app/modules/xms_mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`); `os-aixelerator-studio` (inline XMS agents, embeddings endpoint, headless route, thread deletion) and `aix-mcp` (`current_bearer` context variable) per [AI Integration §8](../../01-architecture/AI-INTEGRATION.md)
+**Repos affected:** `backend` Axel adapter module, `backend/src/worker` `axel.batch` handler and jobs, `frontend` panel and surfaces, `backend/src/mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`); `os-aixelerator-studio` (inline XMS agents, embeddings endpoint, headless route, thread deletion) and `aix-mcp` (`current_bearer` context variable) per [AI Integration §8](../../01-architecture/AI-INTEGRATION.md)
 
 ---
 
@@ -17,7 +17,7 @@
 | Inline agent skeleton | `app/modules/ai_execution/services/xt_axel_agent.py` (`enabledToolboxes=[]`, `enabledTools=[render_pptx_preview, render_document_pages_as_vision]`, Sonnet 5, effort medium), registry `app/modules/agents/catalog/registry.py` `INLINE_AGENTS` (verified 2026-09-04) | The four XMS agents are copies of this skeleton with the XMS MCP server enabled |
 | Models | `app/modules/agent_harness/compile/model_providers.py` (`BEDROCK_SONNET_5_MODEL_ID`, `BEDROCK_HAIKU_4_5_MODEL_ID`) (verified 2026-09-04) | Classify and duplicate on Haiku 4.5; summarise, draft, narrative on Sonnet 5 |
 | MCP client and caller token | `app/modules/aix_mcp/mcp_session_manager.py:106`, `:113` (`useCallerToken` mints an 8-hour session token), `runtime/mcp_setup.py:65` (MCP skipped without `opportunity_id` and `tenant_slug`) (verified 2026-09-04) | XMS MCP server registration; `opportunity_id = solution:xms` on every turn |
-| MCP scaffolding | `aix-mcp/app/mcp_common/*`; `AuthenticatedUser` does not retain the raw token (`mcp_common/auth.py`) (verified 2026-09-04) | `aix-mcp/app/modules/xms_mcp` and the `current_bearer` change |
+| MCP scaffolding | Not reused. `aix-mcp/app/mcp_common/*` was the plan until 2026-09-12; `AuthenticatedUser` not retaining the raw token (`mcp_common/auth.py`, verified 2026-09-04) was one of the reasons to leave it (ADR-19) | `backend/src/mcp` on `@modelcontextprotocol/sdk`, mounting the worker's core modules |
 | Embeddings | `app/modules/ai_core/embedding_service.py` Titan v2 1024 dimensions, no HTTP endpoint (verified 2026-09-04) | Knowledge module owns `acct.embeddings`; this module owns the switch policy on it |
 | No per-tenant kill switch, no PII guard in the harness | `app/modules/agent_harness/secrets_guard.py` is secrets-only; no `ai_disabled` in `app/` (verified 2026-09-04) | AI-11 and redaction are XMS properties |
 | SSE parsing rules | `web-ui/redux/services/discoveryApi.ts:842-1310`; the `agents` Clerk template `useDiscoveryChat.ts:127` (verified 2026-09-04) | `frontend/lib/axel-client` streaming loop |
@@ -163,7 +163,7 @@ The database policies in §2.4 are the backstop: even a bypassed adapter cannot 
 | Expiry | `backend/src/worker/jobs/suggestion-expiry.job.ts` every 5 minutes | Writes `expired` decisions |
 | Accuracy | `backend/axel/accuracy.service.ts` reads suggestions and decisions; threshold what-if computed from stored confidences | |
 | XMS agents (harness) | `app/modules/ai_execution/services/xms_triage_agent.py`, `xms_desk_assistant_agent.py`, `xms_narrative_agent.py`, `xms_time_assistant_agent.py`, each exporting `PROMPT_VERSION` | Copies of the `xt_axel` skeleton; `enabledToolboxes=[]`; XMS MCP server enabled |
-| XMS MCP tools | `aix-mcp/app/modules/xms_mcp/server.py` per [AI Integration §4](../../01-architecture/AI-INTEGRATION.md) | |
+| XMS MCP tools | `backend/src/mcp` per [AI Integration §4](../../01-architecture/AI-INTEGRATION.md) | |
 
 Agent responsibilities and tools:
 
@@ -220,7 +220,7 @@ No portal route exists for any of these; the portal controller group has no AI e
 | Order | Branch | Scope | Depends on |
 |---|---|---|---|
 | 1 | `feature/ai-foundations` (`backend/src/db`, `backend/src/contracts`, `backend`) | Settings, suggestion tables, policies, cascade trigger, adapter skeleton with switch policy, redaction, session token exchange | Accounts & Administration; harness items 1, 5, 6 agreed |
-| 2 | `feature/ai-mcp-server` (`aix-mcp/app/modules/xms_mcp`, `aix-mcp` change, app-api catalog row) | XMS MCP server with read tools and `propose_*`; harness token acceptance in the API guard | 1 |
+| 2 | `feature/ai-mcp-server` (`backend/src/mcp`, app-api catalog row) | XMS MCP entrypoint with read tools and `propose_*`; harness token acceptance in the API guard | 1 |
 | 3 | `feature/ai-triage` (`backend/src/worker`, `backend`, `frontend`, harness `xms-triage`) | Classify, prioritise, duplicate; intake surfaces; decisions; expiry job | 2, Ticket Management core |
 | 4 | `feature/ai-desk-assistant` (`frontend/lib/axel-client`, `frontend`, harness `xms-desk-assistant`) | Panel, summarise, similar solutions rail wiring | 2, knowledge base embeddings |
 | 5 | `feature/ai-accuracy` | Accuracy dashboard, threshold what-if, feedback | 3 |
@@ -239,7 +239,7 @@ Deploy order per release: harness (inline agents, changes), app-api catalog row,
 - **Harness contract (recorded fixtures):** request bodies contain exactly the allowed fields, `Origin`, and `opportunity_id = solution:xms`; SSE fixtures with split frames, heartbeats, untyped content, `tool_call`, `attachment`, `error` and `[DONE]` parse correctly; a 422 fixture yields `unavailable` and a logged body.
 - **Jobs:** time assistant computes unlogged blocks correctly across a PTO day and a holiday; two worker instances claim one person-day once; burn anomaly detector flags a constructed series and does not flag a flat one; expiry job expires only past `expires_at`.
 - **Accuracy:** acceptance rate and calibration computed from constructed suggestions and decisions; what-if at a higher threshold equals a recount over stored confidences.
-- **MCP:** `aix-mcp/app/modules/xms_mcp` tests assert the bearer is forwarded unchanged and that every write tool except `add_work_note` and `create_article_draft` produces a suggestion, not a mutation.
+- **MCP:** `backend/src/mcp` tests assert that a tool resolves the same principal the API guard would and answers under the same RLS binding, and that every write tool except `add_work_note` and `create_article_draft` produces a suggestion, not a mutation. The isolation suite covers the MCP entrypoint as it covers the others, since it reaches the same tables through the same pool.
 - **HTTP:** every route rejects anonymous and garbage tokens; portal tokens get 403 on all `/axel/*`; `ai:use` required for turns; the route snapshot includes permissions.
 - **Web (Vitest, Playwright):** streaming client unit tests on the fixture frames; e2e: create a ticket in the seed account, see chips, accept all, verify audit trail; disable AI for the account, reload, verify no AI element in the DOM.
 - **Measurement plan gate:** enabling auto-apply for a capability whose trailing-8-week metrics fail the criteria is rejected with the failing criterion named.

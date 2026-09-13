@@ -28,7 +28,7 @@ This module covers the cases that no other module owns:
 - **AIX API keys** (`app-api/src/security/`) are user-owned, unscoped, and validated by scanning bcrypt hashes; the XMS API client design in [Security §2.3](../../01-architecture/SECURITY-AND-TENANCY.md) fixes all three.
 - **No webhook receivers or senders, no Slack or Teams integration, no calendar integration** exist anywhere in `app-api`, `web-ui`, `workers` or the studio (verified 2026-09-04). ClickUp exists only as a Claude Code tool for the developers, not as a product integration.
 - **Finance export today** is manual file handling out of ServiceNow and spreadsheets; there is no interface.
-- **The XMS MCP server** is specified in [AI Integration §4](../../01-architecture/AI-INTEGRATION.md) and built on the `aix-mcp` scaffolding; its operation (health, kill switch, version) is this module's concern.
+- **The XMS MCP server** is specified in [AI Integration §4](../../01-architecture/AI-INTEGRATION.md) and is a third entrypoint in `backend/` (ADR-19); its operation (health, kill switch, version) is this module's concern.
 
 ## 3. Goals
 

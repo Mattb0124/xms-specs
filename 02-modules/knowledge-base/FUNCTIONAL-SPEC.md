@@ -5,7 +5,7 @@
 **Last updated:** 2026-09-04
 **Related:** [Technical Spec](./TECHNICAL-SPEC.md), [Product Vision](../../00-overview/PRODUCT-VISION.md), [Domain Model](../../01-architecture/DOMAIN-MODEL.md), [AI Integration](../../01-architecture/AI-INTEGRATION.md), [Ticket Management](../ticket-management/FUNCTIONAL-SPEC.md), [Client Portal](../client-portal/FUNCTIONAL-SPEC.md), [Axel AI Functionality](../ai-functionality/FUNCTIONAL-SPEC.md)
 **Requirements covered:** CP-08, AI-07, AI-17 (Nice to Have), TM-19 (Nice to Have), TM-17 (Nice to Have)
-**Repos affected:** `backend`, `backend/src/worker`, `frontend`, `aix-mcp/app/modules/xms_mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`
+**Repos affected:** `backend`, `backend/src/worker`, `frontend`, `backend/src/mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`
 
 ---
 

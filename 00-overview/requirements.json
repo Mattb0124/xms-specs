@@ -260,8 +260,8 @@
     "module": "accounts-and-administration",
     "phase": "3 Operational replacement",
     "source": "Functional RTM r3",
-    "status": "Not started",
-    "gap": ""
+    "status": "Partial",
+    "gap": "Ownership, the audited handover and the team construct ship, and a report run carries its author. The routing half stays blocked on C-01: until TM-08 is settled, 'ownership drives default routing' has no agreed meaning"
   },
   {
     "id": "TM-24",
@@ -308,7 +308,7 @@
     "module": "ticket-management",
     "phase": "3 Operational replacement",
     "source": "Functional RTM r3",
-    "status": "Not started",
+    "status": "Built",
     "gap": ""
   },
   {
@@ -344,8 +344,8 @@
     "module": "time-and-budget",
     "phase": "2 Focused pilot",
     "source": "Workbook",
-    "status": "Partial",
-    "gap": "The time-or-exemption gate ships. Revision 3 makes it composite (resolution code, notes completeness, article prompt, certification-sourced time), and that is not built"
+    "status": "Built",
+    "gap": ""
   },
   {
     "id": "TB-03",

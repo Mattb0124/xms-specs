@@ -5,7 +5,7 @@
 **Last updated:** 2026-09-04
 **Related:** [Functional Spec](./FUNCTIONAL-SPEC.md), [Data Model](../../01-architecture/DATA-MODEL.md), [Domain Model](../../01-architecture/DOMAIN-MODEL.md), [AI Integration](../../01-architecture/AI-INTEGRATION.md), [Security & Tenancy](../../01-architecture/SECURITY-AND-TENANCY.md), [AIX Pattern Reuse](../../01-architecture/AIX-PATTERN-REUSE.md), [Ticket Management](../ticket-management/TECHNICAL-SPEC.md), [Client Portal](../client-portal/TECHNICAL-SPEC.md), [Axel AI Functionality](../ai-functionality/TECHNICAL-SPEC.md)
 **Requirements covered:** CP-08, AI-07, AI-17, TM-19, TM-17
-**Repos affected:** `backend`, `backend/src/worker`, `frontend`, `aix-mcp/app/modules/xms_mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`
+**Repos affected:** `backend`, `backend/src/worker`, `frontend`, `backend/src/mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`
 
 ---
 
