@@ -15,12 +15,12 @@ XMS does not live alone. Finance needs the locked billing data delivered as a st
 
 This module covers the cases that no other module owns:
 
-1. **The connector registry and health overview** shared by every connector (ServiceNow, email, finance, reports, webhooks, chat, calendar, MCP).
+1. **The connector registry and health overview** shared by every connector (ServiceNow, email, finance, reports, webhooks, chat, calendar). The MCP reports health here but is not a connector instance (C-07).
 2. **The finance connector**: how the export produced by Time & Budget is delivered and acknowledged.
 3. **The public XMS API and outbound webhooks** for clients and integrators.
 4. **Microsoft Teams (then Slack)**: notifications to channels, create-from-message, time logging by command.
 5. **Calendar push** of change windows and scheduled work to Outlook.
-6. **The XMS MCP server** as an operated integration.
+6. **The XMS MCP server** as an operated integration: its health, and why its switch is the AI switch rather than a connector kill switch.
 
 ## 2. Current state (what exists today)
 
@@ -56,7 +56,7 @@ This module covers the cases that no other module owns:
 
 | Set | Values | Notes |
 |---|---|---|
-| Connector type | servicenow, email_inbound, email_outbound, finance_export, report_delivery, webhook, teams, slack, calendar, mcp | Registry entries; each has a scope: `account` (one instance per account) or `operator` (one instance) |
+| Connector type | servicenow, email_inbound, email_outbound, finance_export, report_delivery, webhook, teams, slack, calendar | Registry entries; each has a scope: `account` (one instance per account) or `operator` (one instance). `mcp` was in this list until C-07 (2026-09-13) ruled it out: see 5.7 |
 | Instance mode | off, ingest_only, bidirectional, outbound_only | Not every type supports every mode; the registry says which |
 | Health | healthy, degraded, failing, paused | Degraded: retries happening or backlog above threshold; failing: dead letters or no success within the expected interval; paused: kill switch |
 | API client scope | tickets:read, tickets:write, comments:write, time:read, exports:read, kb:read, webhooks:manage | Granted per client, per account set |
@@ -103,7 +103,7 @@ Empty state: "No connectors configured for this account. Add one from the regist
 
 ### 5.7 The XMS MCP server as an integration
 
-Appears in the registry as an operator-level connector of type `mcp`: version, endpoint, health (last successful tool call, error rate), and a kill switch that makes every tool return "XMS tools are paused" to Axel without breaking the turn. Its authentication and tool surface are defined in [AI Integration §4](../../01-architecture/AI-INTEGRATION.md).
+Not a connector instance, and it has no kill switch of its own (C-07, ruled 2026-09-13). This section described an operator-level connector of type `mcp` whose switch made every tool answer "XMS tools are paused"; the AI switch does that job instead, and better. The operator `kill_switch` on the AI defaults closes every tool at once, and a client that turns AI off closes its own account's data to the tools without touching anybody else's, which a single operator-wide connector row could never express. A refusal names which rule caused it, so Axel can tell a person "AI is off for this account" rather than one flat sentence. What the MCP still owes the registry is its health: version, endpoint, last successful tool call and error rate, which the `mcp-health` job will report without owning a switch. Authentication, the tool surface and the gate are defined in [AI Integration §4](../../01-architecture/AI-INTEGRATION.md).
 
 ## 6. Rollout
 
@@ -113,7 +113,7 @@ Appears in the registry as an operator-level connector of type `mcp`: version, e
 
 ## 7. Success criteria
 
-- The connectors list shows the ServiceNow instance, the email connector, the finance connector, the report delivery connector and the MCP server with correct health, and flipping any kill switch stops its work within 30 seconds and resumes it in order when flipped back, with both actions in the audit trail.
+- The connectors list shows the ServiceNow instance, the email connector, the finance connector and the report delivery connector with correct health, and flipping any kill switch stops its work within 30 seconds and resumes it in order when flipped back, with both actions in the audit trail. The MCP is not among them (C-07): its lever is the AI kill switch, which closes every tool within a minute, the delay being the AI defaults' 60-second configuration cache.
 - Locking a billing period delivers the export and manifest to the finance destination within five minutes; the period shows `acknowledged` after finance's acknowledgement; a re-lock produces a superseding delivery.
 - An API client scoped to `tickets:read` on one account can list that account's tickets, receives 403 on write routes and 404 for another account's ticket, and appears with a correct "last used" time.
 - A webhook subscription receives `ticket.transitioned` with a valid signature within 30 seconds of a transition; an endpoint that returns 500 five times sees the delivery in dead letters and a replay delivers it once.
