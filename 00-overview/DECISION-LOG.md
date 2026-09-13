@@ -76,7 +76,7 @@ Each record: context, decision, alternatives rejected, consequences, status. Dec
 
 **Context.** AIX's `repos/workers` is Python task folders in a different AWS account with no DLQs.
 **Decision.** `backend/src/worker` is a NestJS standalone application importing `backend/src/domain` and `backend/src/db`, so every business rule exists once. Only `aix-mcp/app/modules/xms_mcp` is Python, because the `aix-mcp` scaffolding is Python.
-**Status.** Accepted.
+**Status.** Accepted; the Python clause superseded by ADR-19 (2026-09-12), which makes the MCP a third TypeScript entrypoint in `backend/`. The rest stands and now covers three entrypoints.
 
 ## ADR-09: Quality gates in the pipeline; Terraform in the repo
 
@@ -103,7 +103,7 @@ Each record: context, decision, alternatives rejected, consequences, status. Dec
 **Decision.** Four homes: `frontend` (Next.js and React; internal app and portal; design tokens seeded from AIX under `styles/tokens`; Axel streaming client under `lib/axel-client`; Playwright under `e2e/`), `backend` (NestJS; `src/domain`, `src/db` with Drizzle migrations, `src/contracts` with DTOs and the permission catalog, `src/worker` as a second entrypoint built into its own image; `test/kit`), `infra` (Terraform and pipeline templates), and the `xms_mcp` module inside the house `aix-mcp` repository. Web client types are generated from the API's OpenAPI document rather than shared through a package.
 **Rejected.** A pnpm monorepo (not the house shape). A separate worker repository (would duplicate every business rule). A standalone Python MCP repository copying `mcp_common` (violates "no AIX code copied"; the house pattern is a module in `aix-mcp`).
 **Consequences.** The API and worker deploy from one pipeline; the MCP module rides the `aix-mcp` release train, which is the one XMS surface outside the XMS boundary and is acceptable because it is the Axel-facing adapter. Contract drift between web and API is caught by regenerating types in the web pipeline.
-**Status.** Accepted 2026-09-04.
+**Status.** Accepted 2026-09-04; the fourth home and the `aix-mcp` release-train consequence superseded by ADR-19 (2026-09-12). The rejection of a standalone MCP repository stands.
 
 ## ADR-13: The product is called XMS; DMS is the practice
 
@@ -118,7 +118,7 @@ Each record: context, decision, alternatives rejected, consequences, status. Dec
 **Decision.** This repository holds the specification set plus three application folders: `frontend/` (the Next.js and React app, deployable `xms-web`), `backend/` (the NestJS app with the worker as a second entrypoint, deployables `xms-api` and `xms-worker`) and `infra/` (Terraform). Each application has its own `package.json`, lockfile, Dockerfile and path-filtered pipeline stage; there is no workspace tooling joining them, and the frontend consumes the backend only through its OpenAPI document and generated types. `xms_mcp` stays a module in the house `aix-mcp` repository. Generic engineering skills, house standards and commands are seeded under `.claude/` and `.cursor/` from the AIX workspace, with `AIXelerator/.claude/sync-skills.ps1` as the source of truth and `CLAUDE.md` mapping AIX vocabulary to XMS.
 **Rejected.** Three git repositories (more ceremony than a four-person team needs; the specs and the code belong together). Workspace tooling (ADR-12 stands: no monorepo build graph).
 **Consequences.** Paths in every spec read `frontend/...`, `backend/...`, `infra/...`; ECS service and ECR image names keep the `xms-web`, `xms-api`, `xms-worker`, `xms-mcp` names. ADR-12's repository names are superseded by these folder names; its reasoning about sharing domain code between API and worker is unchanged.
-**Status.** Accepted 2026-09-04.
+**Status.** Accepted 2026-09-04; the sentence placing `xms_mcp` in the house `aix-mcp` repository superseded by ADR-19 (2026-09-12).
 
 ## ADR-15: Build the pilot-grade core in one month
 
@@ -151,6 +151,27 @@ Each record: context, decision, alternatives rejected, consequences, status. Dec
 **Rejected.** Colouring the whole row by state or type (the prototype keeps colour to the pill, the bar and the dot). Reusing the generic `--state-*` trios for ticket states (they stay for SLA, priority and scan state).
 **Consequences.** New tokens (`--xms-state-*`, `--xms-type-*`, `--xms-account-*`), new components (FilterChip, AddFilterButton, ClearAllLink, SelectionBar, TableFooter, TypeBar, AccountDot), `op.accounts.identity_hue`, `page_size` on saved views; the frontend skills and the plans are updated.
 **Status.** Accepted 2026-09-05.
+
+## ADR-19: The MCP server is a third entrypoint in `backend/`, not a module in `aix-mcp`
+
+**Context.** ADR-12 put the XMS MCP server in the house `aix-mcp` repository as a Python module on `mcp_common`, and rejected a standalone Python MCP repository that copied that scaffolding. The rejection was right and stands: a copied fork inherits nothing. The option ADR-12 did not weigh is the one the codebase already demonstrates. Matt's direction (2026-09-12) after review.
+
+Four things were not on the table in September:
+
+1. ADR-08 had already settled the pattern: `backend/` ships `xms-api` and `xms-worker` from one source tree so every business rule exists once. The MCP's read tools (`find_similar_tickets`, `get_contract_position`, `get_unlogged_time`) are that same logic, reached a second way.
+2. The backend already authenticates the caller. [AI Integration §5](../01-architecture/AI-INTEGRATION.md) has the API guard accepting harness session tokens as a second token type, so the Python module validates a signature and forwards the same bearer to a service that validates it again and does the principal resolution itself.
+3. ADR-16 postdates ADR-12. Under "every change is built to pass security audits", ADR-12's own consequence, "the one XMS surface outside the XMS boundary", puts another product's service inside XMS's ISO 27001 and SOC 2 scope and into every client security questionnaire.
+4. It blocks XMS on another team. [AI Integration §8](../01-architecture/AI-INTEGRATION.md) item 1 asks the Axel owners to add `current_bearer` to `mcp_common` because `AuthenticatedUser` does not retain the raw token, and calls it required for Phase 2.
+
+Measured on the running stack on 2026-09-12: `GET /v1/tickets?limit=6`, the shape of a `list_tickets` tool call, is 8.7 ms steady state of which 1.8 ms is connect. Removing the Python-to-TypeScript hop is worth roughly a fifth to a third of per-tool-call latency, and more on a large payload, because the hop also deserialises and reserialises the whole body.
+
+**Decision.** `backend/src/mcp` is a third entrypoint, built to its own image and ECS service `xms-mcp`, exactly as `src/worker` is. It mounts the same `*CoreModule` providers the worker mounts and reaches PostgreSQL through the existing pool-per-role and session binding, so tenancy is the same data-layer property for a tool call as for a browser call. It is TypeScript; no AIX code is copied, because there is nothing to copy: `@modelcontextprotocol/sdk` is TypeScript-first and the harness registration (`transport: streamable_http`, `useCallerToken: true`) is a catalog row pointing at a URL, which is indifferent to what serves it.
+
+**Rejected.** Keeping it in `aix-mcp` (leaves the AI data path outside the XMS boundary under ADR-16, and blocks Phase 2 on another team's merge). A standalone MCP repository, in any language (ADR-12's reasoning is unchanged: more ceremony than a four-person team needs, and the specs and the code belong together, per ADR-14). An MCP entrypoint that calls the XMS API over HTTP rather than mounting the core modules (keeps the repository and audit-scope wins and throws away the latency win, for no gain but a slightly smaller pool).
+
+**Consequences.** Supersedes in part: ADR-08's clause that `aix-mcp/app/modules/xms_mcp` is the one Python component (XMS is now TypeScript throughout); ADR-12's fourth home and its consequence about the `aix-mcp` release train; ADR-14's sentence that `xms_mcp` stays a module in the house repository. The reasoning in all three about sharing domain code between entrypoints is not just unchanged but extended. [AI Integration §8](../01-architecture/AI-INTEGRATION.md) item 1 is **withdrawn** rather than superseded: the request exists only because a Python module could not forward the bearer, and leaving it standing asks another team for work XMS no longer needs. The `xms-mcp` ECS service and ECR repository names in [Platform & Operations](../01-architecture/PLATFORM-AND-OPERATIONS.md) were already correct and do not move. One new thing to size: the MCP holds its own PostgreSQL connections where the Python proxy held none, so the pool-per-role count rises by one service against `max_connections`. The `servicenow_ams_mcp` module in `aix-mcp` is untouched and stays where it is.
+
+**Status.** Accepted 2026-09-12.
 
 ## Open decisions (owner, default assumption, due)
 

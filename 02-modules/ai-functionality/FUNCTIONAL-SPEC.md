@@ -5,7 +5,7 @@
 **Last updated:** 2026-09-04
 **Related:** [Technical Spec](./TECHNICAL-SPEC.md), [AI Integration](../../01-architecture/AI-INTEGRATION.md) (the harness contract), [Security & Tenancy §8](../../01-architecture/SECURITY-AND-TENANCY.md), [Solution Knowledge Base](../knowledge-base/FUNCTIONAL-SPEC.md) (similar solutions, article drafts, auto-resolution AI-17), [Dashboards & Report Packs](../dashboard-and-reporting/FUNCTIONAL-SPEC.md) (narrative host), [Time, Contracts & Budget](../time-and-budget/FUNCTIONAL-SPEC.md) (time entries, burn), [Email Intake & Outbound](../email-intake/FUNCTIONAL-SPEC.md) (EM-09)
 **Requirements covered:** AI-01, AI-02, AI-03, AI-04, AI-05, AI-06, AI-08, AI-09, AI-10, AI-11, AI-12, AI-13, AI-14 (Must Have); AI-15, AI-16, AI-18, AI-19, AI-20, EM-09 (Nice to Have). AI-07 (similar tickets and KB suggestion) and AI-17 (auto-resolution) are owned by the knowledge base module and surfaced through the same suggestion mechanics described here
-**Repos affected:** `backend`, `backend/src/worker`, `frontend`, `aix-mcp/app/modules/xms_mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`); `os-aixelerator-studio` and `aix-mcp` for the harness changes listed in [AI Integration §8](../../01-architecture/AI-INTEGRATION.md)
+**Repos affected:** `backend`, `backend/src/worker`, `frontend`, `backend/src/mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`); `os-aixelerator-studio` and `aix-mcp` for the harness changes listed in [AI Integration §8](../../01-architecture/AI-INTEGRATION.md)
 
 ---
 
