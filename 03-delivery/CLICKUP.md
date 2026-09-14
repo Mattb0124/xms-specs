@@ -97,4 +97,21 @@ It is listed here so the gap is known rather than discovered.
 
 Document URL pattern: `https://app.clickup.com/9015896416/docs/<document_id>`.
 
-Note: an older list "ServiceNow Replacement Project" (`901525427419`) exists in the same space from the assessment phase; the XMS list is the home for these published docs. It is a docs home only: XMS tickets go in the current sprint list under the `X Platform Sprints` folder, never in this list.
+## Where XMS tickets go
+
+**Every XMS ticket goes in `ServiceNow Replacement Project`, list `901525427419`.** Not the
+sprint lists, and not the XMS docs list.
+
+The two lists do different jobs and are easy to confuse:
+
+| List | Id | What it holds |
+|---|---|---|
+| **ServiceNow Replacement Project** | `901525427419` | **Every XMS ticket.** Carries the same 13 statuses the sprint lists do |
+| XMS | `901525777420` | The published spec pages. **Never create a ticket here** |
+
+**XMS does not use the sprint lists.** `X Platform Sprints` folder `901516703258` carries the
+other platforms' fortnightly lists; XMS work lives in its own project list instead. This was
+corrected in `ticket-discipline` on 2026-09-10 after four tickets were filed into Sprint 5 and
+had to be moved, and again here on 2026-09-14: this page had gone on saying the opposite, which
+is exactly the kind of contradiction between two documents that puts tickets in the wrong place
+a third time.
