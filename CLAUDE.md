@@ -17,6 +17,10 @@ XMS (Xelerated Managed Services) is the standalone ServiceNow replacement for th
 
 The two applications are separate deployables and separate git repositories (`frontend/` is github.com/Mattb0124/xms-frontend, `backend/` is github.com/Mattb0124/xms-backend, both cloned into this folder) with their own `package.json`, lockfile, Dockerfile and pipeline stage. There is no workspace tooling joining them (ADR-12, ADR-14); the frontend consumes the backend through its OpenAPI document and generated types.
 
+## Branches (from 2026-09-15)
+
+All three repositories carry the same three branches. **`dev` is the working branch**: check it out before starting, branch feature work from it, and open pull requests against it. **`prod` is the release branch** and moves only on a release. `main` is the baseline as it stood on 2026-09-15 and is not worked on. Nothing is committed directly to `prod` or `main`.
+
 ## Rules that override defaults here
 
 - **Security first (ADR-16).** Every change is built to pass security audits: load the `xms-security-first` skill before designing, coding or reviewing; the always-on rule is `.claude/rules/xms/security-first.md`; controls and evidence are mapped in `01-architecture/SECURITY-ASSURANCE.md`. A pull request without the completed security checklist is not reviewed.
