@@ -15,12 +15,20 @@ Workspace `9015896416`, space **X Platforms** `901511370980`.
 
 | Ticket | Destination |
 |---|---|
-| Development / enhancement | The **current sprint list** inside `X Platform Sprints` folder `901516703258`. Resolve it every time by the `Sprint N (M/D - M/D)` range containing today; it changes fortnightly |
-| Bug | The `Bugs` folder `901516841378`, platform list. **There is no XMS list there yet**, see the gaps below |
+| **XMS work of any kind**, enhancement or bug | **ServiceNow Replacement Project**, list `901525427419` |
 
-**The XMS list `901525777420` is the home for the architecture docs only. Never create a ticket in it.** Sprint lists carry all 13 states plus a closed `complete`, so the workflow below applies unchanged.
+**XMS does not use the sprint lists**, and does not use the `Bugs` folder. `X Platform Sprints`
+folder `901516703258` carries the other platforms' fortnightly lists; XMS work lives in its own
+project list, which carries the same 13 statuses plus a closed `complete`, so the workflow below
+applies unchanged.
 
-Sprint lists as of 2026-09-04: Sprint 1 `901524338458`, Sprint 2 `901524755515`, Sprint 3 `901525034981`, Sprint 4 (8/24 - 9/6) `901525290760`. Do not hardcode one; resolve by date.
+**The XMS list `901525777420` is the home for the published spec pages only. Never create a
+ticket in it.**
+
+Corrected 2026-09-14, to match `ticket-discipline`, which was corrected on 2026-09-10 after four
+tickets were filed into a sprint list and had to be moved. This skill had kept the old rule, which
+is how the mistake survives a correction: the rule lives in more than one place and only one copy
+gets fixed.
 
 ### Setup gaps to work around (verified 2026-09-04)
 

@@ -22,7 +22,7 @@
 | OAuth refresh with mark-invalid-on-failure | AIX `app-api/src/api/v3/mcp/oauth-refresh.service.ts` `RefreshResult` | Calendar (Microsoft Graph) token refresh per consenting user |
 | OpenAPI document | NestJS Swagger `DocumentBuilder` as in AIX `app-api/src/main.ts` (title, version, bearer auth) | The public reference is generated from the same document, filtered to public-tagged routes, and published as static HTML by the pipeline |
 | Versioning | `enableVersioning({ type: URI })` ([AIX Pattern Reuse §2](../../01-architecture/AIX-PATTERN-REUSE.md)) | `v1` is the public version; internal-only routes are tagged `internal` and excluded from the published reference |
-| XMS MCP server | `backend/src/mcp`, the third entrypoint ([AI Integration §4](../../01-architecture/AI-INTEGRATION.md), ADR-19) | Registered as a connector instance of type `mcp` for health and kill switch; the kill switch is read by the MCP through `GET /v1/internal/connectors/mcp/state` every 30 seconds |
+| XMS MCP server | `backend/src/mcp`, the third entrypoint ([AI Integration §4](../../01-architecture/AI-INTEGRATION.md), ADR-19) | Not a connector instance. The AI switch governs it instead (C-07, 2026-09-13): see §7 |
 | Notifications | `acct.notifications` and the operator group notification path ([Ticket Management](../ticket-management/TECHNICAL-SPEC.md)) | Failing-connector alerts |
 
 Cross-module ordering: framework tables (Phase 1) before the registry; billing period locking (Phase 3) before the finance connector; API clients admin (Accounts & Administration, Phase 3) before public API keys are issued.
@@ -144,12 +144,12 @@ Worker handlers (`backend/src/worker/src/connectors/`), each a framework handler
 | `teams` | `connector.chat` | On mapped event types: render an Adaptive Card (key, title, priority, state, assignee, link) and POST to the channel's incoming webhook; failures retry then dead letter; the bot endpoint for message actions and commands is an API route (§4) that validates the Teams JWT and calls the ticket and time services with the mapped XMS user |
 | `slack` | `connector.chat` | Same abstraction (`ChatProvider` interface with `postEvent`, `handleAction`, `handleCommand`); Block Kit rendering; Slack signing secret verification |
 | `calendar` | `connector.calendar` | On ticket group or scheduled ticket create, update, cancel: for each attendee with a valid consent, upsert the Graph event (`PATCH` when `acct.calendar_events` has a `provider_event_id`, else `POST`), skip when `content_hash` unchanged; 401 from Graph triggers the refresh helper, and a failed refresh marks the consent `invalid` and stops pushing for that user (AIX `RefreshResult` semantics) |
-| `mcp-health` | (none, scheduled) | Reads `backend/src/mcp` `/healthz` and the MCP's own success and error counters (exposed as a small JSON endpoint on the MCP), updates the `mcp` instance |
+| `mcp-health` | (none, scheduled) | Reads `backend/src/mcp` `/healthz` and the MCP's own success and error counters. Not yet built, and it no longer updates a `mcp` connector instance (C-07): the MCP is not a connector |
 | `connector-health` | (none, scheduled) | The health computation above for every instance |
 
 Domain services in `backend/src/domain/integrations/`: `ConnectorRegistryService` (types, instance create and update with schema validation, kill switch with audit), `WebhookSigner`, `PublicRepresentation` mappers (the only path from an entity to a webhook or chat payload; unit-tested to exclude work notes, rates, internal-only fields), `FinanceDeliveryService`, `ChatProvider` implementations, `CalendarPushService`.
 
-The MCP kill switch: the `mcp` instance's mode is served by `GET /v1/internal/connectors/mcp/state` (internal secret guard); `backend/src/mcp` polls it every 30 seconds and, when `off`, returns the string "XMS tools are paused by an administrator" from every tool without calling the API.
+The MCP kill switch is the AI kill switch, and nothing here serves it (C-07, ruled 2026-09-13). This section described the `mcp` instance's mode being served by `GET /v1/internal/connectors/mcp/state` and polled every 30 seconds; that route was never built and is now withdrawn rather than implemented. Three reasons: `acct.connector_instances` is account-scoped with forced row-level security while the MCP is one operator-wide service, so the row could not have the shape the switch needs; ADR-19 makes the MCP a third entrypoint reading the same database in process, so polling our own API over HTTP buys nothing; and `AiSettingsService.effective` already answers the account switch, the residency rule and the operator `kill_switch` in one call, which is what `backend/src/mcp/gate.ts` asks before any tool runs. `defaults.kill_switch` in the `ai` configuration domain is the operator-wide lever, and it closes every tool; it propagates in up to 60 seconds, because the AI defaults are read through the 60-second `ConfigService` cache.
 
 ## 4. API routes
 
@@ -171,7 +171,6 @@ Admin routes (internal principals, `admin:connectors`):
 | POST | `/v1/finance/deliveries` | `time:lock-period` | Deliver or re-deliver a locked period |
 | GET, PUT | `/v1/accounts/{accountId}/chat-channels` | `admin:connectors` | Teams and Slack channel maps |
 | GET, POST, DELETE | `/v1/me/calendar-consent` | any internal user | Start the Microsoft consent flow, read state, revoke |
-| GET | `/v1/internal/connectors/mcp/state` | internal secret | Kill switch state for the MCP |
 
 API client administration (`admin:api-clients`, owned by Accounts & Administration; listed for completeness): `GET, POST /v1/api-clients`, `POST /v1/api-clients/{id}/revoke`, `POST /v1/api-clients/{id}/rotate`.
 
@@ -213,7 +212,7 @@ Rate limits: per API client 600 requests per minute default, configurable on the
 
 | Order | Branch | Scope | Depends on |
 |---|---|---|---|
-| 1 | `feature/integrations-registry` (`backend/src/db`, `backend/src/worker`, `backend`, `frontend`) | `op.connector_types`, health columns, health job, admin routes and screens, kill switch, MCP state endpoint | Framework tables (Phase 1) |
+| 1 | `feature/integrations-registry` (`backend/src/db`, `backend/src/worker`, `backend`, `frontend`) | `op.connector_types`, health columns, health job, admin routes and screens, kill switch (the MCP state endpoint is withdrawn by C-07) | Framework tables (Phase 1) |
 | 2 | `feature/integrations-finance` (`backend/src/worker`, `backend`, `infra`) | Finance handler, deliveries table, destinations, acknowledgement poll, Deliver panel | Billing period locking (Phase 3) |
 | 3 | `feature/integrations-public-api` (`backend`, `backend/src/contracts`, pipeline) | Scope mapping in the guard, public mappers, `public` tagging, published reference, rate limits | API clients (Accounts & Administration, Phase 3) |
 | 4 | `feature/integrations-webhooks` (`backend/src/db`, `backend/src/worker`, `backend`, `frontend`) | Subscriptions, signing, delivery handler, replay, auto-pause | 3 |

@@ -1,11 +1,56 @@
 # ClickUp publication map
 
-**Status:** Published 2026-09-04, revision 3 modules added 2026-09-10
+**Status:** Published 2026-09-04, revision 3 modules added 2026-09-10, MCP and go-live re-sync 2026-09-13. **ClickUp is the system of record for specs from 2026-09-13** (see the ruling below)
 **Owner:** Matt Brown
 **Workspace:** 9015896416, space "X Platforms" (901511370980)
 **List:** XMS, id `901525777420`, https://app.clickup.com/9015896416/v/l/li/901525777420
 
-ClickUp is a one-way copy of this repository. Edit the local markdown, then re-sync the page with `clickup_update_document_page` (document id below, page id from `clickup_list_document_pages`). Never edit content in ClickUp first.
+## The ruling, 2026-09-13: ClickUp is the system of record
+
+Until 2026-09-13 ClickUp was a one-way copy of this repository: edit the markdown, then
+re-sync the page, never edit ClickUp first. **That is reversed. A spec is now edited on
+its ClickUp page**, and the markdown in this repository is the frozen record of how each
+document read on 2026-09-13.
+
+Why it was reversed: the one-way copy kept going stale, because nothing obliged anyone
+to push it. On 2026-09-13 fourteen pages had drifted from disk, including every path
+touched by the ADR-19 move of the MCP into `backend/src/mcp`, so ClickUp still sent a
+reader to another team's Python repository. Worse, the two current delivery plans (the
+[Go-Live Plan](./GO-LIVE-PLAN.md) and its [Implementation Plan](./IMPLEMENTATION-PLAN-GO-LIVE.md))
+had never been published at all, so the page a reader found was the superseded plan,
+presented as though it were live. A copy nobody has to refresh is a copy that lies, and
+the honest fix is to stop keeping two.
+
+How to work now:
+
+- **Edit a spec:** find its `document_id` and `page_id` below and use
+  `clickup_update_document_page`. Editing the markdown here reaches nobody.
+- **Add a spec:** `clickup_create_document_page` under the right document, then add its
+  row to the table below in the same change. A page missing from this map is a page the
+  next person cannot find.
+- **Read a spec:** read the page. The markdown here is only trustworthy for anything
+  dated on or before 2026-09-13.
+- The `xms-write-spec` skill carries the same rule, and `aibl-clickup` carries the
+  mechanics (folder, ids, the create and update calls, the markdown ClickUp rejects).
+
+What the repository still owns, and why the frozen tree is kept rather than deleted:
+
+1. `00-overview/scripts/build_register.py` reads the requirements **workbook**, not the
+   specs, and writes `requirements.csv`, `requirements.json` and
+   `REQUIREMENTS-TRACEABILITY.md`. It still runs and is still never hand-edited. Its
+   markdown output now has to be published like any other spec change.
+2. `00-overview/scripts/check_links.py` validates relative links between the frozen
+   files. It cannot see ClickUp pages, so a cross-document link written on a page is
+   checked by nothing: name the document and section in words ("AI Integration section
+   4") rather than relying on a relative path that will not resolve there.
+3. Every skill, `CLAUDE.md` and spec that cites a section by path ("Security & Tenancy
+   section 2.1") now names the frozen copy. That is still the right way to name a
+   section; the path is the document's name, not a live link.
+
+**Still open, and worth a decision:** the frozen markdown and the ClickUp pages will
+drift the first time somebody edits a page, and nothing detects that. A checker that
+diffs each page against its frozen file would catch it, or the frozen tree could be
+deleted outright once the team trusts the pages. Neither is built.
 
 | Document | document_id | Pages (local source) |
 |---|---|---|
@@ -30,12 +75,43 @@ ClickUp is a one-way copy of this repository. Edit the local markdown, then re-s
 | XMS 02 · Collaboration Signal | `8cp7ab0-50195` | Functional Spec, Technical Spec |
 | XMS 02 · Configuration Governance | `8cp7ab0-50215` | Functional Spec, Technical Spec |
 | XMS 02 · Outcomes | `8cp7ab0-50235` | Functional Spec, Technical Spec |
-| XMS 03 · Delivery | `8cp7ab0-48475` | Roadmap, Test Strategy, Thirty-Day Build, Implementation Plan, TODO, ClickUp Publication Map |
+| XMS 03 · Delivery | `8cp7ab0-48475` | Roadmap, Test Strategy, Thirty-Day Build, Implementation Plan (superseded), TODO, ClickUp Publication Map, **Go-Live Plan** (page `8cp7ab0-15355`, added 2026-09-13), **Implementation Plan to go-live** (page `8cp7ab0-15375`, added 2026-09-13, the current plan), **Requirement Test Map** (page `8cp7ab0-15395`, added 2026-09-14: every register row, where it lives, how to test it; frozen copy `REQUIREMENT-TEST-MAP.md`) |
 
 Publishing rule learned 2026-09-04: ClickUp rejects a page (HTTP 400) when a markdown table cell contains an unescaped pipe inside a code span; `check_links.py` now flags this. Escape as `\|`.
 
-Full re-sync of every page run 2026-09-04 after ADR-14 and the audit and analytics addition; ClickUp matches disk as of that sync.
+Full re-sync of every page run 2026-09-04 after ADR-14 and the audit and analytics addition.
+
+Re-sync of 2026-09-13, the last one under the old one-way rule, covering everything that
+had drifted since 2026-09-10: AI Integration (the MCP tool gate, C-07 and C-08), Decision
+Log (ADR-19), TODO, Architecture, Platform and Operations, AIX Pattern Reuse, Axel AI
+Functionality (both pages), Platform Integrations (both pages), Solution Knowledge Base
+(both pages) and Thirty-Day Build; plus the two go-live pages, which had never been
+published. The Integrations pair and the AI technical spec were corrected rather than
+copied: they still specified the `GET /v1/internal/connectors/mcp/state` kill switch that
+C-07 withdrew, and the `current_bearer` harness change that ADR-19 withdrew.
+
+One page was deliberately not re-synced: **Implementation Plan** (`8cp7ab0-12795`), the
+2026-09-04 plan. It is superseded from 2026-09-14 by the go-live plan now published
+beside it, and its only drift is the MCP path rename plus its own superseded status line.
+It is listed here so the gap is known rather than discovered.
 
 Document URL pattern: `https://app.clickup.com/9015896416/docs/<document_id>`.
 
-Note: an older list "ServiceNow Replacement Project" (`901525427419`) exists in the same space from the assessment phase; the XMS list is the home for these published docs. It is a docs home only: XMS tickets go in the current sprint list under the `X Platform Sprints` folder, never in this list.
+## Where XMS tickets go
+
+**Every XMS ticket goes in `ServiceNow Replacement Project`, list `901525427419`.** Not the
+sprint lists, and not the XMS docs list.
+
+The two lists do different jobs and are easy to confuse:
+
+| List | Id | What it holds |
+|---|---|---|
+| **ServiceNow Replacement Project** | `901525427419` | **Every XMS ticket.** Carries the same 13 statuses the sprint lists do |
+| XMS | `901525777420` | The published spec pages. **Never create a ticket here** |
+
+**XMS does not use the sprint lists.** `X Platform Sprints` folder `901516703258` carries the
+other platforms' fortnightly lists; XMS work lives in its own project list instead. This was
+corrected in `ticket-discipline` on 2026-09-10 after four tickets were filed into Sprint 5 and
+had to be moved, and again here on 2026-09-14: this page had gone on saying the opposite, which
+is exactly the kind of contradiction between two documents that puts tickets in the wrong place
+a third time.

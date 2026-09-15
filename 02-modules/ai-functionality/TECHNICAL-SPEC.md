@@ -5,7 +5,7 @@
 **Last updated:** 2026-09-04
 **Related:** [Functional Spec](./FUNCTIONAL-SPEC.md), [AI Integration](../../01-architecture/AI-INTEGRATION.md) (harness contract, adapter faces, MCP server, requested harness changes; not repeated here), [Security & Tenancy §8](../../01-architecture/SECURITY-AND-TENANCY.md), [Data Model](../../01-architecture/DATA-MODEL.md), [AIX Pattern Reuse](../../01-architecture/AIX-PATTERN-REUSE.md), [Solution Knowledge Base](../knowledge-base/TECHNICAL-SPEC.md), [Dashboards & Report Packs](../dashboard-and-reporting/TECHNICAL-SPEC.md), [Test Strategy](../../03-delivery/TEST-STRATEGY.md)
 **Requirements covered:** AI-01 to AI-06, AI-08 to AI-16, AI-18 to AI-20, EM-09
-**Repos affected:** `backend` Axel adapter module, `backend/src/worker` `axel.batch` handler and jobs, `frontend` panel and surfaces, `backend/src/mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`); `os-aixelerator-studio` (inline XMS agents, embeddings endpoint, headless route, thread deletion) and `aix-mcp` (`current_bearer` context variable) per [AI Integration §8](../../01-architecture/AI-INTEGRATION.md)
+**Repos affected:** `backend` Axel adapter module, `backend/src/worker` `axel.batch` handler and jobs, `frontend` panel and surfaces, `backend/src/mcp`, `backend/src/domain`, `backend/src/db`, `backend/src/contracts`); `os-aixelerator-studio` (inline XMS agents, embeddings endpoint, headless route, thread deletion) per [AI Integration §8](../../01-architecture/AI-INTEGRATION.md)
 
 ---
 
