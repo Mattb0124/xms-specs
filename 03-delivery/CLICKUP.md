@@ -75,7 +75,7 @@ deleted outright once the team trusts the pages. Neither is built.
 | XMS 02 · Collaboration Signal | `8cp7ab0-50195` | Functional Spec, Technical Spec |
 | XMS 02 · Configuration Governance | `8cp7ab0-50215` | Functional Spec, Technical Spec |
 | XMS 02 · Outcomes | `8cp7ab0-50235` | Functional Spec, Technical Spec |
-| XMS 03 · Delivery | `8cp7ab0-48475` | Roadmap, Test Strategy, Thirty-Day Build, Implementation Plan (superseded), TODO, ClickUp Publication Map, **Go-Live Plan** (page `8cp7ab0-15355`, added 2026-09-13), **Implementation Plan to go-live** (page `8cp7ab0-15375`, added 2026-09-13, the current plan) |
+| XMS 03 · Delivery | `8cp7ab0-48475` | Roadmap, Test Strategy, Thirty-Day Build, Implementation Plan (superseded), TODO, ClickUp Publication Map, **Go-Live Plan** (page `8cp7ab0-15355`, added 2026-09-13), **Implementation Plan to go-live** (page `8cp7ab0-15375`, added 2026-09-13, the current plan), **Requirement Test Map** (page `8cp7ab0-15395`, added 2026-09-14: every register row, where it lives, how to test it; frozen copy `REQUIREMENT-TEST-MAP.md`) |
 
 Publishing rule learned 2026-09-04: ClickUp rejects a page (HTTP 400) when a markdown table cell contains an unescaped pipe inside a code span; `check_links.py` now flags this. Escape as `\|`.
 
